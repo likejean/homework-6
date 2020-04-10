@@ -1,11 +1,12 @@
 import React from 'react';
 import {MDBBtn, MDBBtnGroup} from "mdbreact";
 
-export default ({task: {board, id}, moveTask}) => {
+export default ({task: {board, id}, moveTask, deleteTask, hideTask}) => {
     return (
         <MDBBtnGroup size="sm" className="mb-4">
             <MDBBtn
                 disabled={`left-${board}` === 'left-todo'}
+                className='task-button'
                 color="danger"
             >
                 <span
@@ -17,9 +18,14 @@ export default ({task: {board, id}, moveTask}) => {
                 >
                 </span>
             </MDBBtn>
-            <MDBBtn color="pink"><i name="hidden" className="fas fa-eye-slash" aria-hidden="true"></i></MDBBtn>
-            <MDBBtn color="pink"><i name="delete" className="fas fa-trash-alt" aria-hidden="true"></i></MDBBtn>
+            <MDBBtn className='task-button' color="pink">
+                <i id={id} name={board} onClick={hideTask} className="fas fa-eye-slash" aria-hidden="true"/>
+            </MDBBtn>
+            <MDBBtn className='task-button' color="pink">
+                <i id={id} name={board} onClick={deleteTask} className="fas fa-trash-alt" aria-hidden="true"/>
+            </MDBBtn>
             <MDBBtn
+                className='task-button'
                 disabled={`right-${board}` === 'right-done'}
                 color="danger"
             >

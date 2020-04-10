@@ -12,40 +12,82 @@ function App() {
 
     const [ taskToDoList, setToDoTaskList ] = useState([]);
     const [ taskInProgressList, setTaskInProgressList ] = useState([]);
-    // const [ taskReviewList, setTaskReviewList] = useState([]);
-    // const [ taskDoneList, setTaskDoneList] = useState([]);
+    const [ taskReviewList, setTaskReviewList] = useState([]);
+    const [ taskDoneList, setTaskDoneList] = useState([]);
     const [ note, setNote ] = useState("");
 
     const handleCreateNewTask = task => {
-        if(isEmpty(task) !== true) setToDoTaskList(taskToDoList => [...taskToDoList, {...task, id: uuid(), board: "todo"}]);
+        if(isEmpty(task) !== true) setToDoTaskList(taskToDoList => [...taskToDoList, {...task, id: uuid(), board: "todo", visibility: true}]);
         else setNote('This list is empty');
     }
 
     const handleMoveTaskWithinBoard = e => {
         const id = e.target.getAttribute('id');
         const name = e.target.getAttribute('name');
+        //////////////
         if (name === 'right-todo') {
-            // setSearches(searches => searches.concat(query))
             setTaskInProgressList(taskInProgressList => taskInProgressList.concat({...taskToDoList.find(task => task.id === id), board: "in-progress"}));
             setToDoTaskList([...taskToDoList].filter(task => task.id !== id));
         }
         if (name === 'left-in-progress') {
-            // setSearches(searches => searches.concat(query))
             setToDoTaskList(taskToDoList => taskToDoList.concat({...taskInProgressList.find(task => task.id === id), board: "todo"}));
             setTaskInProgressList([...taskInProgressList].filter(task => task.id !== id));
         }
+        ///////////////
+        if (name === 'right-in-progress') {
+            setTaskReviewList(taskReviewList => taskReviewList.concat({...taskInProgressList.find(task => task.id === id), board: "review"}));
+            setTaskInProgressList([...taskInProgressList].filter(task => task.id !== id));
+        }
+        if (name === 'left-review') {
+            setTaskInProgressList(taskInProgressList => taskInProgressList.concat({...taskReviewList.find(task => task.id === id), board: "in-progress"}));
+            setTaskReviewList([...taskReviewList].filter(task => task.id !== id));
+        }
+        ///////////////
+        if (name === 'right-review') {
+            setTaskDoneList(taskDoneList => taskDoneList.concat({...taskReviewList.find(task => task.id === id), board: "done"}));
+            setTaskReviewList([...taskReviewList].filter(task => task.id !== id));
+        }
+        if (name === 'left-done') {
+            setTaskReviewList(taskReviewList => taskReviewList.concat({...taskDoneList.find(task => task.id === id), board: "review"}));
+            setTaskDoneList([...taskDoneList].filter(task => task.id !== id));
+        }
+    }
+
+    const handleDeleteTaskItem = e => {
+        const id = e.target.getAttribute('id');
+        const name = e.target.getAttribute('name');
+        //////////////
+        if (name === 'todo') setToDoTaskList([...taskToDoList].filter(task => task.id !== id));
+        if (name === 'in-progress') setTaskInProgressList([...taskInProgressList].filter(task => task.id !== id));
+        if (name === 'review') setTaskReviewList([...taskReviewList].filter(task => task.id !== id));
+        if (name === 'done') setTaskDoneList([...taskDoneList].filter(task => task.id !== id));
+    }
+
+    const handleVisibilityTaskItem = e => {
+        const id = e.target.getAttribute('id');
+        const name = e.target.getAttribute('name');
+        //////////////
+        console.log(id, name)
+        if (name === 'todo') setToDoTaskList([...taskToDoList].map(task => task.id === id ? { ...task, visibility: false } : task));
+        if (name === 'in-progress') setTaskInProgressList([...taskInProgressList].map(task => task.id === id ? { ...task, visibility: false } : task));
+        if (name === 'review') setTaskReviewList([...taskReviewList].map(task => task.id === id ? { ...task, visibility: false } : task));
+        if (name === 'done') setTaskDoneList([...taskDoneList].map(task => task.id === id ? { ...task, visibility: false } : task));
     }
 
 
     const handleEventProps = {
         createList: handleCreateNewTask,
-        moveTask: handleMoveTaskWithinBoard
+        moveTask: handleMoveTaskWithinBoard,
+        deleteTask: handleDeleteTaskItem,
+        hideTask: handleVisibilityTaskItem
     }
 
 
     const handleStateProps = {
-        taskToDoList: taskToDoList,
-        taskInProgressList: taskInProgressList,
+        taskToDoList: taskToDoList.filter(task => task.visibility === true),
+        taskInProgressList: taskInProgressList.filter(task => task.visibility === true),
+        taskReviewList: taskReviewList.filter(task => task.visibility === true),
+        taskDoneList: taskDoneList.filter(task => task.visibility === true),
         boardMessage: note
     }
 

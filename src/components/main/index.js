@@ -2,18 +2,26 @@ import React from 'react';
 import ModalPage from '../modal/ModalPage';
 import KanbanDashboard from "./KanbanDashboard";
 
-export default ({ createList, moveTask, taskToDoList, taskInProgressList, boardMessage }) => {
+export default props => {
+    const listProps = {
+        taskToDoList: props.taskToDoList,
+        taskInProgressList: props.taskInProgressList,
+        taskReviewList: props.taskReviewList,
+        taskDoneList: props.taskDoneList
+    };
+    const eventProps = {
+        moveTask: props.moveTask,
+        deleteTask: props.deleteTask,
+        hideTask: props.hideTask
+    }
     return (
         <div>
-            <div>
-                <ModalPage createList={createList} />
-                <KanbanDashboard
-                    moveTask={moveTask}
-                    taskToDoList={taskToDoList}
-                    taskInProgressList={taskInProgressList}
-                    boardMessage={boardMessage}
-                />
-            </div>
+            <ModalPage createList={props.createList} />
+            <KanbanDashboard
+                boardMessage={props.boardMessage}
+                {...listProps}
+                {...eventProps}
+            />
         </div>
     )
 }

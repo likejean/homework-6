@@ -30,6 +30,7 @@ export default ({ createList }) => {
             first_name: delegateName.first_name,
             last_name: delegateName.last_name
         });
+        setModalButtonClick(!modalButtonClick);
     };
 
     const stableDispatch = useCallback(createList, []);
@@ -47,8 +48,10 @@ return (
             <MDBModalHeader toggle={handleToggleModal}>Task Form</MDBModalHeader>
             <MDBModalBody>
                 <TitleInput titleInput={handleTaskTitleChange} title={taskTitle} onChange={handleTaskTitleChange}/>
-                <DescriptionTaskInput description={taskDescription}
-                                      descriptionInputChange={handleTaskDescriptionChange}/>
+                <DescriptionTaskInput
+                    description={taskDescription}
+                    descriptionInputChange={handleTaskDescriptionChange}
+                />
                 <InputForm fullname={delegateName} handleDelegateNameChange={handleDelegateNameChange}/>
             </MDBModalBody>
             <MDBModalFooter>
