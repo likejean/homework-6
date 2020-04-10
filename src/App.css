@@ -1,0 +1,45 @@
+.dashboard {
+    margin: 40px auto 40px auto;
+
+}
+
+i.fa {
+    padding: 5px 10px;
+}
+
+
+.btn-group {
+    margin: 0px !important;
+}
+.task-card {
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.task-title {
+    text-align: center !important;
+    color: white;
+}
+
+
+.btn-warning {
+    width: 55px;
+}
+
+h3.task-list-title {
+    text-align: center;
+    color: white;
+    margin: 5px;
+}
+
+.kanban-col {
+    height: 650px;
+    -moz-box-shadow: 10px 10px 10px rgba(68, 68, 68, 0.6);
+    -webkit-box-shadow: 10px 10px 10px rgba(68, 68, 68, 0.6);
+    box-shadow: 10px 10px 10px rgba(68, 68, 68, 0.6);
+    border-radius: 25px;
+    border: 1px solid white;
+    padding: 10px 20px;
+    background-color: brown;
+
+}

@@ -1,12 +1,13 @@
 import React from "react";
 
-export default () => {
+export default ({ titleInput, title }) => {
     return (
         <div className="form-group">
             <label>Task Title</label>
             <input
                 type="text"
-                value="value"
+                onChange={ titleInput }
+                value={ title }
                 className="form-control"
                 id="formGroupExampleInput"
             />
