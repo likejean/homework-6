@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/homework-6/static/css/main.31b14488.chunk.css",
+    "main.js": "/homework-6/static/js/main.85496bdb.chunk.js",
+    "main.js.map": "/homework-6/static/js/main.85496bdb.chunk.js.map",
+    "runtime-main.js": "/homework-6/static/js/runtime-main.ff0234c0.js",
+    "runtime-main.js.map": "/homework-6/static/js/runtime-main.ff0234c0.js.map",
+    "static/css/2.2ef4d3d3.chunk.css": "/homework-6/static/css/2.2ef4d3d3.chunk.css",
+    "static/js/2.f4acc4d3.chunk.js": "/homework-6/static/js/2.f4acc4d3.chunk.js",
+    "static/js/2.f4acc4d3.chunk.js.map": "/homework-6/static/js/2.f4acc4d3.chunk.js.map",
+    "index.html": "/homework-6/index.html",
+    "precache-manifest.0d5d3d0f3acfc11c88f4c8a2d198069c.js": "/homework-6/precache-manifest.0d5d3d0f3acfc11c88f4c8a2d198069c.js",
+    "service-worker.js": "/homework-6/service-worker.js",
+    "static/css/2.2ef4d3d3.chunk.css.map": "/homework-6/static/css/2.2ef4d3d3.chunk.css.map",
+    "static/css/main.31b14488.chunk.css.map": "/homework-6/static/css/main.31b14488.chunk.css.map",
+    "static/js/2.f4acc4d3.chunk.js.LICENSE.txt": "/homework-6/static/js/2.f4acc4d3.chunk.js.LICENSE.txt",
+    "static/media/mdb.css": "/homework-6/static/media/arrow_right.8ef6a08c.svg",
+    "static/media/all.min.css": "/homework-6/static/media/fa-solid-900.ec763292.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ff0234c0.js",
+    "static/css/2.2ef4d3d3.chunk.css",
+    "static/js/2.f4acc4d3.chunk.js",
+    "static/css/main.31b14488.chunk.css",
+    "static/js/main.85496bdb.chunk.js"
+  ]
+}
