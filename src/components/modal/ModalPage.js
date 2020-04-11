@@ -42,8 +42,10 @@ export default ({ createList }) => {
     const handleToggleModal = () => setModalButtonClick(!modalButtonClick);
 
 return (
-    <MDBContainer>
-        <MDBBtn onClick={handleToggleModal}>CREATE TASK</MDBBtn>
+    <MDBContainer className=''>
+        <div className='start-modal-button-wrapper row align-items-center justify-content-center' >
+            <MDBBtn className='start-modal-button' onClick={handleToggleModal}>CREATE TASK</MDBBtn>
+        </div>
         <MDBModal isOpen={modalButtonClick} toggle={handleToggleModal}>
             <MDBModalHeader toggle={handleToggleModal}>Task Form</MDBModalHeader>
             <MDBModalBody>
@@ -55,8 +57,8 @@ return (
                 <InputForm fullname={delegateName} handleDelegateNameChange={handleDelegateNameChange}/>
             </MDBModalBody>
             <MDBModalFooter>
-                <MDBBtn color="secondary" onClick={handleToggleModal}>Close</MDBBtn>
-                <MDBBtn color="primary" onClick={handleStoreTaskItem}>Create Task</MDBBtn>
+                <MDBBtn className='row' color="secondary" onClick={handleToggleModal}>Close</MDBBtn>
+                <MDBBtn className='row' color="primary" onClick={handleStoreTaskItem}>Create Task</MDBBtn>
             </MDBModalFooter>
         </MDBModal>
     </MDBContainer>

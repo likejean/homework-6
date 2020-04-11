@@ -19,10 +19,10 @@ export default ({task: {board, id}, moveTask, deleteTask, hideTask}) => {
                 </span>
             </MDBBtn>
             <MDBBtn className='task-button' color="pink">
-                <i id={id} name={board} onClick={hideTask} className="fas fa-eye-slash" aria-hidden="true"/>
+                <span id={id} name={board} onClick={hideTask} className="hide fas fa-eye-slash" aria-hidden="true"/>
             </MDBBtn>
             <MDBBtn className='task-button' color="pink">
-                <i id={id} name={board} onClick={deleteTask} className="fas fa-trash-alt" aria-hidden="true"/>
+                <span id={id} name={board} onClick={deleteTask} className="delete fas fa-trash-alt" aria-hidden="true"/>
             </MDBBtn>
             <MDBBtn
                 className='task-button'

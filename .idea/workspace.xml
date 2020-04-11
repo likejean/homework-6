@@ -7,9 +7,7 @@
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/KanbanDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/KanbanDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/TaskItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/TaskItem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modal/InputForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modal/InputForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modal/ModalPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1586316124728</updated>
       <workItem from="1586316126610" duration="32879000" />
-      <workItem from="1586493366841" duration="14331000" />
+      <workItem from="1586493366841" duration="21676000" />
     </task>
     <servers />
   </component>

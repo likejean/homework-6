@@ -63,31 +63,32 @@ function App() {
         if (name === 'done') setTaskDoneList([...taskDoneList].filter(task => task.id !== id));
     }
 
-    const handleVisibilityTaskItem = e => {
+    const handleShowTaskItem = e => {
+        let visible;
         const id = e.target.getAttribute('id');
         const name = e.target.getAttribute('name');
-        //////////////
-        console.log(id, name)
-        if (name === 'todo') setToDoTaskList([...taskToDoList].map(task => task.id === id ? { ...task, visibility: false } : task));
-        if (name === 'in-progress') setTaskInProgressList([...taskInProgressList].map(task => task.id === id ? { ...task, visibility: false } : task));
-        if (name === 'review') setTaskReviewList([...taskReviewList].map(task => task.id === id ? { ...task, visibility: false } : task));
-        if (name === 'done') setTaskDoneList([...taskDoneList].map(task => task.id === id ? { ...task, visibility: false } : task));
-    }
+        const className = e.target.getAttribute('class').split(" ")[0];
+        className === 'show' ? visible = true : visible = false;
+        if (name === 'todo') setToDoTaskList([...taskToDoList].map(task => task.id === id ? { ...task, visibility: visible } : task));
+        if (name === 'in-progress') setTaskInProgressList([...taskInProgressList].map(task => task.id === id ? { ...task, visibility: visible } : task));
+        if (name === 'review') setTaskReviewList([...taskReviewList].map(task => task.id === id ? { ...task, visibility: visible } : task));
+        if (name === 'done') setTaskDoneList([...taskDoneList].map(task => task.id === id ? { ...task, visibility: visible } : task));
 
+    }
 
     const handleEventProps = {
         createList: handleCreateNewTask,
         moveTask: handleMoveTaskWithinBoard,
         deleteTask: handleDeleteTaskItem,
-        hideTask: handleVisibilityTaskItem
+        hideTask: handleShowTaskItem,
+        showTask: handleShowTaskItem
     }
 
-
     const handleStateProps = {
-        taskToDoList: taskToDoList.filter(task => task.visibility === true),
-        taskInProgressList: taskInProgressList.filter(task => task.visibility === true),
-        taskReviewList: taskReviewList.filter(task => task.visibility === true),
-        taskDoneList: taskDoneList.filter(task => task.visibility === true),
+        taskToDoList: taskToDoList,
+        taskInProgressList: taskInProgressList,
+        taskReviewList: taskReviewList,
+        taskDoneList: taskDoneList,
         boardMessage: note
     }
 

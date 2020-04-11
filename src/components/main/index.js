@@ -12,7 +12,8 @@ export default props => {
     const eventProps = {
         moveTask: props.moveTask,
         deleteTask: props.deleteTask,
-        hideTask: props.hideTask
+        hideTask: props.hideTask,
+        showTask: props.showTask
     }
     return (
         <div>
