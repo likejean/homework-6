@@ -25,14 +25,23 @@ span.fa, span.fas {
     font-size: x-large;
 }
 
+span.fa:hover, span.fas:hover {
+    background-color: red;
+}
+
 .start-modal-button-wrapper {
     margin-top: 50px;
+}
+
+.p-2 {
+    color: white;
 }
 
 .start-modal-button {
     width: 100%;
     height: 7rem;
     font-size: 55px;
+    border-radius: 15px;
 }
 
 
@@ -62,6 +71,7 @@ span.show {
 
 .task-title {
     text-align: center !important;
+    font-size: 25px;
     color: white;
 }
 

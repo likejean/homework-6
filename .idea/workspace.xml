@@ -4,11 +4,7 @@
     <list default="true" id="c12ad62b-92e0-4955-ad0a-fb483de252c5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/KanbanDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/KanbanDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modal/ModalPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +68,7 @@
       <option name="presentableId" value="Default" />
       <updated>1586316124728</updated>
       <workItem from="1586316126610" duration="32879000" />
-      <workItem from="1586493366841" duration="21676000" />
+      <workItem from="1586493366841" duration="22423000" />
     </task>
     <servers />
   </component>

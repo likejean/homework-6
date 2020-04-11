@@ -16,7 +16,7 @@ export default ({ taskToDoList,
     const boardList = list => list.length
         ?   list.map((task, id) => task.visibility
             ?   <TaskItem moveTask={moveTask} deleteTask={deleteTask} hideTask={hideTask} key={id} task={task}/>
-            :   <p className='show' key={task.id}>Hidden Task... <span id={task.id} name={task.board} autofocus onClick={showTask} className='show'>SHOW</span></p>
+            :   <p className='show' key={task.id}>Hidden Task... <span id={task.id} name={task.board} autoFocus onClick={showTask} className='show'>SHOW</span></p>
         )
         :   <p style={{ color: 'white', textAlign: 'center' }}><i>{boardMessage}</i></p>
 
