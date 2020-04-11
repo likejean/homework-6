@@ -22,7 +22,7 @@ p.show {
 
 span.fa, span.fas {
     padding: 10px 8px;
-    font-size: x-large;
+    font-size: large;
 }
 
 span.fa:hover, span.fas:hover {
@@ -34,7 +34,7 @@ span.fa:hover, span.fas:hover {
 }
 
 .p-2 {
-    color: white;
+    color: #3fa588;
 }
 
 .start-modal-button {
@@ -67,12 +67,14 @@ span.show {
 .task-card {
     border: 1px solid white;
     border-radius: 5px;
+    background-color: white;
+    width: 98%;
 }
 
 .task-title {
     text-align: center !important;
     font-size: 25px;
-    color: white;
+    color: #3fa588;
 }
 
 

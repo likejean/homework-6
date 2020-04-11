@@ -16,6 +16,9 @@ function App() {
     const [ taskDoneList, setTaskDoneList] = useState([]);
     const [ note, setNote ] = useState("");
 
+
+
+
     const handleCreateNewTask = task => {
         if(isEmpty(task) !== true) setToDoTaskList(taskToDoList => [...taskToDoList, {...task, id: uuid(), board: "todo", visibility: true}]);
         else setNote('This list is empty');
@@ -92,11 +95,8 @@ function App() {
         boardMessage: note
     }
 
-    return (
-        <div>
-            <Main {...handleEventProps} {...handleStateProps} />
-        </div>
-    );
+    return <Main {...handleEventProps} {...handleStateProps} />
+
 }
 
 export default App;

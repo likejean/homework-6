@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c12ad62b-92e0-4955-ad0a-fb483de252c5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/KanbanDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/KanbanDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +70,7 @@
       <option name="presentableId" value="Default" />
       <updated>1586316124728</updated>
       <workItem from="1586316126610" duration="32879000" />
-      <workItem from="1586493366841" duration="22423000" />
+      <workItem from="1586493366841" duration="25849000" />
     </task>
     <servers />
   </component>
@@ -80,10 +82,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="513" y="198" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1586320882610" />
-    <state x="436" y="101" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586316397815">
+    <state x="436" y="101" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1586579501130">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="436" y="101" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1586316397815" />
+    <state x="436" y="101" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1586579501130" />
     <state x="499" y="111" key="FileChooserDialogImpl" timestamp="1586501853951">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
