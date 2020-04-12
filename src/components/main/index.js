@@ -13,8 +13,9 @@ export default props => {
         moveTask: props.moveTask,
         deleteTask: props.deleteTask,
         hideTask: props.hideTask,
-        showTask: props.showTask
-    }
+        showTask: props.showTask,
+        dragTask: props.dragTask
+    };
     return (
         <div>
             <ModalPage createList={props.createList} />
