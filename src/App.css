@@ -20,6 +20,15 @@ p.show {
 
 }
 
+span.task-details:hover {
+    color: white;
+    background-color: #3fa588;
+    border: 1px solid  #3fa588;
+    font-size: 20px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
 span.fa, span.fas {
     padding: 10px 8px;
     font-size: large;

@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter} from 'mdbreact';
 import InputForm from './InputForm';
 import TitleInput from "./TitleInput";
 import DescriptionTaskInput from "./DescriptionTaskInput";
 
 
-export default ({ createList }) => {
+export default ({createList}) => {
     const [modalButtonClick, setModalButtonClick] = useState(false);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
@@ -36,31 +36,42 @@ export default ({ createList }) => {
     const stableDispatch = useCallback(createList, []);
     useEffect(() => {
         stableDispatch(createTask);
-    },[stableDispatch, createTask]);
+    }, [stableDispatch, createTask]);
 
 
-    const handleToggleModal = () => setModalButtonClick(!modalButtonClick);
+    const handleToggleModal = () => {
+        setTaskTitle('Write Title Here...');
+        setTaskDescription('');
+        setDelegateName({
+                first_name: "",
+                last_name: ""
+            }
+        );
+        setModalButtonClick(!modalButtonClick);
+    }
 
-return (
-    <MDBContainer className=''>
-        <div className='start-modal-button-wrapper row align-items-center justify-content-center' >
-            <MDBBtn className='start-modal-button' onClick={handleToggleModal}>CREATE TASK</MDBBtn>
-        </div>
-        <MDBModal isOpen={modalButtonClick} toggle={handleToggleModal}>
-            <MDBModalHeader toggle={handleToggleModal}>Task Form</MDBModalHeader>
-            <MDBModalBody>
-                <TitleInput titleInput={handleTaskTitleChange} title={taskTitle} onChange={handleTaskTitleChange}/>
-                <DescriptionTaskInput
-                    description={taskDescription}
-                    descriptionInputChange={handleTaskDescriptionChange}
-                />
-                <InputForm fullname={delegateName} handleDelegateNameChange={handleDelegateNameChange}/>
-            </MDBModalBody>
-            <MDBModalFooter>
-                <MDBBtn className='row' color="secondary" onClick={handleToggleModal}>Close</MDBBtn>
-                <MDBBtn className='row' color="primary" onClick={handleStoreTaskItem}>Create Task</MDBBtn>
-            </MDBModalFooter>
-        </MDBModal>
-    </MDBContainer>
-);
+    return (
+        <MDBContainer className=''>
+            <div className='start-modal-button-wrapper row align-items-center justify-content-center'>
+                <MDBBtn className='start-modal-button' onClick={handleToggleModal}>CREATE TASK</MDBBtn>
+            </div>
+            <MDBModal isOpen={modalButtonClick} toggle={handleToggleModal}>
+                <MDBModalHeader toggle={handleToggleModal}>Task Form</MDBModalHeader>
+                <MDBModalBody>
+                    <TitleInput id='titleInput' titleInput={handleTaskTitleChange} title={taskTitle}
+                                onChange={handleTaskTitleChange}/>
+                    <DescriptionTaskInput
+                        id='textArea'
+                        description={taskDescription}
+                        descriptionInputChange={handleTaskDescriptionChange}
+                    />
+                    <InputForm fullname={delegateName} handleDelegateNameChange={handleDelegateNameChange}/>
+                </MDBModalBody>
+                <MDBModalFooter>
+                    <MDBBtn className='row' color="secondary" onClick={handleToggleModal}>Close</MDBBtn>
+                    <MDBBtn className='row' color="primary" onClick={handleStoreTaskItem}>Create Task</MDBBtn>
+                </MDBModalFooter>
+            </MDBModal>
+        </MDBContainer>
+    );
 }
