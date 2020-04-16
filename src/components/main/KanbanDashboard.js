@@ -2,7 +2,8 @@ import React from 'react';
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import TaskItem from "./TaskItem";
 
-export default ({ taskToDoList,
+export default ({
+                    taskToDoList,
                     taskInProgressList,
                     taskReviewList,
                     taskDoneList,

@@ -5,7 +5,7 @@ import TitleInput from "./TitleInput";
 import DescriptionTaskInput from "./DescriptionTaskInput";
 
 
-export default ({createList}) => {
+export default ({ createList }) => {
     const [modalButtonClick, setModalButtonClick] = useState(false);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
@@ -34,6 +34,7 @@ export default ({createList}) => {
     };
 
     const stableDispatch = useCallback(createList, []);
+
     useEffect(() => {
         stableDispatch(createTask);
     }, [stableDispatch, createTask]);

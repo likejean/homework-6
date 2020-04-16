@@ -3,7 +3,7 @@ import ButtonGroup from "./ButtonGroup";
 import {MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
 
 
-export default ({task, index, moveTask, deleteTask, hideTask}) => {
+export default ({task, boardLength, boardOrder, index, moveTask, deleteTask, hideTask}) => {
 
     const [toggleModal, setToggleModal] = useState(false);
 
@@ -29,8 +29,8 @@ export default ({task, index, moveTask, deleteTask, hideTask}) => {
         e.stopPropagation();
     };
 
-    const handleOnMouseOver = e => document.getElementById(e.target.id).querySelector(".task-details").innerHTML = 'Click Here...';
-    const handleOnMouseOff = e => document.getElementById(e.target.id).querySelector(".task-details").innerHTML = 'Details...';
+    // const handleOnMouseOver = e => document.getElementById(e.target.id).querySelector(".task-details").innerHTML = 'Click Here...';
+    // const handleOnMouseOff = e => document.getElementById(e.target.id).querySelector(".task-details").innerHTML = 'Details...';
 
     const handleToggleDescriptionModal = () => setToggleModal(!toggleModal)
 
@@ -46,14 +46,14 @@ export default ({task, index, moveTask, deleteTask, hideTask}) => {
             <h6 className="task-title">{task.title}</h6>
             <span className="p-2 col-example text-left task-details"
                   id={index}
-                  onMouseOver={handleOnMouseOver}
-                  onMouseLeave={handleOnMouseOff}
+                  // onMouseOver={handleOnMouseOver}
+                  // onMouseLeave={handleOnMouseOff}
                   onClick={handleToggleDescriptionModal}
             >
                 <i>Details...</i>
             </span>
             <DescriptionModal/>
-            <ButtonGroup moveTask={moveTask} deleteTask={deleteTask} hideTask={hideTask} task={task}/>
+            <ButtonGroup boardLength={boardLength} boardOrder={boardOrder} moveTask={moveTask} deleteTask={deleteTask} hideTask={hideTask} task={task}/>
         </div>
     )
 }

@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c12ad62b-92e0-4955-ad0a-fb483de252c5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/main/KanbanDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/KanbanDashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/TaskItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/TaskItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modal/ModalPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +77,8 @@
       <workItem from="1586493366841" duration="29947000" />
       <workItem from="1586641527602" duration="28000" />
       <workItem from="1586643941566" duration="15376000" />
-      <workItem from="1586836589077" duration="8656000" />
+      <workItem from="1586836589077" duration="20729000" />
+      <workItem from="1586996729828" duration="9588000" />
     </task>
     <servers />
   </component>
