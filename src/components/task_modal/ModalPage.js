@@ -1,11 +1,10 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter} from 'mdbreact';
+import {MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput} from 'mdbreact';
 import InputForm from './InputForm';
-import TitleInput from "./TitleInput";
 import DescriptionTaskInput from "./DescriptionTaskInput";
 
 
-export default ({ createList }) => {
+export default ({ createTask }) => {
     const [modalButtonClick, setModalButtonClick] = useState(false);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
@@ -13,7 +12,7 @@ export default ({ createList }) => {
         first_name: "",
         last_name: ""
     });
-    const [createTask, setCreateTask] = useState({});
+    const [createNewTask, setCreateNewTask] = useState({});
 
     const handleTaskTitleChange = e => setTaskTitle(e.target.value);
     const handleTaskDescriptionChange = e => setTaskDescription(e.target.value);
@@ -23,8 +22,8 @@ export default ({ createList }) => {
     }
 
     const handleStoreTaskItem = () => {
-        setCreateTask({
-            ...createTask,
+        setCreateNewTask({
+            ...createNewTask,
             title: taskTitle,
             description: taskDescription,
             first_name: delegateName.first_name,
@@ -33,15 +32,15 @@ export default ({ createList }) => {
         setModalButtonClick(!modalButtonClick);
     };
 
-    const stableDispatch = useCallback(createList, []);
+    const stableDispatch = useCallback(createTask, []);
 
     useEffect(() => {
-        stableDispatch(createTask);
-    }, [stableDispatch, createTask]);
+        stableDispatch(createNewTask);
+    }, [stableDispatch, createNewTask]);
 
 
     const handleToggleModal = () => {
-        setTaskTitle('Write Title Here...');
+        setTaskTitle('');
         setTaskDescription('');
         setDelegateName({
                 first_name: "",
@@ -59,8 +58,7 @@ export default ({ createList }) => {
             <MDBModal isOpen={modalButtonClick} toggle={handleToggleModal}>
                 <MDBModalHeader toggle={handleToggleModal}>Task Form</MDBModalHeader>
                 <MDBModalBody>
-                    <TitleInput id='titleInput' titleInput={handleTaskTitleChange} title={taskTitle}
-                                onChange={handleTaskTitleChange}/>
+                    <MDBInput label="Enter Task Title" type='text' value={taskTitle} onChange={handleTaskTitleChange} size="md" />
                     <DescriptionTaskInput
                         id='textArea'
                         description={taskDescription}

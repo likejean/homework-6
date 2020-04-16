@@ -10,6 +10,12 @@ h6 {
     margin: 2px;
 }
 
+div.col-2 {
+    text-align: center !important;
+    color: white !important;
+    margin: 25px 0px !important;
+}
+
 p.show {
     color: white;
     font-weight: bold;
@@ -94,8 +100,10 @@ span.show {
 h3.task-list-title {
     text-align: center;
     color: white;
-    margin: 25px 5px;
+    margin: 25px 0px 25px 0px;
 }
+
+
 
 .kanban-col {
     height: 650px;

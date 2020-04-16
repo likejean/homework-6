@@ -29,8 +29,14 @@ export default ({task, boardLength, boardOrder, index, moveTask, deleteTask, hid
         e.stopPropagation();
     };
 
-    // const handleOnMouseOver = e => document.getElementById(e.target.id).querySelector(".task-details").innerHTML = 'Click Here...';
-    // const handleOnMouseOff = e => document.getElementById(e.target.id).querySelector(".task-details").innerHTML = 'Details...';
+    const handleOnMouseOver = e => {
+        let id = e.target.id;
+        document.getElementById(id).querySelector(".task-details").innerHTML = 'Click Here...';
+    }
+    const handleOnMouseOff = e => {
+        let id = e.target.id;
+        document.getElementById(id).querySelector(".task-details").innerHTML = 'Details...';
+    }
 
     const handleToggleDescriptionModal = () => setToggleModal(!toggleModal)
 
@@ -46,8 +52,8 @@ export default ({task, boardLength, boardOrder, index, moveTask, deleteTask, hid
             <h6 className="task-title">{task.title}</h6>
             <span className="p-2 col-example text-left task-details"
                   id={index}
-                  // onMouseOver={handleOnMouseOver}
-                  // onMouseLeave={handleOnMouseOff}
+                  onMouseOver={handleOnMouseOver}
+                  onMouseLeave={handleOnMouseOff}
                   onClick={handleToggleDescriptionModal}
             >
                 <i>Details...</i>

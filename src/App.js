@@ -6,6 +6,7 @@ import 'mdbreact/dist/css/mdb.css';
 import uuid from 'react-uuid';
 import './App.css';
 import isEmpty from './helpers/EmptyObject';
+import ValidateBoardOrderInput from "./helpers/ValidateBoardOrderInput";
 
 
 const initialBoards = [
@@ -50,14 +51,41 @@ const initialBoards = [
 
 function App() {
 
-    const [taskToDoList, setToDoTaskList] = useState([]);
-    const [taskInProgressList, setTaskInProgressList] = useState([]);
-    const [taskReviewList, setTaskReviewList] = useState([]);
-    const [taskDoneList, setTaskDoneList] = useState([]);
     const [note, setNote] = useState("");
-
     const [boards, setBoards] = useState(initialBoards);
-    const [boardLength, setBoardLength] = useState(initialBoards.length);
+    const [inputErrors, setInputErrors] = useState({
+        errors: '',
+        inputStatus: false
+    });
+
+    const handleCreateNewBoard2 = board => {
+        let index = parseInt(board.order) - 1;
+        if (isEmpty(board) !== true) {
+            setBoards(boards => [
+                ...boards.slice(0, index),
+                Object.assign({},
+                    {
+                        ...board,
+                        id: uuid(),
+                        name: board.title.toLowerCase(),
+                        tasks: []
+                    }),
+                ...boards.slice(index)
+            ]);
+            setBoards(boards => boards.map((board, id) => ({...board, order: id })));
+            setInputErrors(ValidateBoardOrderInput(board.order));
+        }
+    }
+
+    const handleEditTaskItem2 = e => {
+        console.log(e.target.id);
+    }
+
+    const handleDeleteBoard2 = e => {
+        let id = e.target.id;
+        setBoards(boards => boards.filter(board => board.id !== id));
+        setBoards(boards => boards.map((board, id) => ({...board, order: id })));
+    }
 
 
     const handleCreateNewTask2 = task => {
@@ -78,7 +106,8 @@ function App() {
                 :
                 board
             )
-        );
+        )
+        else setNote('This list is empty');
     };
 
 
@@ -125,9 +154,8 @@ function App() {
     };
 
     const handleDragAndDrop2 = (board_name, task_name, id) => {
-        console.log(board_name, task_name, id);
         const dragTask = boards.find(board => board.name === task_name).tasks.find(task => task.id === id);
-        console.log(dragTask)
+
         setBoards(boards => boards.map(board =>
             board.name === task_name
                 ?
@@ -170,9 +198,8 @@ function App() {
         const id = e.target.getAttribute('id');
         const name = e.target.getAttribute('name');
         const className = e.target.getAttribute('class').split(" ")[0];
-        console.log(id, name, className);
         className === 'show' ? visible = true : visible = false;
-        console.log(visible)
+
         setBoards(boards => boards.map(board =>
             board.name === name
                 ?
@@ -197,165 +224,23 @@ function App() {
     /////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////
 
-    const handleCreateNewTask = task => {
-        if (isEmpty(task) !== true) setToDoTaskList(taskToDoList => [...taskToDoList, {
-            ...task,
-            id: uuid(),
-            board: "todo",
-            visibility: true
-        }]);
-        else setNote('This list is empty');
-    };
-
-
-    const handleMoveTaskWithinBoard = e => {
-        const id = e.target.getAttribute('id');
-        const name = e.target.getAttribute('name');
-        //////////////...................................................
-        if (name === 'right-todo') {
-            setTaskInProgressList(taskInProgressList => taskInProgressList.concat({
-                ...taskToDoList.find(task => task.id === id),
-                board: "in-progress"
-            }));
-            setToDoTaskList([...taskToDoList].filter(task => task.id !== id));
-        }
-        if (name === 'left-in-progress') {
-            setToDoTaskList(taskToDoList => taskToDoList.concat({
-                ...taskInProgressList.find(task => task.id === id),
-                board: "todo"
-            }));
-            setTaskInProgressList([...taskInProgressList].filter(task => task.id !== id));
-        }
-        ///////////////
-        if (name === 'right-in-progress') {
-            setTaskReviewList(taskReviewList => taskReviewList.concat({
-                ...taskInProgressList.find(task => task.id === id),
-                board: "review"
-            }));
-            setTaskInProgressList([...taskInProgressList].filter(task => task.id !== id));
-        }
-        if (name === 'left-review') {
-            setTaskInProgressList(taskInProgressList => taskInProgressList.concat({
-                ...taskReviewList.find(task => task.id === id),
-                board: "in-progress"
-            }));
-            setTaskReviewList([...taskReviewList].filter(task => task.id !== id));
-        }
-        ///////////////
-        if (name === 'right-review') {
-            setTaskDoneList(taskDoneList => taskDoneList.concat({
-                ...taskReviewList.find(task => task.id === id),
-                board: "done"
-            }));
-            setTaskReviewList([...taskReviewList].filter(task => task.id !== id));
-        }
-        if (name === 'left-done') {
-            setTaskReviewList(taskReviewList => taskReviewList.concat({
-                ...taskDoneList.find(task => task.id === id),
-                board: "review"
-            }));
-            setTaskDoneList([...taskDoneList].filter(task => task.id !== id));
-        }
-    };
-
-    const handleDragAndDrop = (board_name, task_name, id) => {
-        let taskObj = {};
-        if (task_name === 'todo') {
-            taskObj = taskToDoList.find(task => task.id === id);
-            setToDoTaskList([...taskToDoList].filter(task => task.id !== id));
-        }
-        if (task_name === 'in-progress') {
-            taskObj = taskInProgressList.find(task => task.id === id);
-            setTaskInProgressList([...taskInProgressList].filter(task => task.id !== id));
-        }
-        if (task_name === 'review') {
-            taskObj = taskReviewList.find(task => task.id === id);
-            setTaskReviewList([...taskReviewList].filter(task => task.id !== id));
-        }
-        if (task_name === 'done') {
-            taskObj = taskDoneList.find(task => task.id === id);
-            setTaskDoneList([...taskDoneList].filter(task => task.id !== id));
-        }
-        if (board_name === 'in-progress') setTaskInProgressList(taskInProgressList => taskInProgressList.concat({
-            ...taskObj,
-            board: "in-progress"
-        }));
-        if (board_name === 'todo') setToDoTaskList(taskToDoList => [...taskToDoList].concat({
-            ...taskObj,
-            board: "todo"
-        }));
-        if (board_name === 'review') setTaskReviewList(taskReviewList => [...taskReviewList].concat({
-            ...taskObj,
-            board: "review"
-        }));
-        if (board_name === 'done') setTaskDoneList(taskDoneList => [...taskDoneList].concat({
-            ...taskObj,
-            board: "done"
-        }));
-
-    }
-
-    const handleEditTaskItem = e => {
-
-
-
-    }
-
-    const handleDeleteTaskItem = e => {
-        const id = e.target.getAttribute('id');
-        const name = e.target.getAttribute('name');
-
-        //////////////
-        if (name === 'todo') setToDoTaskList([...taskToDoList].filter(task => task.id !== id));
-        if (name === 'in-progress') setTaskInProgressList([...taskInProgressList].filter(task => task.id !== id));
-        if (name === 'review') setTaskReviewList([...taskReviewList].filter(task => task.id !== id));
-        if (name === 'done') setTaskDoneList([...taskDoneList].filter(task => task.id !== id));
-    }
-
-
-    const handleShowTaskItem = e => {
-        let visible;
-        const id = e.target.getAttribute('id');
-        const name = e.target.getAttribute('name');
-        const className = e.target.getAttribute('class').split(" ")[0];
-        className === 'show' ? visible = true : visible = false;
-        if (name === 'todo') setToDoTaskList([...taskToDoList].map(task => task.id === id ? {
-            ...task,
-            visibility: visible
-        } : task));
-        if (name === 'in-progress') setTaskInProgressList([...taskInProgressList].map(task => task.id === id ? {
-            ...task,
-            visibility: visible
-        } : task));
-        if (name === 'review') setTaskReviewList([...taskReviewList].map(task => task.id === id ? {
-            ...task,
-            visibility: visible
-        } : task));
-        if (name === 'done') setTaskDoneList([...taskDoneList].map(task => task.id === id ? {
-            ...task,
-            visibility: visible
-        } : task));
-
-    };
 
     const handleEventProps = {
-        createList: handleCreateNewTask2,
+
+        createBoard: handleCreateNewBoard2,
+        createTask: handleCreateNewTask2,
         moveTask: handleMoveTaskWithinBoard2,
         dragTask: handleDragAndDrop2,
         deleteTask: handleDeleteTaskItem2,
         hideTask: handleShowTaskItem2,
         showTask: handleShowTaskItem2,
-        editTask: handleEditTaskItem
+        editTask: handleEditTaskItem2,
+        deleteBoard: handleDeleteBoard2
     };
 
     const handleStateProps = {
         boards: boards,
-        taskToDoList: taskToDoList,
-        taskInProgressList: taskInProgressList,
-        taskReviewList: taskReviewList,
-        taskDoneList: taskDoneList,
-        boardMessage: note,
-        boardLength: boardLength
+        boardMessage: note
     };
 
     return <Main {...handleEventProps} {...handleStateProps} />

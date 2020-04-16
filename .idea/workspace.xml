@@ -2,15 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c12ad62b-92e0-4955-ad0a-fb483de252c5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/board_modal/ModalPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/board_modal/OrderInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/board_modal/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/helpers/ValidateBoardOrderInput.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/KanbanDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/KanbanDashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/TaskItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/TaskItem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modal/ModalPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modal/DescriptionTaskInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/DescriptionTaskInput.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modal/InputForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/InputForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/ModalPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modal/TitleInput.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +40,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../homework-5" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -78,7 +84,8 @@
       <workItem from="1586641527602" duration="28000" />
       <workItem from="1586643941566" duration="15376000" />
       <workItem from="1586836589077" duration="20729000" />
-      <workItem from="1586996729828" duration="9588000" />
+      <workItem from="1586996729828" duration="9678000" />
+      <workItem from="1587006443984" duration="23324000" />
     </task>
     <servers />
   </component>
@@ -94,9 +101,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="436" y="101" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1586843378622" />
-    <state x="499" y="111" key="FileChooserDialogImpl" timestamp="1586641553986">
+    <state x="499" y="111" key="FileChooserDialogImpl" timestamp="1587027213123">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="111" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586641553986" />
+    <state x="499" y="111" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587027213123" />
   </component>
 </project>
