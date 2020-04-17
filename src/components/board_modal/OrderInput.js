@@ -4,7 +4,7 @@ import "./style.css";
 
 export default ({ boardOrderChange, order }) => {
         return (
-            <MDBInput type="number" value={order} onChange={boardOrderChange} />
+            <MDBInput label="Enter Board Order" name='board-order' type="text" value={order} onChange={boardOrderChange} />
         );
     }
 

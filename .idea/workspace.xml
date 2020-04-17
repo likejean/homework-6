@@ -2,21 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c12ad62b-92e0-4955-ad0a-fb483de252c5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/board_modal/ModalPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/board_modal/OrderInput.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/board_modal/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/helpers/ValidateBoardOrderInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/board_modal/ErrorMessage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/helpers/ValidateUserInput.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/TaskItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/TaskItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/board_modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/board_modal/ModalPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/board_modal/OrderInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/board_modal/OrderInput.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modal/DescriptionTaskInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/DescriptionTaskInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modal/InputForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/InputForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/ModalPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/modal/TitleInput.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/task_modal/DescriptionTaskInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/DescriptionTaskInput.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/task_modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/ModalPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/ValidateBoardOrderInput.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +80,7 @@
       <workItem from="1586643941566" duration="15376000" />
       <workItem from="1586836589077" duration="20729000" />
       <workItem from="1586996729828" duration="9678000" />
-      <workItem from="1587006443984" duration="23324000" />
+      <workItem from="1587006443984" duration="33009000" />
     </task>
     <servers />
   </component>
@@ -105,5 +100,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="111" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587027213123" />
+    <state x="347" y="-1" width="840" height="1034" key="search.everywhere.popup" timestamp="1587086258048">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="347" y="-1" width="840" height="1034" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1587086258048" />
   </component>
 </project>

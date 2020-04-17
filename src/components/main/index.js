@@ -6,7 +6,8 @@ import NewKanbanDashboard from "./NewKanbanDashboard";
 export default props => {
     const listProps = {
         boards: props.boards,
-        boardMessage: props.boardMessage
+        boardMessage: props.boardMessage,
+        errors: props.errors
     };
     const eventProps = {
         createBoard: props.createBoard,
@@ -17,12 +18,19 @@ export default props => {
         hideTask: props.hideTask,
         showTask: props.showTask,
         dragTask: props.dragTask,
-        editTask: props.editTask
+        editTask: props.editTask,
+        validateInput: props.validateInput
     };
     return (
         <div>
-            <TaskModalPage createTask={eventProps.createTask} />
-            <BoardModalPage createBoard={eventProps.createBoard} />
+            <TaskModalPage
+                errors={listProps.errors}
+                validateInput={eventProps.validateInput}
+                createTask={eventProps.createTask} />
+            <BoardModalPage
+                errors={listProps.errors}
+                validateInput={eventProps.validateInput}
+                createBoard={eventProps.createBoard} />
             <NewKanbanDashboard
                 boardMessage={listProps.boardMessage}
                 {...listProps}

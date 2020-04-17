@@ -6,7 +6,7 @@ import 'mdbreact/dist/css/mdb.css';
 import uuid from 'react-uuid';
 import './App.css';
 import isEmpty from './helpers/EmptyObject';
-import ValidateBoardOrderInput from "./helpers/ValidateBoardOrderInput";
+import ValidateUserInput from "./helpers/ValidateUserInput";
 
 
 const initialBoards = [
@@ -54,8 +54,22 @@ function App() {
     const [note, setNote] = useState("");
     const [boards, setBoards] = useState(initialBoards);
     const [inputErrors, setInputErrors] = useState({
-        errors: '',
-        inputStatus: false
+        boardTitleError: {
+            errors: '',
+            inputStatus: false
+        },
+        taskTitleError: {
+            errors: '',
+            inputStatus: false
+        },
+        boardOrderError: {
+            errors: '',
+            inputStatus: false
+        },
+        taskDescriptionError: {
+            errors: '',
+            inputStatus: false
+        }
     });
 
     const handleCreateNewBoard2 = board => {
@@ -73,8 +87,16 @@ function App() {
                 ...boards.slice(index)
             ]);
             setBoards(boards => boards.map((board, id) => ({...board, order: id })));
-            setInputErrors(ValidateBoardOrderInput(board.order));
+
         }
+    }
+
+
+    const handleValidateUserInput2 = (input, name) => {
+        if (name === 'board-order') setInputErrors(inputErrors => ({ ...inputErrors, boardOrderError: ValidateUserInput(name, input, boards.length)} ));
+        if (name === 'board-title') setInputErrors(inputErrors => ({ ...inputErrors, boardTitleError: ValidateUserInput(name, input, boards.length)} ));
+        if (name === 'task-title') setInputErrors(inputErrors => ({ ...inputErrors, taskTitleError: ValidateUserInput(name, input, boards.length)} ));
+        if (name === 'task-description') setInputErrors(inputErrors => ({ ...inputErrors, taskDescriptionError: ValidateUserInput(name, input, boards.length)} ));
     }
 
     const handleEditTaskItem2 = e => {
@@ -226,7 +248,6 @@ function App() {
 
 
     const handleEventProps = {
-
         createBoard: handleCreateNewBoard2,
         createTask: handleCreateNewTask2,
         moveTask: handleMoveTaskWithinBoard2,
@@ -235,12 +256,14 @@ function App() {
         hideTask: handleShowTaskItem2,
         showTask: handleShowTaskItem2,
         editTask: handleEditTaskItem2,
-        deleteBoard: handleDeleteBoard2
+        deleteBoard: handleDeleteBoard2,
+        validateInput: handleValidateUserInput2
     };
 
     const handleStateProps = {
         boards: boards,
-        boardMessage: note
+        boardMessage: note,
+        errors: inputErrors
     };
 
     return <Main {...handleEventProps} {...handleStateProps} />

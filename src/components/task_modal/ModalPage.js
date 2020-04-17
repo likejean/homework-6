@@ -2,9 +2,10 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput} from 'mdbreact';
 import InputForm from './InputForm';
 import DescriptionTaskInput from "./DescriptionTaskInput";
+import ErrorMessage from "../board_modal/ErrorMessage";
 
 
-export default ({ createTask }) => {
+export default ({ createTask, validateInput, errors: { taskTitleError, taskDescriptionError } }) => {
     const [modalButtonClick, setModalButtonClick] = useState(false);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
@@ -14,8 +15,16 @@ export default ({ createTask }) => {
     });
     const [createNewTask, setCreateNewTask] = useState({});
 
-    const handleTaskTitleChange = e => setTaskTitle(e.target.value);
-    const handleTaskDescriptionChange = e => setTaskDescription(e.target.value);
+    const handleTaskTitleChange = e => {
+        const { value, name } = e.target;
+        validateInput(value, name);
+        setTaskTitle(value);
+    }
+    const handleTaskDescriptionChange = e => {
+        const { value, name } = e.target;
+        validateInput(value, name);
+        setTaskDescription(value);
+    }
     const handleDelegateNameChange = (attribute, value) => {
         if (attribute === "first") setDelegateName({...delegateName, first_name: value});
         if (attribute === "last") setDelegateName({...delegateName, last_name: value});
@@ -58,17 +67,19 @@ export default ({ createTask }) => {
             <MDBModal isOpen={modalButtonClick} toggle={handleToggleModal}>
                 <MDBModalHeader toggle={handleToggleModal}>Task Form</MDBModalHeader>
                 <MDBModalBody>
-                    <MDBInput label="Enter Task Title" type='text' value={taskTitle} onChange={handleTaskTitleChange} size="md" />
+                    <MDBInput label="Enter Task Title" name='task-title' type='text' value={taskTitle} onChange={handleTaskTitleChange} size="md" />
+                    {taskTitleError.errors && <ErrorMessage error={taskTitleError.errors}/>}
                     <DescriptionTaskInput
                         id='textArea'
                         description={taskDescription}
                         descriptionInputChange={handleTaskDescriptionChange}
                     />
+                    {taskDescriptionError.errors && <ErrorMessage error={taskDescriptionError.errors}/>}
                     <InputForm fullname={delegateName} handleDelegateNameChange={handleDelegateNameChange}/>
                 </MDBModalBody>
                 <MDBModalFooter>
                     <MDBBtn className='row' color="secondary" onClick={handleToggleModal}>Close</MDBBtn>
-                    <MDBBtn className='row' color="primary" onClick={handleStoreTaskItem}>Create Task</MDBBtn>
+                    <MDBBtn disabled={taskTitleError.inputStatus || taskDescription.inputStatus} className='row' color="primary" onClick={handleStoreTaskItem}>Create Task</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </MDBContainer>
