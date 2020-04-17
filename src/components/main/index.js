@@ -7,7 +7,8 @@ export default props => {
     const listProps = {
         boards: props.boards,
         boardMessage: props.boardMessage,
-        errors: props.errors
+        errors: props.errors,
+        boardsSchema: props.boardsSchema
     };
     const eventProps = {
         createBoard: props.createBoard,
@@ -31,8 +32,10 @@ export default props => {
                 resetErrors={eventProps.resetErrors}/>
             <BoardModalPage
                 errors={listProps.errors}
+                boardsSchema={listProps.boardsSchema}
                 validateInput={eventProps.validateInput}
                 createBoard={eventProps.createBoard}
+                deleteBoard={eventProps.deleteBoard}
                 resetErrors={eventProps.resetErrors}/>
             <NewKanbanDashboard
                 boardMessage={listProps.boardMessage}

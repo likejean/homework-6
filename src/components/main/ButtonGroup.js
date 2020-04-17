@@ -33,7 +33,6 @@ export default ({task: { board, id }, boardOrder, boardLength, moveTask, deleteT
             <MDBBtn
                 className='task-button'
                 disabled={boardOrder === boardLength - 1}
-                // disabled={`right-${board}` === 'right-done'}
                 color="danger"
             >
                 <span

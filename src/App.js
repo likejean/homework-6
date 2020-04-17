@@ -81,6 +81,7 @@ function App() {
     const [note, setNote] = useState("");
     const [boards, setBoards] = useState(initialBoards);
     const [inputErrors, setInputErrors] = useState(initialErrors);
+    const [boardsSchema, setBoardsSchema] = useState([...Array(initialBoards.length).keys()]);
 
     const handleCreateNewBoard2 = board => {
         let index = parseInt(board.order) - 1;
@@ -97,7 +98,7 @@ function App() {
                 ...boards.slice(index)
             ]);
             setBoards(boards => boards.map((board, id) => ({...board, order: id })));
-
+            setBoardsSchema(boardsSchema => [...boardsSchema].concat(boards.length));
         }
     }
 
@@ -121,6 +122,7 @@ function App() {
         let id = e.target.id;
         setBoards(boards => boards.filter(board => board.id !== id));
         setBoards(boards => boards.map((board, id) => ({...board, order: id })));
+        setBoardsSchema(boardsSchema => [...boardsSchema].filter(elem => elem !== boards.length - 1));
     }
 
 
@@ -278,7 +280,8 @@ function App() {
     const handleStateProps = {
         boards: boards,
         boardMessage: note,
-        errors: inputErrors
+        errors: inputErrors,
+        boardsSchema: boardsSchema
     };
 
     return <Main {...handleEventProps} {...handleStateProps} />

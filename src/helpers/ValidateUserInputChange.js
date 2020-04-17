@@ -9,8 +9,8 @@ export default (name, value, length) => {
                         ? 'Input must be an INTEGER!'
                         : parseInt(value) <= 0
                         ? 'Must be greater than zero!'
-                        : parseInt(value) > length
-                            ? `Must be less or equal ${length}!`
+                        : parseInt(value) > length + 1
+                            ? `Must be less or equal ${length + 1}!`
                             : '',
                 inputStatus:
                     isNaN(value) || value === "" || parseInt(value) <= 0 || parseInt(value) > length

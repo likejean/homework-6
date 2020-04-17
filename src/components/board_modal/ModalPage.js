@@ -4,12 +4,14 @@ import OrderInput from "./OrderInput";
 import ErrorMessage from "./ErrorMessage";
 import { useAlert } from 'react-alert';
 import ValidateUserBlankInput from '../../helpers/ValidateUserBlankInput';
+import InsertionBoardSchema from "./InsertionBoardSchema";
 
-export default ({ createBoard, validateInput, errors: { boardOrderError, boardTitleError } }) => {
+export default ({ boardsSchema, createBoard, validateInput, errors: { boardOrderError, boardTitleError } }) => {
     const [modalButtonClick, setModalButtonClick] = useState(false);
     const [boardTitle, setBoardTitle] = useState("");
     const [boardOrder, setBoardOrder] = useState(0);
     const [createNewBoard, setCreateNewBoard] = useState({});
+    const [newBoardPlaceOrder, setNewBoardPlaceOrder] = useState(1);
 
     const alert = useAlert();
 
@@ -32,6 +34,7 @@ export default ({ createBoard, validateInput, errors: { boardOrderError, boardTi
                 order: boardOrder
             });
             setModalButtonClick(!modalButtonClick);
+            setNewBoardPlaceOrder(1);
         }
     };
     const handleBoardTitleChange = e => {
@@ -44,6 +47,7 @@ export default ({ createBoard, validateInput, errors: { boardOrderError, boardTi
         const { value, name } = e.target;
         validateInput(value, name);
         setBoardOrder(value);
+        setNewBoardPlaceOrder(value);
     }
 
 
@@ -71,6 +75,7 @@ export default ({ createBoard, validateInput, errors: { boardOrderError, boardTi
                     <div className="form-group">
                         <MDBInput label="Enter Board Title" name='board-title' type='text' value={boardTitle} onChange={handleBoardTitleChange} size="md" />
                         {boardTitleError.errors && <ErrorMessage error={boardTitleError.errors}/>}
+                        <InsertionBoardSchema newBoardPlaceOrder={+newBoardPlaceOrder} boardsSchema={boardsSchema}/>
                         <OrderInput order={boardOrder} boardOrderChange={handleBoardOrderChange}/>
                         {boardOrderError.errors && <ErrorMessage error={boardOrderError.errors}/>}
                     </div>
