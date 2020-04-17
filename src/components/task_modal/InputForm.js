@@ -6,7 +6,7 @@ export default ( { handleDelegateNameChange, fullname } ) => {
     const handleLastNameInputChange  = e => handleDelegateNameChange(e.target.getAttribute('name'), e.target.value);
 
     return (
-        <MDBInputGroup
+        <MDBInputGroup style={{ marginBottom: 10 }}
             prepend="Delegated to: "
             inputs={
                 <>

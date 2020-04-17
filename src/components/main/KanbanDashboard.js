@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import {MDBContainer, MDBRow, MDBCol} from "mdbreact";
 import TaskItem from "./TaskItem";
 
 export default ({
@@ -13,8 +13,7 @@ export default ({
                     showTask,
                     dragTask,
                     boardMessage
-                }) =>
-{
+                }) => {
 
     const dropTask = e => {
         e.preventDefault();
@@ -30,11 +29,13 @@ export default ({
 
 
     const boardList = list => list.length
-        ?   list.map((task, id) => task.visibility
-            ?   <TaskItem moveTask={moveTask} deleteTask={deleteTask} hideTask={hideTask} key={id} index={task.id} task={task}/>
-            :   <p className='show' key={task.id}>Hidden Task... <span id={task.id} name={task.board} autoFocus onClick={showTask} className='show'>SHOW</span></p>
+        ? list.map((task, id) => task.visibility
+            ? <TaskItem moveTask={moveTask} deleteTask={deleteTask} hideTask={hideTask} key={id} index={task.id}
+                        task={task}/>
+            : <p className='show' key={task.id}>Hidden Task... <span id={task.id} name={task.board} autoFocus
+                                                                     onClick={showTask} className='show'>SHOW</span></p>
         )
-        :   <p style={{ color: 'white', textAlign: 'center' }}><i>{boardMessage}</i></p>;
+        : <p style={{color: 'white', textAlign: 'center'}}><i>{boardMessage}</i></p>;
 
     return (
         <MDBContainer className="dashboard">

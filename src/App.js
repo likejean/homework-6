@@ -6,7 +6,7 @@ import 'mdbreact/dist/css/mdb.css';
 import uuid from 'react-uuid';
 import './App.css';
 import isEmpty from './helpers/EmptyObject';
-import ValidateUserInput from "./helpers/ValidateUserInput";
+import ValidateUserInput from "./helpers/ValidateUserInputChange";
 
 
 const initialBoards = [
@@ -49,28 +49,38 @@ const initialBoards = [
     }
 ];
 
+const initialErrors = {
+    boardTitleError: {
+        errors: '',
+        inputStatus: false
+    },
+    taskTitleError: {
+        errors: '',
+        inputStatus: false
+    },
+    boardOrderError: {
+        errors: '',
+        inputStatus: false
+    },
+    taskDescriptionError: {
+        errors: '',
+        inputStatus: false
+    },
+    firstNameError: {
+        errors: '',
+        inputStatus: false
+    },
+    lastNameError: {
+        errors: '',
+        inputStatus: false
+    }
+}
+
 function App() {
 
     const [note, setNote] = useState("");
     const [boards, setBoards] = useState(initialBoards);
-    const [inputErrors, setInputErrors] = useState({
-        boardTitleError: {
-            errors: '',
-            inputStatus: false
-        },
-        taskTitleError: {
-            errors: '',
-            inputStatus: false
-        },
-        boardOrderError: {
-            errors: '',
-            inputStatus: false
-        },
-        taskDescriptionError: {
-            errors: '',
-            inputStatus: false
-        }
-    });
+    const [inputErrors, setInputErrors] = useState(initialErrors);
 
     const handleCreateNewBoard2 = board => {
         let index = parseInt(board.order) - 1;
@@ -97,7 +107,11 @@ function App() {
         if (name === 'board-title') setInputErrors(inputErrors => ({ ...inputErrors, boardTitleError: ValidateUserInput(name, input, boards.length)} ));
         if (name === 'task-title') setInputErrors(inputErrors => ({ ...inputErrors, taskTitleError: ValidateUserInput(name, input, boards.length)} ));
         if (name === 'task-description') setInputErrors(inputErrors => ({ ...inputErrors, taskDescriptionError: ValidateUserInput(name, input, boards.length)} ));
+        if (name === 'first') setInputErrors(inputErrors => ({ ...inputErrors, firstNameError: ValidateUserInput(name, input, boards.length)} ));
+        if (name === 'last') setInputErrors(inputErrors => ({ ...inputErrors, lastNameError: ValidateUserInput(name, input, boards.length)} ));
     }
+
+    const handleResetAllErrors2 = () => setInputErrors(initialErrors);
 
     const handleEditTaskItem2 = e => {
         console.log(e.target.id);
@@ -179,7 +193,7 @@ function App() {
         const dragTask = boards.find(board => board.name === task_name).tasks.find(task => task.id === id);
 
         setBoards(boards => boards.map(board =>
-            board.name === task_name
+            board.name === task_name && board_name !== null
                 ?
                 {
                     ...board,
@@ -257,7 +271,8 @@ function App() {
         showTask: handleShowTaskItem2,
         editTask: handleEditTaskItem2,
         deleteBoard: handleDeleteBoard2,
-        validateInput: handleValidateUserInput2
+        validateInput: handleValidateUserInput2,
+        resetErrors: handleResetAllErrors2
     };
 
     const handleStateProps = {

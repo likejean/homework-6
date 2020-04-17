@@ -1,0 +1,1 @@
+export default arr => arr.some(input => input === " " || input === "" || input == null);

@@ -11,8 +11,7 @@ export default ({
                     dragTask,
                     deleteBoard,
                     boardMessage
-                }) =>
-{
+                }) => {
 
     const dropTask = e => {
         e.preventDefault();
@@ -26,11 +25,13 @@ export default ({
     };
 
     const boardList = (list, order, length) => list.length
-        ?   list.map((task, id) => task.visibility
-            ?   <TaskItem boardLength={length} boardOrder={order} moveTask={moveTask} deleteTask={deleteTask} hideTask={hideTask} key={id} index={task.id} task={task}/>
-            :   <p className='show' key={task.id}>Hidden Task... <span id={task.id} name={task.board} autoFocus onClick={showTask} className='show'>SHOW</span></p>
+        ? list.map((task, id) => task.visibility
+            ? <TaskItem boardLength={length} boardOrder={order} moveTask={moveTask} deleteTask={deleteTask}
+                        hideTask={hideTask} key={id} index={task.id} task={task}/>
+            : <p className='show' key={task.id}>Hidden Task... <span id={task.id} name={task.board} autoFocus
+                                                                     onClick={showTask} className='show'>SHOW</span></p>
         )
-        :   <p style={{ color: 'white', textAlign: 'center' }}><i>{boardMessage}</i></p>;
+        : <p style={{color: 'white', textAlign: 'center'}}><i>{boardMessage}</i></p>;
 
     return (
         <MDBContainer className="dashboard">
@@ -47,7 +48,8 @@ export default ({
                         <div className='board-header container'>
                             <div className='row'>
                                 <h3 className="task-list-title col-10">{board.title}: ({board.tasks.length})</h3>
-                                <div className='col-2'><i id={board.id} onClick={deleteBoard} className="far fa-calendar-times fa-2x"></i></div>
+                                <div className='col-2'><i id={board.id} onClick={deleteBoard}
+                                                          className="far fa-calendar-times fa-2x"/></div>
                             </div>
                         </div>
                         {boardList(board.tasks, board.order, boards.length)}

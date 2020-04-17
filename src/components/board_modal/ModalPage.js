@@ -2,6 +2,8 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput} from 'mdbreact';
 import OrderInput from "./OrderInput";
 import ErrorMessage from "./ErrorMessage";
+import { useAlert } from 'react-alert';
+import ValidateUserBlankInput from '../../helpers/ValidateUserBlankInput';
 
 export default ({ createBoard, validateInput, errors: { boardOrderError, boardTitleError } }) => {
     const [modalButtonClick, setModalButtonClick] = useState(false);
@@ -9,13 +11,28 @@ export default ({ createBoard, validateInput, errors: { boardOrderError, boardTi
     const [boardOrder, setBoardOrder] = useState(0);
     const [createNewBoard, setCreateNewBoard] = useState({});
 
+    const alert = useAlert();
+
     const handleStoreBoardItem = () => {
-        setCreateNewBoard({
-            ...createNewBoard,
-            title: boardTitle,
-            order: boardOrder
-        });
-        setModalButtonClick(!modalButtonClick);
+        if(ValidateUserBlankInput([boardTitle])){
+            alert.error(<div style={{ color: 'red', fontSize: 15 }}>Please, Fill Blank Fields...</div>, {
+                timeout: 5000,
+                onOpen: () => {
+                    console.log('hey')
+                },
+                onClose: () => {
+                    console.log('closed')
+                }
+            });
+        }
+        else{
+            setCreateNewBoard({
+                ...createNewBoard,
+                title: boardTitle,
+                order: boardOrder
+            });
+            setModalButtonClick(!modalButtonClick);
+        }
     };
     const handleBoardTitleChange = e => {
         const { value, name } = e.target;

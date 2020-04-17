@@ -19,18 +19,21 @@ export default props => {
         showTask: props.showTask,
         dragTask: props.dragTask,
         editTask: props.editTask,
-        validateInput: props.validateInput
+        validateInput: props.validateInput,
+        resetErrors: props.resetErrors
     };
     return (
         <div>
             <TaskModalPage
                 errors={listProps.errors}
                 validateInput={eventProps.validateInput}
-                createTask={eventProps.createTask} />
+                createTask={eventProps.createTask}
+                resetErrors={eventProps.resetErrors}/>
             <BoardModalPage
                 errors={listProps.errors}
                 validateInput={eventProps.validateInput}
-                createBoard={eventProps.createBoard} />
+                createBoard={eventProps.createBoard}
+                resetErrors={eventProps.resetErrors}/>
             <NewKanbanDashboard
                 boardMessage={listProps.boardMessage}
                 {...listProps}
