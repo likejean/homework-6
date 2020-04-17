@@ -13,7 +13,7 @@ export default (name, value, length) => {
                             ? `Must be less or equal ${length + 1}!`
                             : '',
                 inputStatus:
-                    isNaN(value) || value === "" || parseInt(value) <= 0 || parseInt(value) > length
+                    isNaN(value) || value === "" || parseInt(value) <= 0 || parseInt(value) > length + 1
             };
         case 'board-title':
             return {
