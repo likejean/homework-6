@@ -4,7 +4,7 @@ export default ({newBoardPlaceOrder, boardsSchema}) => {
     const order = isNaN(newBoardPlaceOrder) || newBoardPlaceOrder === 0 ? 1 : newBoardPlaceOrder;
     return (
         <div className='schema-container'>
-            <div style={{backgroundColor: 'red', order: order}} className='block-element'>{order}</div>
+            <i style={{color: 'red', order: order, marginRight: 7}} className="fas fa-level-down-alt fa-3x"/>
 
             {boardsSchema.map((block, idx) => (
                 idx + 1 < order

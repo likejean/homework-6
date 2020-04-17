@@ -48,8 +48,13 @@ export default ({
                         <div className='board-header container'>
                             <div className='row'>
                                 <h3 className="task-list-title col-10">{board.title}: ({board.tasks.length})</h3>
-                                <div className='col-2'><i id={board.id} onClick={deleteBoard}
-                                                          className="far fa-calendar-times fa-2x"/></div>
+                                <div className='col-2'>
+                                    <i
+                                        id={board.id}
+                                        onClick={deleteBoard}
+                                        className="far fa-calendar-times fa-2x"/>
+                                </div>
+
                             </div>
                         </div>
                         {boardList(board.tasks, board.order, boards.length)}
