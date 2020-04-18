@@ -7,10 +7,12 @@ export default ({
                     moveTask,
                     deleteTask,
                     hideTask,
+                    editTask,
                     showTask,
                     dragTask,
                     deleteBoard,
-                    boardMessage
+                    boardMessage,
+                    handleToggleEditTaskModal
                 }) => {
 
     const dropTask = e => {
@@ -26,8 +28,19 @@ export default ({
 
     const boardList = (list, order, length) => list.length
         ? list.map((task, id) => task.visibility
-            ? <TaskItem boardLength={length} boardOrder={order} moveTask={moveTask} deleteTask={deleteTask}
-                        hideTask={hideTask} key={id} index={task.id} task={task}/>
+            ? <TaskItem
+                boardLength={length}
+                boardOrder={order}
+                moveTask={moveTask}
+                deleteTask={deleteTask}
+                hideTask={hideTask}
+                editTask={editTask}
+                key={id}
+                index={task.id}
+                task={task}
+                handleToggleEditTaskModal={handleToggleEditTaskModal}
+
+            />
             : <p className='show' key={task.id}>Hidden Task... <span id={task.id} name={task.board} autoFocus
                                                                      onClick={showTask} className='show'>SHOW</span></p>
         )

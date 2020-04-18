@@ -62,6 +62,7 @@ export default ({ boardsSchema, createBoard, validateInput, errors: { boardOrder
         setBoardTitle('');
         setBoardOrder(1);
         setModalButtonClick(!modalButtonClick);
+        setNewBoardPlaceOrder(1);
     }
 
     return (

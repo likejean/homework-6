@@ -2,7 +2,7 @@ import React from 'react';
 import { MDBInput, MDBContainer } from 'mdbreact';
 
 export default ({ description, descriptionInputChange }) =>
-    <MDBContainer>
+    <MDBContainer className='task-description'>
         <MDBInput
             value={description}
             name='task-description'

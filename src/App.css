@@ -129,6 +129,10 @@ h3.task-list-title {
 
 }
 
+.task-description {
+    padding: 0px;
+}
+
 .block-element {
     width: 25px;
     height: 45px;

@@ -85,7 +85,7 @@ function App() {
 
     const handleCreateNewBoard2 = board => {
         let index = parseInt(board.order) - 1;
-        if (isEmpty(board) !== true) {
+        if (!isEmpty(board)) {
             setBoards(boards => [
                 ...boards.slice(0, index),
                 Object.assign({},
@@ -98,8 +98,9 @@ function App() {
                 ...boards.slice(index)
             ]);
             setBoards(boards => boards.map((board, id) => ({...board, order: id })));
-            setBoardsSchema(boardsSchema => [...boardsSchema].concat(boards.length));
+            setBoardsSchema(boardsSchema => [...boardsSchema].concat(boardsSchema.length));
         }
+
     }
 
 
@@ -114,8 +115,22 @@ function App() {
 
     const handleResetAllErrors2 = () => setInputErrors(initialErrors);
 
-    const handleEditTaskItem2 = e => {
-        console.log(e.target.id);
+    const handleSubmitNewTaskItems2 = revised_task => {
+        console.log(revised_task)
+        setBoards(boards => boards.map(board =>
+                board.name === revised_task.board
+                    ?
+                    {
+                        ...board,
+                        tasks: board.tasks.map(old_task => old_task.id === revised_task.id
+                            ? {...old_task, ...revised_task}
+                            :  old_task
+                        )
+                    }
+                    :
+                    board
+            )
+        )
     }
 
     const handleDeleteBoard2 = e => {
@@ -123,6 +138,7 @@ function App() {
         setBoards(boards => boards.filter(board => board.id !== id));
         setBoards(boards => boards.map((board, id) => ({...board, order: id })));
         setBoardsSchema(boardsSchema => [...boardsSchema].filter(elem => elem !== boards.length - 1));
+
     }
 
 
@@ -271,7 +287,7 @@ function App() {
         deleteTask: handleDeleteTaskItem2,
         hideTask: handleShowTaskItem2,
         showTask: handleShowTaskItem2,
-        editTask: handleEditTaskItem2,
+        submitNewTaskItems: handleSubmitNewTaskItems2,
         deleteBoard: handleDeleteBoard2,
         validateInput: handleValidateUserInput2,
         resetErrors: handleResetAllErrors2

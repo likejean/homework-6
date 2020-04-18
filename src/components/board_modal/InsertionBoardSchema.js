@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({newBoardPlaceOrder, boardsSchema}) => {
+export default ({ newBoardPlaceOrder, boardsSchema }) => {
     const order = isNaN(newBoardPlaceOrder) || newBoardPlaceOrder === 0 ? 1 : newBoardPlaceOrder;
     return (
         <div className='schema-container'>
@@ -11,7 +11,7 @@ export default ({newBoardPlaceOrder, boardsSchema}) => {
                     ?
                     <div style={{order: idx + 1}} key={idx} className='block-element'>{idx + 1}</div>
                     :
-                    <div style={{order: idx + 2}} key={idx} className='block-element'>{idx + 2}</div>
+                    <div style={{order: idx + 2}} key={idx} className='block-element'>{idx + 1}</div>
                 )
             )}
         </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 import {MDBBtn, MDBBtnGroup} from "mdbreact";
 
-export default ({task: { board, id }, boardOrder, boardLength, moveTask, deleteTask, hideTask}) => {
-    console.log('length', boardLength)
+export default ({task: { board, id }, boardOrder, handleToggleEditTaskModal, boardLength, moveTask, deleteTask, hideTask}) => {
+
     return (
         <MDBBtnGroup size="sm" className="mb-4">
             <MDBBtn
@@ -25,7 +25,7 @@ export default ({task: { board, id }, boardOrder, boardLength, moveTask, deleteT
                 <span id={id} name={board} onClick={hideTask} className="hide fas fa-eye-slash" aria-hidden="true"/>
             </MDBBtn>
             <MDBBtn className='task-button' color="pink">
-                <span id={id} name={board} className="hide fas fa-edit" aria-hidden="true"/>
+                <span id={id} name={board} onClick={handleToggleEditTaskModal} className="hide fas fa-edit" aria-hidden="true"/>
             </MDBBtn>
             <MDBBtn className='task-button' color="pink">
                 <span id={id} name={board} onClick={deleteTask} className="delete fas fa-trash-alt" aria-hidden="true"/>

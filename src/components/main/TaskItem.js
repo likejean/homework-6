@@ -3,7 +3,7 @@ import ButtonGroup from "./ButtonGroup";
 import {MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
 
 
-export default ({task, boardLength, boardOrder, index, moveTask, deleteTask, hideTask}) => {
+export default ({task, boardLength, handleToggleEditTaskModal, boardOrder, index, moveTask, editTask, deleteTask, hideTask}) => {
 
     const [toggleModal, setToggleModal] = useState(false);
 
@@ -31,11 +31,12 @@ export default ({task, boardLength, boardOrder, index, moveTask, deleteTask, hid
 
     const handleOnMouseOver = e => {
         let id = e.target.id;
-        document.getElementById(id).querySelector(".task-details").innerHTML = 'Click Here...';
+        if(id) document.getElementById(id).querySelector(".task-details").innerHTML = 'Click Here...';
+
     }
     const handleOnMouseOff = e => {
         let id = e.target.id;
-        document.getElementById(id).querySelector(".task-details").innerHTML = 'Details...';
+        if(id) document.getElementById(id).querySelector(".task-details").innerHTML = 'Details...';
     }
 
     const handleToggleDescriptionModal = () => setToggleModal(!toggleModal)
@@ -59,7 +60,17 @@ export default ({task, boardLength, boardOrder, index, moveTask, deleteTask, hid
                 <i>Details...</i>
             </span>
             <DescriptionModal/>
-            <ButtonGroup boardLength={boardLength} boardOrder={boardOrder} moveTask={moveTask} deleteTask={deleteTask} hideTask={hideTask} task={task}/>
+            <ButtonGroup
+                boardLength={boardLength}
+                boardOrder={boardOrder}
+                moveTask={moveTask}
+                editTask={editTask}
+                deleteTask={deleteTask}
+                hideTask={hideTask}
+                task={task}
+                handleToggleEditTaskModal={handleToggleEditTaskModal}
+            />
+
         </div>
     )
 }
