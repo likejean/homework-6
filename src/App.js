@@ -6,6 +6,7 @@ import 'mdbreact/dist/css/mdb.css';
 import uuid from 'react-uuid';
 import './App.css';
 import isEmpty from './helpers/EmptyObject';
+import SwapArrayElements from "./helpers/SwapArrayElements";
 import ValidateUserInput from "./helpers/ValidateUserInputChange";
 
 
@@ -100,38 +101,35 @@ function App() {
             setBoards(boards => boards.map((board, id) => ({...board, order: id })));
             setBoardsSchema(boardsSchema => [...boardsSchema].concat(boardsSchema.length));
         }
-
-    }
-
+    };
 
     const handleValidateUserInput2 = (input, name) => {
-        if (name === 'board-order') setInputErrors(inputErrors => ({ ...inputErrors, boardOrderError: ValidateUserInput(name, input, boards.length)} ));
-        if (name === 'board-title') setInputErrors(inputErrors => ({ ...inputErrors, boardTitleError: ValidateUserInput(name, input, boards.length)} ));
-        if (name === 'task-title') setInputErrors(inputErrors => ({ ...inputErrors, taskTitleError: ValidateUserInput(name, input, boards.length)} ));
-        if (name === 'task-description') setInputErrors(inputErrors => ({ ...inputErrors, taskDescriptionError: ValidateUserInput(name, input, boards.length)} ));
+        if (name === 'board_order') setInputErrors(inputErrors => ({ ...inputErrors, boardOrderError: ValidateUserInput(name, input, boards.length)} ));
+        if (name === 'board_title') setInputErrors(inputErrors => ({ ...inputErrors, boardTitleError: ValidateUserInput(name, input, boards.length)} ));
+        if (name === 'task_title') setInputErrors(inputErrors => ({ ...inputErrors, taskTitleError: ValidateUserInput(name, input, boards.length)} ));
+        if (name === 'task_description') setInputErrors(inputErrors => ({ ...inputErrors, taskDescriptionError: ValidateUserInput(name, input, boards.length)} ));
         if (name === 'first') setInputErrors(inputErrors => ({ ...inputErrors, firstNameError: ValidateUserInput(name, input, boards.length)} ));
         if (name === 'last') setInputErrors(inputErrors => ({ ...inputErrors, lastNameError: ValidateUserInput(name, input, boards.length)} ));
-    }
+    };
 
     const handleResetAllErrors2 = () => setInputErrors(initialErrors);
 
     const handleSubmitNewTaskItems2 = revised_task => {
-        console.log(revised_task)
         setBoards(boards => boards.map(board =>
-                board.name === revised_task.board
-                    ?
-                    {
-                        ...board,
-                        tasks: board.tasks.map(old_task => old_task.id === revised_task.id
-                            ? {...old_task, ...revised_task}
-                            :  old_task
-                        )
-                    }
-                    :
-                    board
+            board.name === revised_task.board
+                ?
+                {
+                    ...board,
+                    tasks: board.tasks.map(old_task => old_task.id === revised_task.id
+                        ? {...old_task, ...revised_task}
+                        :  old_task
+                    )
+                }
+                :
+                board
             )
         )
-    }
+    };
 
     const handleDeleteBoard2 = e => {
         let id = e.target.id;
@@ -139,7 +137,7 @@ function App() {
         setBoards(boards => boards.map((board, id) => ({...board, order: id })));
         setBoardsSchema(boardsSchema => [...boardsSchema].filter(elem => elem !== boards.length - 1));
 
-    }
+    };
 
 
     const handleCreateNewTask2 = task => {
@@ -164,8 +162,26 @@ function App() {
         else setNote('This list is empty');
     };
 
+    const handleSwapTasksWithinBoard2 = e => {
+        const task_id = e.target.id;
+        const direction = e.target.getAttribute('name');
+        const board_name = e.target.getAttribute('board');
 
-    const handleMoveTaskWithinBoard2 = e => {
+        setBoards(boards => [...boards].map(board => {
+            if (board.name === board_name) {
+                const index1 = board.tasks.findIndex(task => task.id === task_id);
+                const tasks = direction === 'up'
+                    ? SwapArrayElements(board.tasks, index1,index1 - 1)
+                    : SwapArrayElements(board.tasks, index1,index1 + 1)
+                return { ...board, tasks }
+            }else{
+                return board;
+            }
+        }));
+    };
+
+
+    const handleMoveTaskBetweenBoards2 = e => {
         const id = e.target.getAttribute('id');
         const direction = e.target.getAttribute('direction');
         const boardOrder = e.target.getAttribute('order');
@@ -231,7 +247,7 @@ function App() {
                 : board
             )
         );
-    }
+    };
 
     const handleDeleteTaskItem2 = e => {
         setBoards(boards => boards.map(board =>
@@ -273,7 +289,7 @@ function App() {
                 board
             )
         );
-    }
+    };
 
     /////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////
@@ -282,7 +298,7 @@ function App() {
     const handleEventProps = {
         createBoard: handleCreateNewBoard2,
         createTask: handleCreateNewTask2,
-        moveTask: handleMoveTaskWithinBoard2,
+        moveTask: handleMoveTaskBetweenBoards2,
         dragTask: handleDragAndDrop2,
         deleteTask: handleDeleteTaskItem2,
         hideTask: handleShowTaskItem2,
@@ -290,7 +306,8 @@ function App() {
         submitNewTaskItems: handleSubmitNewTaskItems2,
         deleteBoard: handleDeleteBoard2,
         validateInput: handleValidateUserInput2,
-        resetErrors: handleResetAllErrors2
+        resetErrors: handleResetAllErrors2,
+        swapTasks: handleSwapTasksWithinBoard2
     };
 
     const handleStateProps = {

@@ -4,17 +4,26 @@ import InputForm from './InputForm';
 import DescriptionTaskInput from "./DescriptionTaskInput";
 import ErrorMessage from "../board_modal/ErrorMessage";
 import ValidateUserBlankInput from '../../helpers/ValidateUserBlankInput';
-import { useAlert } from 'react-alert';
+import {useAlert} from 'react-alert';
 
 
-
-export default ({createTask, resetErrors, validateInput, errors: {taskTitleError, taskDescriptionError, firstNameError, lastNameError}}) => {
+export default ({
+                    createTask,
+                    resetErrors,
+                    validateInput,
+                    errors: {
+                        taskTitleError,
+                        taskDescriptionError,
+                        firstNameError,
+                        lastNameError
+                    }
+                }) => {
     const [modalButtonClick, setModalButtonClick] = useState(false);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
     const [delegateName, setDelegateName] = useState({
-        first_name: "",
-        last_name: ""
+        first: "",
+        last: ""
     });
     const [createNewTask, setCreateNewTask] = useState({});
 
@@ -31,11 +40,11 @@ export default ({createTask, resetErrors, validateInput, errors: {taskTitleError
     const handleDelegateNameChange = (attribute, value) => {
         if (attribute === "first") {
             validateInput(value, attribute);
-            setDelegateName({...delegateName, first_name: value});
+            setDelegateName({...delegateName, first: value});
         }
         if (attribute === "last") {
             validateInput(value, attribute);
-            setDelegateName({...delegateName, last_name: value});
+            setDelegateName({...delegateName, last: value});
         }
     }
 
@@ -46,10 +55,10 @@ export default ({createTask, resetErrors, validateInput, errors: {taskTitleError
             [
                 taskTitle,
                 taskDescription,
-                delegateName.first_name,
-                delegateName.last_name
+                delegateName.first,
+                delegateName.last
             ])) {
-            alert.error(<div style={{ color: 'red', fontSize: 15 }}>Please, Fill Blank Fields...</div>, {
+            alert.error(<div style={{color: 'red', fontSize: 15}}>Please, Fill Blank Fields...</div>, {
                 timeout: 5000,
                 onOpen: () => {
                     console.log('hey')
@@ -58,14 +67,13 @@ export default ({createTask, resetErrors, validateInput, errors: {taskTitleError
                     console.log('closed')
                 }
             });
-        }
-        else {
+        } else {
             setCreateNewTask({
                 ...createNewTask,
-                title: taskTitle,
-                description: taskDescription,
-                first_name: delegateName.first_name,
-                last_name: delegateName.last_name
+                task_title: taskTitle,
+                task_description: taskDescription,
+                first: delegateName.first,
+                last: delegateName.last
             });
             setModalButtonClick(!modalButtonClick);
         }
@@ -82,8 +90,8 @@ export default ({createTask, resetErrors, validateInput, errors: {taskTitleError
         setTaskTitle('');
         setTaskDescription('');
         setDelegateName({
-                first_name: "",
-                last_name: ""
+                first: "",
+                last: ""
             }
         );
         setModalButtonClick(!modalButtonClick);
@@ -95,10 +103,10 @@ export default ({createTask, resetErrors, validateInput, errors: {taskTitleError
             <div className='start-modal-button-wrapper row align-items-center justify-content-center'>
                 <MDBBtn className='start-modal-button' onClick={handleToggleModal}>CREATE TASK</MDBBtn>
             </div>
-            <MDBModal style={{ zIndex: 1 }} isOpen={modalButtonClick} toggle={handleToggleModal}>
+            <MDBModal style={{zIndex: 1}} isOpen={modalButtonClick} toggle={handleToggleModal}>
                 <MDBModalHeader toggle={handleToggleModal}>Task Form</MDBModalHeader>
                 <MDBModalBody>
-                    <MDBInput label="Enter Task Title" name='task-title' type='text' value={taskTitle}
+                    <MDBInput label="Enter Task Title" name='task_title' type='text' value={taskTitle}
                               onChange={handleTaskTitleChange} size="md"/>
                     {taskTitleError.errors && <ErrorMessage error={taskTitleError.errors}/>}
                     <DescriptionTaskInput
@@ -113,9 +121,10 @@ export default ({createTask, resetErrors, validateInput, errors: {taskTitleError
                 </MDBModalBody>
                 <MDBModalFooter>
                     <MDBBtn className='row' color="secondary" onClick={handleToggleModal}>Close</MDBBtn>
-                    <MDBBtn disabled={taskTitleError.inputStatus || taskDescription.inputStatus || firstNameError.inputStatus || lastNameError.inputStatus}
-                            className='row'
-                            color="primary" onClick={handleStoreTaskItem}>Create Task</MDBBtn>
+                    <MDBBtn
+                        disabled={taskTitleError.inputStatus || taskDescriptionError.inputStatus || firstNameError.inputStatus || lastNameError.inputStatus}
+                        className='row'
+                        color="primary" onClick={handleStoreTaskItem}>Create Task</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </MDBContainer>

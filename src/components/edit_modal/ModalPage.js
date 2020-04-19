@@ -13,28 +13,27 @@ export default ({
                     modalButtonClick,
                     validateInput,
                     submitNewTaskItems,
-                    editTask
+                    searchEditTask
                 }) => {
-    console.log(editTask.id);
     const [editTaskItems, setEditTaskItems] = useState({
-        title: "",
-        description: "",
-        first_name: "",
-        last_name: ""
+        task_title: "",
+        task_description: "",
+        first: "",
+        last: ""
     })
 
     const handleEditTaskItemChange = e => {
         setEditTaskItems({
             ...editTaskItems,
-            id: editTask.id,
-            board: editTask.board,
+            id: searchEditTask.id,
+            board: searchEditTask.board,
             [e.target.name]: e.target.value
         });
-        validateInput(e.target.id, e.target.name);
+        validateInput(e.target.value, e.target.name);
     }
     const handleEditTaskItemsSubmit = () => {
-        console.log(editTask)
         submitNewTaskItems(editTaskItems);
+        handleToggleEditTaskModal();
     }
 
     return (
@@ -42,19 +41,35 @@ export default ({
             <MDBModal isOpen={modalButtonClick} toggle={handleToggleEditTaskModal}>
                 <MDBModalHeader toggle={handleToggleEditTaskModal}>Task Edit Form</MDBModalHeader>
                 <MDBModalBody>
-                    <MDBInput type='text' name='title' label="Edit Task Title" value={editTaskItems.title}
+                    <MDBInput type='text' name='task_title' label="Edit Task Title" value={editTaskItems.title}
                               onChange={handleEditTaskItemChange}/>
                     {taskTitleError.errors && <ErrorMessage error={taskTitleError.errors}/>}
-                    <MDBInput type='text' name='description' label="Edit Description" value={editTaskItems.description}
-                              onChange={handleEditTaskItemChange}/>
-                    <MDBInput type='text' name='first_name' label="Edit Delegate First Name"
+                    <MDBContainer className='task-description'>
+                        <MDBInput
+                            value={editTaskItems.description}
+                            name='task_description'
+                            onChange={handleEditTaskItemChange}
+                            type="textarea"
+                            label="Task Description"
+                            outline
+                        />
+                    </MDBContainer>
+                    {taskDescriptionError.errors && <ErrorMessage error={taskDescriptionError.errors}/>}
+                    <MDBInput type='text' name='first' label="Edit Delegate First Name"
                               value={editTaskItems.first_name} onChange={handleEditTaskItemChange}/>
-                    <MDBInput type='text' name='last_name' label="Edit Delegate Last Name"
+                    {firstNameError.errors && <ErrorMessage error={firstNameError.errors}/>}
+                    <MDBInput type='text' name='last' label="Edit Delegate Last Name"
                               value={editTaskItems.last_name} onChange={handleEditTaskItemChange}/>
+                    {lastNameError.errors && <ErrorMessage error={lastNameError.errors}/>}
                 </MDBModalBody>
                 <MDBModalFooter>
                     <MDBBtn color="secondary" onClick={handleToggleEditTaskModal}>Close</MDBBtn>
-                    <MDBBtn color="primary" onClick={handleEditTaskItemsSubmit}>Save changes</MDBBtn>
+                    <MDBBtn disabled={taskTitleError.inputStatus || taskDescriptionError.inputStatus || firstNameError.inputStatus || lastNameError.inputStatus}
+                            color="primary"
+                            onClick={handleEditTaskItemsSubmit}
+                    >
+                        Save changes
+                    </MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </MDBContainer>

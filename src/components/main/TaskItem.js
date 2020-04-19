@@ -3,10 +3,9 @@ import ButtonGroup from "./ButtonGroup";
 import {MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
 
 
-export default ({task, boardLength, handleToggleEditTaskModal, boardOrder, index, moveTask, editTask, deleteTask, hideTask}) => {
+export default ({task, index, listLength, boardLength, swapTasks, handleFindForEditTaskModal, boardOrder, id, moveTask, editTask, deleteTask, hideTask}) => {
 
     const [toggleModal, setToggleModal] = useState(false);
-
     const dragTaskStart = e => {
         const target = e.target;
         e.dataTransfer.setData('task', target.id);
@@ -15,9 +14,9 @@ export default ({task, boardLength, handleToggleEditTaskModal, boardOrder, index
     const DescriptionModal = () =>
         <MDBContainer>
             <MDBModal isOpen={toggleModal} toggle={handleToggleDescriptionModal} size="fluid">
-                <MDBModalHeader toggle={handleToggleDescriptionModal}>{task.title}</MDBModalHeader>
+                <MDBModalHeader toggle={handleToggleDescriptionModal}>{task.task_title}</MDBModalHeader>
                 <MDBModalBody>
-                    {task.description}
+                    {task.task_description}
                 </MDBModalBody>
                 <MDBModalFooter>
                     <MDBBtn color="secondary" onClick={handleToggleDescriptionModal}>Close</MDBBtn>
@@ -42,17 +41,18 @@ export default ({task, boardLength, handleToggleEditTaskModal, boardOrder, index
     const handleToggleDescriptionModal = () => setToggleModal(!toggleModal)
 
     return (
-        <div
+        <MDBContainer
             draggable='true'
             name={task.board}
-            id={index}
+            id={id}
             onDragStart={dragTaskStart}
             onDragOver={dragTaskOver}
             className="d-flex flex-column task-card"
         >
-            <h6 className="task-title">{task.title}</h6>
+            <MDBBtn disabled={index === 0} name='up' board={task.board} id={id} className='up-button' onClick={swapTasks}>Up</MDBBtn>
+            <h6 className="task-title">{task.task_title}</h6>
             <span className="p-2 col-example text-left task-details"
-                  id={index}
+                  id={id}
                   onMouseOver={handleOnMouseOver}
                   onMouseLeave={handleOnMouseOff}
                   onClick={handleToggleDescriptionModal}
@@ -68,9 +68,10 @@ export default ({task, boardLength, handleToggleEditTaskModal, boardOrder, index
                 deleteTask={deleteTask}
                 hideTask={hideTask}
                 task={task}
-                handleToggleEditTaskModal={handleToggleEditTaskModal}
+                handleFindForEditTaskModal={handleFindForEditTaskModal}
             />
+            <MDBBtn disabled={index === listLength - 1} name='down' board={task.board} id={id} className='down-button' onClick={swapTasks}>Down</MDBBtn>
 
-        </div>
+        </MDBContainer>
     )
 }

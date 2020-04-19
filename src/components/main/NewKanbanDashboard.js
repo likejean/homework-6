@@ -8,11 +8,12 @@ export default ({
                     deleteTask,
                     hideTask,
                     editTask,
+                    swapTasks,
                     showTask,
                     dragTask,
                     deleteBoard,
                     boardMessage,
-                    handleToggleEditTaskModal
+                    handleFindForEditTaskModal
                 }) => {
 
     const dropTask = e => {
@@ -35,11 +36,13 @@ export default ({
                 deleteTask={deleteTask}
                 hideTask={hideTask}
                 editTask={editTask}
+                listLength={list.length}
+                swapTasks={swapTasks}
                 key={id}
-                index={task.id}
+                index={id}
+                id={task.id}
                 task={task}
-                handleToggleEditTaskModal={handleToggleEditTaskModal}
-
+                handleFindForEditTaskModal={handleFindForEditTaskModal}
             />
             : <p className='show' key={task.id}>Hidden Task... <span id={task.id} name={task.board} autoFocus
                                                                      onClick={showTask} className='show'>SHOW</span></p>
@@ -67,7 +70,6 @@ export default ({
                                         onClick={deleteBoard}
                                         className="far fa-calendar-times fa-2x"/>
                                 </div>
-
                             </div>
                         </div>
                         {boardList(board.tasks, board.order, boards.length)}

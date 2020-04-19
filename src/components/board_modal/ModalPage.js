@@ -74,7 +74,7 @@ export default ({ boardsSchema, createBoard, validateInput, errors: { boardOrder
                 <MDBModalHeader toggle={handleToggleModal}>Board Form</MDBModalHeader>
                 <MDBModalBody>
                     <div className="form-group">
-                        <MDBInput label="Enter Board Title" name='board-title' type='text' value={boardTitle} onChange={handleBoardTitleChange} size="md" />
+                        <MDBInput label="Enter Board Title" name='board_title' type='text' value={boardTitle} onChange={handleBoardTitleChange} size="md" />
                         {boardTitleError.errors && <ErrorMessage error={boardTitleError.errors}/>}
                         <InsertionBoardSchema newBoardPlaceOrder={+newBoardPlaceOrder} boardsSchema={boardsSchema}/>
                         <OrderInput order={boardOrder} boardOrderChange={handleBoardOrderChange}/>

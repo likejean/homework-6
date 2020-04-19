@@ -6,14 +6,18 @@ import EditTaskModalPage from "../edit_modal/ModalPage";
 
 export default props => {
     const [modalButtonClick, setModalButtonClick] = useState(false);
-    const [editTask, setEditTask] = useState({});
+    const [searchEditTask, setSearchEditTask] = useState({});
 
-    const handleToggleEditTaskModal = e => {
+    const handleFindForEditTaskModal = e => {
+        console.log(e)
+        console.log(e.target);
         const name = e.target.getAttribute('name');
         const id = e.target.id;
-        if (id) setEditTask(props.boards.find(board => board.name === name).tasks.find(task => task.id === id));
+        if (id) setSearchEditTask(props.boards.find(board => board.name === name).tasks.find(task => task.id === id));
         setModalButtonClick(!modalButtonClick);
     }
+
+    const handleToggleEditTaskModal = () => setModalButtonClick(!modalButtonClick);
 
 
     const listProps = {
@@ -25,6 +29,7 @@ export default props => {
     const eventProps = {
         createBoard: props.createBoard,
         createTask: props.createTask,
+        swapTasks: props.swapTasks,
         moveTask: props.moveTask,
         deleteTask: props.deleteTask,
         deleteBoard: props.deleteBoard,
@@ -43,7 +48,7 @@ export default props => {
                 modalButtonClick={modalButtonClick}
                 handleToggleEditTaskModal={handleToggleEditTaskModal}
                 boards={listProps.boards}
-                editTask={editTask}
+                searchEditTask={searchEditTask}
                 submitNewTaskItems={eventProps.submitNewTaskItems}
             />
             <TaskModalPage
@@ -60,7 +65,7 @@ export default props => {
                 resetErrors={eventProps.resetErrors}/>
             <NewKanbanDashboard
                 boardMessage={listProps.boardMessage}
-                handleToggleEditTaskModal={handleToggleEditTaskModal}
+                handleFindForEditTaskModal={handleFindForEditTaskModal}
                 {...listProps}
                 {...eventProps}/>
         </div>

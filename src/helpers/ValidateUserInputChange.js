@@ -2,7 +2,7 @@ export default (name, value, length) => {
     const titleFormat = /^[0-9a-zA-Z]+$/;
     const personNameFormat = /^[a-zA-Z]+$/;
     switch (name) {
-        case 'board-order':
+        case 'board_order':
             return {
                 errors:
                     isNaN(value) || value === ""
@@ -15,7 +15,7 @@ export default (name, value, length) => {
                 inputStatus:
                     isNaN(value) || value === "" || parseInt(value) <= 0 || parseInt(value) > length + 1
             };
-        case 'board-title':
+        case 'board_title':
             return {
                 errors:
                     !value.match(titleFormat)
@@ -26,7 +26,7 @@ export default (name, value, length) => {
                 inputStatus:
                     !value.match(titleFormat) || value.length > 10
             };
-        case 'task-title':
+        case 'task_title':
             return {
                 errors:
                     !value.match(titleFormat)
@@ -37,7 +37,7 @@ export default (name, value, length) => {
                 inputStatus:
                     !value.match(titleFormat) || value.length > 7
             };
-        case 'task-description':
+        case 'task_description':
             return {
                 errors:
                     value.length >= 100

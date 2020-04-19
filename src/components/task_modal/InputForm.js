@@ -10,8 +10,8 @@ export default ( { handleDelegateNameChange, fullname } ) => {
             prepend="Delegated to: "
             inputs={
                 <>
-                    <MDBInput noTag name="first" value={fullname.first_name} onChange={handleFirstNameInputChange} type="text" />
-                    <MDBInput noTag name="last" value={fullname.last_name} onChange={handleLastNameInputChange} type="text" />
+                    <MDBInput noTag name="first" value={fullname.first} onChange={handleFirstNameInputChange} type="text" />
+                    <MDBInput noTag name="last" value={fullname.last} onChange={handleLastNameInputChange} type="text" />
                 </>
             }
         />
