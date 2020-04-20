@@ -1,5 +1,5 @@
 export default (name, value, length) => {
-    const titleFormat = /^[0-9a-zA-Z]+$/;
+    const titleFormat = /^[0-9A-Za-z\s]+$/;
     const personNameFormat = /^[a-zA-Z]+$/;
     switch (name) {
         case 'board_order':
@@ -31,11 +31,11 @@ export default (name, value, length) => {
                 errors:
                     !value.match(titleFormat)
                         ? 'Please, input alphanumeric characters only!'
-                        : value.length > 7
+                        : value.length > 13
                         ? 'This title is too long'
                         : '',
                 inputStatus:
-                    !value.match(titleFormat) || value.length > 7
+                    !value.match(titleFormat) || value.length > 13
             };
         case 'task_description':
             return {

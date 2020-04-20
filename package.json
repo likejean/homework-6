@@ -21,6 +21,7 @@
     "react-dom": "^16.13.1",
     "react-materialize": "^3.8.0",
     "react-scripts": "3.4.1",
+    "react-switch": "^5.0.1",
     "react-test-renderer": "^16.13.1",
     "react-uuid": "^1.0.2",
     "sinon": "^9.0.1"

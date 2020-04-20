@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput} from 'mdbreact';
+import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput } from 'mdbreact';
 import InputForm from './InputForm';
 import DescriptionTaskInput from "./DescriptionTaskInput";
 import ErrorMessage from "../board_modal/ErrorMessage";
 import ValidateUserBlankInput from '../../helpers/ValidateUserBlankInput';
 import {useAlert} from 'react-alert';
-
+import SwitchButton from "./ToggleSwitchPriority";
 
 export default ({
                     createTask,
@@ -21,6 +21,7 @@ export default ({
     const [modalButtonClick, setModalButtonClick] = useState(false);
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
+    const [highTaskPriority, setHighTaskPriority] = useState(false);
     const [delegateName, setDelegateName] = useState({
         first: "",
         last: ""
@@ -32,6 +33,11 @@ export default ({
         validateInput(value, name);
         setTaskTitle(value);
     }
+
+    const handleHighTaskPrioritySwitch = task_priority => {
+        setHighTaskPriority(task_priority);
+    }
+
     const handleTaskDescriptionChange = e => {
         const {value, name} = e.target;
         validateInput(value, name);
@@ -72,10 +78,12 @@ export default ({
                 ...createNewTask,
                 task_title: taskTitle,
                 task_description: taskDescription,
+                task_priority: highTaskPriority,
                 first: delegateName.first,
                 last: delegateName.last
             });
             setModalButtonClick(!modalButtonClick);
+            setHighTaskPriority(false);
         }
     };
 
@@ -99,10 +107,8 @@ export default ({
     }
 
     return (
-        <MDBContainer className=''>
-            <div className='start-modal-button-wrapper row align-items-center justify-content-center'>
-                <MDBBtn className='start-modal-button' onClick={handleToggleModal}>CREATE TASK</MDBBtn>
-            </div>
+        <>
+            <MDBBtn className='start-modal-button' onClick={handleToggleModal}>CREATE TASK</MDBBtn>
             <MDBModal style={{zIndex: 1}} isOpen={modalButtonClick} toggle={handleToggleModal}>
                 <MDBModalHeader toggle={handleToggleModal}>Task Form</MDBModalHeader>
                 <MDBModalBody>
@@ -115,6 +121,7 @@ export default ({
                         descriptionInputChange={handleTaskDescriptionChange}
                     />
                     {taskDescriptionError.errors && <ErrorMessage error={taskDescriptionError.errors}/>}
+                    <SwitchButton switchPriority={handleHighTaskPrioritySwitch}/>
                     <InputForm fullname={delegateName} handleDelegateNameChange={handleDelegateNameChange}/>
                     {firstNameError.errors && <ErrorMessage error={firstNameError.errors}/>}
                     {lastNameError.errors && <ErrorMessage error={lastNameError.errors}/>}
@@ -127,6 +134,6 @@ export default ({
                         color="primary" onClick={handleStoreTaskItem}>Create Task</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
-        </MDBContainer>
+        </>
     );
 }

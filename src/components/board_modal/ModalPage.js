@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput} from 'mdbreact';
+import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput } from 'mdbreact';
 import OrderInput from "./OrderInput";
 import ErrorMessage from "./ErrorMessage";
 import { useAlert } from 'react-alert';
@@ -66,10 +66,8 @@ export default ({ boardsSchema, createBoard, validateInput, errors: { boardOrder
     }
 
     return (
-        <MDBContainer className=''>
-            <div className='start-modal-button-wrapper row align-items-center justify-content-center'>
-                <MDBBtn className='start-modal-button' onClick={handleToggleModal}>CREATE BOARD</MDBBtn>
-            </div>
+        <>
+            <MDBBtn className='start-modal-button' onClick={handleToggleModal}>CREATE BOARD</MDBBtn>
             <MDBModal isOpen={modalButtonClick} toggle={handleToggleModal}>
                 <MDBModalHeader toggle={handleToggleModal}>Board Form</MDBModalHeader>
                 <MDBModalBody>
@@ -86,6 +84,6 @@ export default ({ boardsSchema, createBoard, validateInput, errors: { boardOrder
                     <MDBBtn disabled={boardOrderError.inputStatus || boardTitleError.inputStatus} className='row' color="primary" onClick={handleStoreBoardItem}>Create Board</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
-        </MDBContainer>
+        </>
     );
 }

@@ -83,6 +83,19 @@ function App() {
     const [boards, setBoards] = useState(initialBoards);
     const [inputErrors, setInputErrors] = useState(initialErrors);
     const [boardsSchema, setBoardsSchema] = useState([...Array(initialBoards.length).keys()]);
+    const [priorityTasks, setPriorityTasks] = useState([]);
+    const [modalButtonClick, setModalButtonClick] = useState(false);
+    const [searchEditTask, setSearchEditTask] = useState({});
+
+
+    const handleFindForEditTaskModal = e => {
+        const name = e.target.getAttribute('name');
+        const id = e.target.id;
+        if (id) setSearchEditTask(boards.find(board => board.name === name).tasks.find(task => task.id === id));
+        setModalButtonClick(!modalButtonClick);
+    }
+
+    const handleToggleEditTaskModal = () => setModalButtonClick(!modalButtonClick);
 
     const handleCreateNewBoard2 = board => {
         let index = parseInt(board.order) - 1;
@@ -103,6 +116,7 @@ function App() {
         }
     };
 
+
     const handleValidateUserInput2 = (input, name) => {
         if (name === 'board_order') setInputErrors(inputErrors => ({ ...inputErrors, boardOrderError: ValidateUserInput(name, input, boards.length)} ));
         if (name === 'board_title') setInputErrors(inputErrors => ({ ...inputErrors, boardTitleError: ValidateUserInput(name, input, boards.length)} ));
@@ -110,6 +124,17 @@ function App() {
         if (name === 'task_description') setInputErrors(inputErrors => ({ ...inputErrors, taskDescriptionError: ValidateUserInput(name, input, boards.length)} ));
         if (name === 'first') setInputErrors(inputErrors => ({ ...inputErrors, firstNameError: ValidateUserInput(name, input, boards.length)} ));
         if (name === 'last') setInputErrors(inputErrors => ({ ...inputErrors, lastNameError: ValidateUserInput(name, input, boards.length)} ));
+    };
+
+    const handleGeneratePriorityTasksList2 = () => {
+        setPriorityTasks([]);
+        boards.map((board) => (
+                board.tasks.forEach(task => {
+                    if (task.task_priority) return setPriorityTasks(priorityTasks => [...priorityTasks, task]);
+                    else return null;
+                })
+            )
+        );
     };
 
     const handleResetAllErrors2 = () => setInputErrors(initialErrors);
@@ -128,7 +153,11 @@ function App() {
                 :
                 board
             )
-        )
+        );
+        if(priorityTasks.length > 0) setPriorityTasks(priorityTasks.map(old_task => old_task.id === revised_task.id
+            ? {...old_task, ...revised_task}
+            :  old_task
+        ));
     };
 
     const handleDeleteBoard2 = e => {
@@ -261,6 +290,7 @@ function App() {
                     board
             )
         );
+        if(priorityTasks.length > 0) setPriorityTasks(priorityTasks.filter(task => task.id !== e.target.id));
     };
 
     const handleShowTaskItem2 = e => {
@@ -289,6 +319,17 @@ function App() {
                 board
             )
         );
+        if(priorityTasks.length > 0) {
+            setPriorityTasks(priorityTasks => priorityTasks.map(task => task.id === id
+                ?
+                {
+                    ...task,
+                    visibility: visible
+                }
+                :
+                task
+            ))
+        }
     };
 
     /////////////////////////////////////////////////////////////////
@@ -307,14 +348,20 @@ function App() {
         deleteBoard: handleDeleteBoard2,
         validateInput: handleValidateUserInput2,
         resetErrors: handleResetAllErrors2,
-        swapTasks: handleSwapTasksWithinBoard2
+        swapTasks: handleSwapTasksWithinBoard2,
+        filterPriorityTasks: handleGeneratePriorityTasksList2,
+        toggleEditModal: handleToggleEditTaskModal,
+        findTaskForEdit: handleFindForEditTaskModal
     };
 
     const handleStateProps = {
         boards: boards,
         boardMessage: note,
         errors: inputErrors,
-        boardsSchema: boardsSchema
+        boardsSchema: boardsSchema,
+        priorityTasks: priorityTasks,
+        searchEditTask: searchEditTask,
+        modalButtonClick: modalButtonClick
     };
 
     return <Main {...handleEventProps} {...handleStateProps} />

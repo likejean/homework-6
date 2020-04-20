@@ -2,7 +2,6 @@ import React from 'react';
 import {MDBBtn, MDBBtnGroup} from "mdbreact";
 
 export default ({task: { board, id }, boardOrder, handleFindForEditTaskModal, boardLength, moveTask, deleteTask, hideTask}) => {
-
     return (
         <MDBBtnGroup size="sm" className="mb-4">
             <MDBBtn

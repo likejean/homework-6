@@ -50,7 +50,7 @@ export default ({
         : <p style={{color: 'white', textAlign: 'center'}}><i>{boardMessage}</i></p>;
 
     return (
-        <MDBContainer className="dashboard">
+        <MDBContainer className="dashboard container-fluid">
             <MDBRow className="kanban-row">
                 {boards.map(board => (
                     <MDBCol
@@ -63,7 +63,13 @@ export default ({
                     >
                         <div className='board-header container'>
                             <div className='row'>
-                                <h3 className="task-list-title col-10">{board.title}: ({board.tasks.length})</h3>
+
+                                <div className='col-10'>
+                                    <div className='row'>
+                                        <span className="task-list-title col-10">{board.title}</span>
+                                        <span className='task-quantity col-1'>{board.tasks.length}</span>
+                                    </div>
+                                </div>
                                 <div className='col-2'>
                                     <i
                                         id={board.id}

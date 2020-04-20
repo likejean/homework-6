@@ -2,21 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c12ad62b-92e0-4955-ad0a-fb483de252c5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/helpers/SwapArrayElements.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/main/PriorityOrderedTasks.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/task_modal/ToggleSwitchPriority.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/board_modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/board_modal/ModalPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/board_modal/OrderInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/board_modal/OrderInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/edit_modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/edit_modal/ModalPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/main/KanbanDashboard.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/TaskItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/TaskItem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/task_modal/DescriptionTaskInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/DescriptionTaskInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/task_modal/InputForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/InputForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/task_modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/ModalPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/helpers/ValidateUserInputChange.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/ValidateUserInputChange.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +88,8 @@
       <workItem from="1586996729828" duration="9678000" />
       <workItem from="1587006443984" duration="55242000" />
       <workItem from="1587178202499" duration="9475000" />
-      <workItem from="1587219967083" duration="34844000" />
+      <workItem from="1587219967083" duration="63269000" />
+      <workItem from="1587351406092" duration="3623000" />
     </task>
     <servers />
   </component>
@@ -122,7 +123,6 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/main/TaskItem.js</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

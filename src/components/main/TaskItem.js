@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ButtonGroup from "./ButtonGroup";
-import {MDBBtn, MDBContainer, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
+import {MDBBtn, MDBRow, MDBCol, MDBContainer, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
 
 
 export default ({task, index, listLength, boardLength, swapTasks, handleFindForEditTaskModal, boardOrder, id, moveTask, editTask, deleteTask, hideTask}) => {
@@ -30,12 +30,12 @@ export default ({task, index, listLength, boardLength, swapTasks, handleFindForE
 
     const handleOnMouseOver = e => {
         let id = e.target.id;
-        if(id) document.getElementById(id).querySelector(".task-details").innerHTML = 'Click Here...';
+        if(id && document.getElementById(id).querySelector(".task-details") !== null) document.getElementById(id).querySelector(".task-details").innerHTML = 'Click Here...';
 
     }
     const handleOnMouseOff = e => {
         let id = e.target.id;
-        if(id) document.getElementById(id).querySelector(".task-details").innerHTML = 'Details...';
+        if(id && document.getElementById(id).querySelector(".task-details") !== null) document.getElementById(id).querySelector(".task-details").innerHTML = 'Details...';
     }
 
     const handleToggleDescriptionModal = () => setToggleModal(!toggleModal)
@@ -50,7 +50,12 @@ export default ({task, index, listLength, boardLength, swapTasks, handleFindForE
             className="d-flex flex-column task-card"
         >
             <MDBBtn disabled={index === 0} name='up' board={task.board} id={id} className='up-button' onClick={swapTasks}>Up</MDBBtn>
-            <h6 className="task-title">{task.task_title}</h6>
+            <MDBRow>
+                <MDBCol size="8">
+                    <h6 className="task-title">{task.task_title}</h6>
+                </MDBCol>
+                {task.task_priority && <MDBCol className="priority"><i className="fas fa-exclamation-triangle fa-2x"></i></MDBCol>}
+            </MDBRow>
             <span className="p-2 col-example text-left task-details"
                   id={id}
                   onMouseOver={handleOnMouseOver}

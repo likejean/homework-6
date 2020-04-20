@@ -14,6 +14,7 @@ div.col-2 {
     text-align: center !important;
     color: white !important;
     margin: 25px 0px !important;
+    padding: 0px 15px !important;
 }
 
 p.show {
@@ -22,8 +23,7 @@ p.show {
 }
 
 .dashboard {
-    margin: 40px auto 40px auto;
-
+    margin: 40px auto 40px auto !important;
 }
 
 span.task-details:hover {
@@ -52,11 +52,23 @@ span.fa:hover, span.fas:hover {
     color: #3fa588;
 }
 
-.start-modal-button {
-    width: 25%;
+.report-issues-button {
+    width: 100%;
+    margin: 15px 0px 15px 0px;
     height: 3.2rem;
     font-size: 15px;
     border-radius: 2px;
+    color: #32083a !important;
+    background-color: white !important;
+}
+
+.start-modal-button, .task-priority-button {
+    width: 100%;
+    margin: 15px 0px 15px 0px;
+    height: 3.2rem;
+    font-size: 15px;
+    border-radius: 2px;
+    background-color: #32083a !important;
 }
 
 
@@ -93,6 +105,11 @@ span.show {
     height: 25px;
 }
 
+.kanban-row {
+    justify-content: right;
+    align-content: flex-start;
+}
+
 
 .task-title {
     text-align: center !important;
@@ -106,15 +123,44 @@ span.show {
     width: 55px;
 }
 
-h3.task-list-title {
+span.task-list-title {
+    text-align: left;
+    color: #32083a;
+    font-size: 20px;
+    padding: 5px 10px;
+    margin: 25px 0px 25px 0px;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: white;
+}
+span.task-quantity {
     text-align: center;
     color: white;
-    margin: 25px 0px 25px 0px;
+    font-size: 20px;
+    padding: 5px 0px;
+    margin: 25px 3px 25px 3px;
+}
+.priority {
+    color: red;
+}
+
+.custom-switch {
+    margin: 20px 0px;
+}
+
+
+.main-control-panel {
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,.1);
+}
+
+.kanban-header {
+    justify-content: center;
 }
 
 
 .kanban-col {
-    min-height: 400px;
+    min-height: 550px;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -125,7 +171,7 @@ h3.task-list-title {
     border-radius: 5px;
     border: 1px solid white;
     padding: 10px 20px;
-    margin: 10px;
+    margin: 10px 0px;
     background-color: #32083a;
 
 }
@@ -148,7 +194,7 @@ h3.task-list-title {
     color: white;
     padding: 10px 5px;
     text-align: center;
-    background-color: #3fa588;
+    background-color: #32083a;
     margin: 15px 2px 15px 2px;
     border-radius: 5px;
 }
