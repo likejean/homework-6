@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/homework-6/static/css/main.b0454e00.chunk.css",
-    "main.js": "/homework-6/static/js/main.d30411a7.chunk.js",
-    "main.js.map": "/homework-6/static/js/main.d30411a7.chunk.js.map",
-    "runtime-main.js": "/homework-6/static/js/runtime-main.ff0234c0.js",
-    "runtime-main.js.map": "/homework-6/static/js/runtime-main.ff0234c0.js.map",
-    "static/css/2.21ff7248.chunk.css": "/homework-6/static/css/2.21ff7248.chunk.css",
-    "static/js/2.2712fcf1.chunk.js": "/homework-6/static/js/2.2712fcf1.chunk.js",
-    "static/js/2.2712fcf1.chunk.js.map": "/homework-6/static/js/2.2712fcf1.chunk.js.map",
+    "main.css": "/homework-6/static/css/main.2be2c875.chunk.css",
+    "main.js": "/homework-6/static/js/main.43c91a97.chunk.js",
+    "main.js.map": "/homework-6/static/js/main.43c91a97.chunk.js.map",
+    "runtime-main.js": "/homework-6/static/js/runtime-main.52280db3.js",
+    "runtime-main.js.map": "/homework-6/static/js/runtime-main.52280db3.js.map",
+    "static/css/2.3b382420.chunk.css": "/homework-6/static/css/2.3b382420.chunk.css",
+    "static/js/2.2327d811.chunk.js": "/homework-6/static/js/2.2327d811.chunk.js",
+    "static/js/2.2327d811.chunk.js.map": "/homework-6/static/js/2.2327d811.chunk.js.map",
     "index.html": "/homework-6/index.html",
-    "precache-manifest.9dd7bf7c4cf5cfb4e1d049b0471fcd07.js": "/homework-6/precache-manifest.9dd7bf7c4cf5cfb4e1d049b0471fcd07.js",
+    "precache-manifest.1f60b44b223faf4c0903d970febbb0f2.js": "/homework-6/precache-manifest.1f60b44b223faf4c0903d970febbb0f2.js",
     "service-worker.js": "/homework-6/service-worker.js",
-    "static/css/2.21ff7248.chunk.css.map": "/homework-6/static/css/2.21ff7248.chunk.css.map",
-    "static/css/main.b0454e00.chunk.css.map": "/homework-6/static/css/main.b0454e00.chunk.css.map",
-    "static/js/2.2712fcf1.chunk.js.LICENSE.txt": "/homework-6/static/js/2.2712fcf1.chunk.js.LICENSE.txt",
+    "static/css/2.3b382420.chunk.css.map": "/homework-6/static/css/2.3b382420.chunk.css.map",
+    "static/css/main.2be2c875.chunk.css.map": "/homework-6/static/css/main.2be2c875.chunk.css.map",
+    "static/js/2.2327d811.chunk.js.LICENSE.txt": "/homework-6/static/js/2.2327d811.chunk.js.LICENSE.txt",
     "static/media/mdb.css": "/homework-6/static/media/arrow_right.8ef6a08c.svg",
     "static/media/all.min.css": "/homework-6/static/media/fa-solid-900.ec763292.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.ff0234c0.js",
-    "static/css/2.21ff7248.chunk.css",
-    "static/js/2.2712fcf1.chunk.js",
-    "static/css/main.b0454e00.chunk.css",
-    "static/js/main.d30411a7.chunk.js"
+    "static/js/runtime-main.52280db3.js",
+    "static/css/2.3b382420.chunk.css",
+    "static/js/2.2327d811.chunk.js",
+    "static/css/main.2be2c875.chunk.css",
+    "static/js/main.43c91a97.chunk.js"
   ]
 }
