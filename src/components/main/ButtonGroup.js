@@ -1,7 +1,8 @@
 import React from 'react';
 import {MDBBtn, MDBBtnGroup} from "mdbreact";
 
-export default ({task: { board, id }, boardOrder, handleFindForEditTaskModal, boardLength, moveTask, deleteTask, hideTask}) => {
+export default ({task: {board, id, location, priority_level, task_priority}, boardOrder, handleFindForEditTaskModal, boardLength, moveTask, deleteTask, hideTask}) => {
+    const boolStr = task_priority ? 'true' : 'false';
     return (
         <MDBBtnGroup size="sm" className="mb-4">
             <MDBBtn
@@ -13,6 +14,9 @@ export default ({task: { board, id }, boardOrder, handleFindForEditTaskModal, bo
                     id={id}
                     onClick={moveTask}
                     direction='left'
+                    location={location}
+                    priority_level={priority_level}
+                    task_priority={boolStr}
                     order={boardOrder}
                     name={`left-${board}`}
                     className="fa fa-angle-double-left"
@@ -21,14 +25,25 @@ export default ({task: { board, id }, boardOrder, handleFindForEditTaskModal, bo
                 </span>
             </MDBBtn>
             <MDBBtn className='task-button' color="pink">
-                <span id={id} name={board} onClick={hideTask} className="hide fas fa-eye-slash" aria-hidden="true"/>
+                <span id={id} name={board} location={location} priority_level={priority_level} onClick={hideTask}
+                      className="hide fas fa-eye-slash" aria-hidden="true"/>
             </MDBBtn>
-            <MDBBtn className='task-button' color="pink">
-                <span id={id} name={board} onClick={handleFindForEditTaskModal} className="edit fas fa-edit" aria-hidden="true"/>
-            </MDBBtn>
-            <MDBBtn className='task-button' color="pink">
-                <span id={id} name={board} onClick={deleteTask} className="delete fas fa-trash-alt" aria-hidden="true"/>
-            </MDBBtn>
+            {
+                location === 'kanban_board'
+                    ?
+                    <>
+                        <MDBBtn className='task-button' color="pink">
+                            <span id={id} name={board} onClick={handleFindForEditTaskModal} className="edit fas fa-edit"
+                                  aria-hidden="true"/>
+                        </MDBBtn>
+                        <MDBBtn className='task-button' color="pink">
+                            <span id={id} name={board} onClick={deleteTask} className="delete fas fa-trash-alt"
+                                  aria-hidden="true"/>
+                        </MDBBtn>
+                    </>
+                    :
+                    null
+            }
             <MDBBtn
                 className='task-button'
                 disabled={boardOrder === boardLength - 1}
@@ -38,6 +53,9 @@ export default ({task: { board, id }, boardOrder, handleFindForEditTaskModal, bo
                     id={id}
                     onClick={moveTask}
                     direction='right'
+                    location={location}
+                    priority_level={priority_level}
+                    task_priority={boolStr}
                     order={boardOrder}
                     name={`right-${board}`}
                     className="fa fa-angle-double-right"

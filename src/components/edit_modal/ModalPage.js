@@ -18,6 +18,7 @@ export default ({
     const [editTaskItems, setEditTaskItems] = useState({
         task_title: "",
         task_description: "",
+        task_priority: false,
         first: "",
         last: ""
     })
@@ -55,6 +56,14 @@ export default ({
                         />
                     </MDBContainer>
                     {taskDescriptionError.errors && <ErrorMessage error={taskDescriptionError.errors}/>}
+
+                    <div className="custom-control custom-checkbox">
+                        <input name="task_priority" value={editTaskItems.task_priority} type="checkbox" onChange={handleEditTaskItemChange} className="custom-control-input" id="priority_task"/>
+                        <label className="custom-control-label" htmlFor="priority_task">This is Priority
+                            Task
+                        </label>
+                    </div>
+
                     <MDBInput type='text' name='first' label="Edit Delegate First Name"
                               value={editTaskItems.first_name} onChange={handleEditTaskItemChange}/>
                     {firstNameError.errors && <ErrorMessage error={firstNameError.errors}/>}
@@ -64,14 +73,15 @@ export default ({
                 </MDBModalBody>
                 <MDBModalFooter>
                     <MDBBtn color="secondary" onClick={handleToggleEditTaskModal}>Close</MDBBtn>
-                    <MDBBtn disabled={taskTitleError.inputStatus || taskDescriptionError.inputStatus || firstNameError.inputStatus || lastNameError.inputStatus}
-                            color="primary"
-                            onClick={handleEditTaskItemsSubmit}
+                    <MDBBtn
+                        disabled={taskTitleError.inputStatus || taskDescriptionError.inputStatus || firstNameError.inputStatus || lastNameError.inputStatus}
+                        color="primary"
+                        onClick={handleEditTaskItemsSubmit}
                     >
                         Save changes
                     </MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </MDBContainer>
-    );
+);
 }

@@ -8,7 +8,7 @@ export default ({
                     deleteTask,
                     hideTask,
                     editTask,
-                    swapTasks,
+                    swapPriorityTasks,
                     showTask,
                     boardMessage,
                     handleFindForEditTaskModal
@@ -24,37 +24,41 @@ export default ({
                 hideTask={hideTask}
                 editTask={editTask}
                 listLength={list.length}
-                swapTasks={swapTasks}
+                swapTasks={swapPriorityTasks}
                 key={id}
                 index={id}
                 id={task.id}
                 task={task}
                 handleFindForEditTaskModal={handleFindForEditTaskModal}
             />
-            : <p className='show' key={task.id}>Hidden Task... <span id={task.id} name={task.board} autoFocus
+            : <p className='show' key={task.id}>Hidden Task... <span id={task.id} priority_level={task.priority_level} name={task.board} autoFocus
                                                                      onClick={showTask} className='show'>SHOW</span></p>
         )
         : <p style={{color: 'white', textAlign: 'center'}}><i>{boardMessage}</i></p>;
     return (
         <MDBContainer className="dashboard container-fluid">
             <MDBRow className="kanban-row">
-                <MDBCol
-                    name='priority-list'
-                    className="kanban-col"
-                    md="6"
-                >
-                    <div className='board-header container'>
-                        <div className='row'>
-                            <div className='col-12'>
-                                <div className='row'>
-                                    <span className="task-list-title col-10">High Priority List</span>
-                                    <span className='task-quantity col-1'>{priorityTasks.length}</span>
+                {priorityTasks.map((list, idx) => (
+                    <MDBCol
+                        key={idx}
+                        name={list.priority_level}
+                        className="kanban-col"
+                        md="6"
+                    >
+                        <div className='board-header container'>
+                            <div className='row'>
+                                <div className='col-12'>
+                                    <div className='row'>
+                                        <span className="task-list-title col-10">{list.priority_level.toUpperCase()} Priority List</span>
+                                        <span className='task-quantity col-1'>{list.tasks.length}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {priorityTasksList(priorityTasks, 0, 1)}
-                </MDBCol>
+                        {priorityTasksList(list.tasks, list.order, priorityTasks.length)}
+                    </MDBCol>
+                    ))
+                }
             </MDBRow>
         </MDBContainer>
     );

@@ -15,12 +15,14 @@ export default props => {
         boardsSchema: props.boardsSchema,
         priorityTasks: props.priorityTasks,
         searchEditTask: props.searchEditTask,
-        modalButtonClick: props.modalButtonClick
+        modalButtonClick: props.modalButtonClick,
+        panelControlButtons: props.panelControlButtons
     };
     const eventProps = {
         createBoard: props.createBoard,
         createTask: props.createTask,
-        swapTasks: props.swapTasks,
+        swapKanbanTasks: props.swapTasks.swapKanbanTasks,
+        swapPriorityTasks: props.swapTasks.swapPriorityTasks,
         moveTask: props.moveTask,
         deleteTask: props.deleteTask,
         deleteBoard: props.deleteBoard,
@@ -32,7 +34,8 @@ export default props => {
         validateInput: props.validateInput,
         resetErrors: props.resetErrors,
         toggleEditModal: props.toggleEditModal,
-        findTaskForEdit: props.findTaskForEdit
+        findTaskForEdit: props.findTaskForEdit,
+        resetMainKanbanView: props.resetMainKanbanView
     };
     return (
         <div>
@@ -50,8 +53,8 @@ export default props => {
                 searchEditTask={listProps.searchEditTask}
                 submitNewTaskItems={eventProps.submitNewTaskItems}
             />
-            <MDBContainer>
-                <MDBRow className="main-control-panel">
+            <MDBContainer className="main-control-panel">
+                <MDBRow>
                     <MDBCol>
                         <TaskModalPage
                             errors={listProps.errors}
@@ -70,28 +73,49 @@ export default props => {
                             resetErrors={eventProps.resetErrors}
                         />
                     </MDBCol>
-                    <MDBCol>
-                        <MDBBtn onClick={eventProps.filterPriorityTasks} className='task-priority-button' >Priority Tasks</MDBBtn>
-                    </MDBCol>
+
                     <MDBCol>
                         <MDBBtn href="https://github.com/likejean/homework-6/issues" className='report-issues-button' >Report Issues</MDBBtn>
                     </MDBCol>
                 </MDBRow>
+                <MDBRow>
+                    <MDBCol>
+                        <MDBBtn
+                            disabled={listProps.panelControlButtons.kanban_board}
+                            onClick={eventProps.resetMainKanbanView}
+                            className='task-priority-button'
+                        >Kanban Board
+                        </MDBBtn>
+                    </MDBCol>
+                    <MDBCol>
+                        <MDBBtn
+                            disabled={listProps.panelControlButtons.priority_board}
+                            onClick={eventProps.filterPriorityTasks}
+                            className='task-priority-button'
+                        >Priority Tasks
+                        </MDBBtn>
+                    </MDBCol>
+                </MDBRow>
 
             </MDBContainer>
+            {
+                listProps.panelControlButtons.kanban_board && !listProps.panelControlButtons.priority_board
+                ?
+                <NewKanbanDashboard
+                    boardMessage={listProps.boardMessage}
+                    handleFindForEditTaskModal={eventProps.findTaskForEdit}
+                    {...listProps}
+                    {...eventProps}
+                />
+                :
+                <PriorityOrderedTasks
+                    boardMessage={listProps.boardMessage}
+                    handleFindForEditTaskModal={eventProps.findTaskForEdit}
+                    {...listProps}
+                    {...eventProps}
+                />
+            }
 
-            <NewKanbanDashboard
-                boardMessage={listProps.boardMessage}
-                handleFindForEditTaskModal={eventProps.findTaskForEdit}
-                {...listProps}
-                {...eventProps}
-            />
-            <PriorityOrderedTasks
-                boardMessage={listProps.boardMessage}
-                handleFindForEditTaskModal={eventProps.findTaskForEdit}
-                {...listProps}
-                {...eventProps}
-            />
         </div>
     )
 }

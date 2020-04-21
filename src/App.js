@@ -50,6 +50,21 @@ const initialBoards = [
     }
 ];
 
+const initialPriorityTaskList = [
+    {
+        priority_level: 'high',
+        order: 0,
+        id: uuid(),
+        tasks: []
+    },
+    {
+        priority_level: 'low',
+        order: 1,
+        id: uuid(),
+        tasks: []
+    }
+]
+
 const initialErrors = {
     boardTitleError: {
         errors: '',
@@ -83,19 +98,23 @@ function App() {
     const [boards, setBoards] = useState(initialBoards);
     const [inputErrors, setInputErrors] = useState(initialErrors);
     const [boardsSchema, setBoardsSchema] = useState([...Array(initialBoards.length).keys()]);
-    const [priorityTasks, setPriorityTasks] = useState([]);
-    const [modalButtonClick, setModalButtonClick] = useState(false);
+    const [priorityTasks, setPriorityTasks] = useState(initialPriorityTaskList);
+    const [editModalButtonClick, setEditModalButtonClick] = useState(false);
     const [searchEditTask, setSearchEditTask] = useState({});
+    const [panelControlButtons, setPanelControlButtons] = useState({
+        kanban_board: true,
+        priority_board: false
+    });
 
 
     const handleFindForEditTaskModal = e => {
         const name = e.target.getAttribute('name');
         const id = e.target.id;
         if (id) setSearchEditTask(boards.find(board => board.name === name).tasks.find(task => task.id === id));
-        setModalButtonClick(!modalButtonClick);
+        setEditModalButtonClick(!editModalButtonClick);
     }
 
-    const handleToggleEditTaskModal = () => setModalButtonClick(!modalButtonClick);
+    const handleToggleEditTaskModal = () => setEditModalButtonClick(!editModalButtonClick);
 
     const handleCreateNewBoard2 = board => {
         let index = parseInt(board.order) - 1;
@@ -111,59 +130,101 @@ function App() {
                     }),
                 ...boards.slice(index)
             ]);
-            setBoards(boards => boards.map((board, id) => ({...board, order: id })));
+            setBoards(boards => boards.map((board, id) => ({...board, order: id})));
             setBoardsSchema(boardsSchema => [...boardsSchema].concat(boardsSchema.length));
         }
     };
 
 
     const handleValidateUserInput2 = (input, name) => {
-        if (name === 'board_order') setInputErrors(inputErrors => ({ ...inputErrors, boardOrderError: ValidateUserInput(name, input, boards.length)} ));
-        if (name === 'board_title') setInputErrors(inputErrors => ({ ...inputErrors, boardTitleError: ValidateUserInput(name, input, boards.length)} ));
-        if (name === 'task_title') setInputErrors(inputErrors => ({ ...inputErrors, taskTitleError: ValidateUserInput(name, input, boards.length)} ));
-        if (name === 'task_description') setInputErrors(inputErrors => ({ ...inputErrors, taskDescriptionError: ValidateUserInput(name, input, boards.length)} ));
-        if (name === 'first') setInputErrors(inputErrors => ({ ...inputErrors, firstNameError: ValidateUserInput(name, input, boards.length)} ));
-        if (name === 'last') setInputErrors(inputErrors => ({ ...inputErrors, lastNameError: ValidateUserInput(name, input, boards.length)} ));
+        if (name === 'board_order') setInputErrors(inputErrors => ({
+            ...inputErrors,
+            boardOrderError: ValidateUserInput(name, input, boards.length)
+        }));
+        if (name === 'board_title') setInputErrors(inputErrors => ({
+            ...inputErrors,
+            boardTitleError: ValidateUserInput(name, input, boards.length)
+        }));
+        if (name === 'task_title') setInputErrors(inputErrors => ({
+            ...inputErrors,
+            taskTitleError: ValidateUserInput(name, input, boards.length)
+        }));
+        if (name === 'task_description') setInputErrors(inputErrors => ({
+            ...inputErrors,
+            taskDescriptionError: ValidateUserInput(name, input, boards.length)
+        }));
+        if (name === 'first') setInputErrors(inputErrors => ({
+            ...inputErrors,
+            firstNameError: ValidateUserInput(name, input, boards.length)
+        }));
+        if (name === 'last') setInputErrors(inputErrors => ({
+            ...inputErrors,
+            lastNameError: ValidateUserInput(name, input, boards.length)
+        }));
     };
 
     const handleGeneratePriorityTasksList2 = () => {
-        setPriorityTasks([]);
+        setPriorityTasks(initialPriorityTaskList);
         boards.map((board) => (
                 board.tasks.forEach(task => {
-                    if (task.task_priority) return setPriorityTasks(priorityTasks => [...priorityTasks, task]);
+                    if (task.task_priority) return setPriorityTasks(priorityTasks =>
+                        priorityTasks.map(list => list.priority_level === 'high'
+                            ?
+                            {
+                                ...list,
+                                tasks: list.tasks.concat({
+                                    ...task,
+                                    location: 'priority_list',
+                                    priority_level: 'high'
+                                })
+                            }
+                            :
+                            list
+                        ));
                     else return null;
                 })
             )
         );
+        setPanelControlButtons({
+                kanban_board: false,
+                priority_board: true
+            }
+        );
     };
+
+    const handleResetMainKanbanView = () => setPanelControlButtons({
+            kanban_board: true,
+            priority_board: false
+        }
+    );
 
     const handleResetAllErrors2 = () => setInputErrors(initialErrors);
 
     const handleSubmitNewTaskItems2 = revised_task => {
         setBoards(boards => boards.map(board =>
-            board.name === revised_task.board
-                ?
-                {
-                    ...board,
-                    tasks: board.tasks.map(old_task => old_task.id === revised_task.id
-                        ? {...old_task, ...revised_task}
-                        :  old_task
-                    )
-                }
-                :
-                board
+                board.name === revised_task.board
+                    ?
+                    {
+                        ...board,
+                        tasks: board.tasks.map(old_task => old_task.id === revised_task.id
+                            ? {...old_task, ...revised_task}
+                            : old_task
+                        )
+                    }
+                    :
+                    board
             )
         );
-        if(priorityTasks.length > 0) setPriorityTasks(priorityTasks.map(old_task => old_task.id === revised_task.id
+        if (priorityTasks.length > 0) setPriorityTasks(priorityTasks.map(old_task => old_task.id === revised_task.id
             ? {...old_task, ...revised_task}
-            :  old_task
+            : old_task
         ));
     };
 
     const handleDeleteBoard2 = e => {
         let id = e.target.id;
         setBoards(boards => boards.filter(board => board.id !== id));
-        setBoards(boards => boards.map((board, id) => ({...board, order: id })));
+        setBoards(boards => boards.map((board, id) => ({...board, order: id})));
         setBoardsSchema(boardsSchema => [...boardsSchema].filter(elem => elem !== boards.length - 1));
 
     };
@@ -171,27 +232,27 @@ function App() {
 
     const handleCreateNewTask2 = task => {
         if (isEmpty(task) !== true) setBoards(boards => boards.map(board =>
-            board.name === 'todo'
-                ?
-                {
-                    ...board,
-                    tasks: board.tasks.concat(
-                        {
-                            ...task,
-                            id: uuid(),
-                            board: "todo",
-                            visibility: true
-                        }
-                    )
-                }
-                :
-                board
+                board.name === 'todo'
+                    ?
+                    {
+                        ...board,
+                        tasks: board.tasks.concat(
+                            {
+                                ...task,
+                                id: uuid(),
+                                board: "todo",
+                                visibility: true
+                            }
+                        )
+                    }
+                    :
+                    board
             )
         )
         else setNote('This list is empty');
     };
 
-    const handleSwapTasksWithinBoard2 = e => {
+    const handleSwapTasksWithinKanbanBoard2 = e => {
         const task_id = e.target.id;
         const direction = e.target.getAttribute('name');
         const board_name = e.target.getAttribute('board');
@@ -200,11 +261,29 @@ function App() {
             if (board.name === board_name) {
                 const index1 = board.tasks.findIndex(task => task.id === task_id);
                 const tasks = direction === 'up'
-                    ? SwapArrayElements(board.tasks, index1,index1 - 1)
-                    : SwapArrayElements(board.tasks, index1,index1 + 1)
-                return { ...board, tasks }
-            }else{
+                    ? SwapArrayElements(board.tasks, index1, index1 - 1)
+                    : SwapArrayElements(board.tasks, index1, index1 + 1)
+                return {...board, tasks}
+            } else {
                 return board;
+            }
+        }));
+    };
+
+    const handleSwapTasksWithinPriorityList2 = e => {
+        const task_id = e.target.id;
+        const direction = e.target.getAttribute('name');
+        const list_priority_level = e.target.getAttribute('priority_level');
+
+        setPriorityTasks(priorityTasks => [...priorityTasks].map(list => {
+            if (list.priority_level === list_priority_level) {
+                const index1 = list.tasks.findIndex(task => task.id === task_id);
+                const tasks = direction === 'up'
+                    ? SwapArrayElements(list.tasks, index1, index1 - 1)
+                    : SwapArrayElements(list.tasks, index1, index1 + 1)
+                return {...list, tasks}
+            } else {
+                return list;
             }
         }));
     };
@@ -214,66 +293,150 @@ function App() {
         const id = e.target.getAttribute('id');
         const direction = e.target.getAttribute('direction');
         const boardOrder = e.target.getAttribute('order');
-        const movingTask = boards.find(board => board.order === parseInt(boardOrder)).tasks.find(task => task.id === id);
+        const location = e.target.getAttribute('location');
+        const task_priority = e.target.getAttribute('task_priority');
+
+        let isTrueSet = (task_priority === 'true');
+        let movingTask;
+
+        location === 'kanban_board'
+        ?
+            movingTask = boards.find(board => board.order === parseInt(boardOrder)).tasks.find(task => task.id === id)
+        :
+            movingTask = priorityTasks.find(list => list.order === parseInt(boardOrder)).tasks.find(task => task.id === id);
 
         ///remove a task....
-        setBoards(boards => boards.map(board =>
-            board.order === parseInt(boardOrder)
-                ?
-                {
-                    ...board,
-                    tasks: board.tasks.filter(task => task.id !== id)
-                }
-                :
-                board
+
+        location === 'kanban_board'
+            ?
+            setBoards(boards => boards.map(board =>
+                board.order === parseInt(boardOrder)
+                    ?
+                    {
+                        ...board,
+                        tasks: board.tasks.filter(task => task.id !== id)
+                    }
+                    :
+                    board
+                )
             )
-        );
+            :
+            setPriorityTasks(priorityTasks => priorityTasks.map(list =>
+                list.order === parseInt(boardOrder)
+                    ?
+                    {
+                        ...list,
+                        tasks: list.tasks.filter(task => task.id !== id)
+                    }
+                    :
+                    list
+                )
+            );
+
 
         ////Add a task......
-        setBoards(boards => boards.map(board =>
-            board.order === parseInt(boardOrder) + 1 && direction === 'right'
+
+        location === 'kanban_board'
+            ?
+                direction === 'right'
+                ?
+                    setBoards(boards => boards.map(board =>
+                            board.order === parseInt(boardOrder) + 1
+                                ?
+                                {
+                                    ...board,
+                                    tasks: board.tasks.concat({...movingTask, board: board.name})
+                                }
+                                : board
+                        )
+                    )
+                    :
+                    setBoards(boards => boards.map(board =>
+                            board.order === parseInt(boardOrder) - 1
+                                ?
+                                {
+                                    ...board,
+                                    tasks: board.tasks.concat({...movingTask, board: board.name})
+                                }
+                                : board
+                        )
+                    )
+            :
+                direction === 'right'
+                    ?
+                    setPriorityTasks(priorityList => priorityList.map(list =>
+                        list.order === parseInt(boardOrder) + 1
+                            ?
+                            {
+                                ...list,
+                                tasks: list.tasks.concat({
+                                    ...movingTask,
+                                    priority_level: list.priority_level,
+                                    task_priority: false
+                                })
+                            }
+                            : list
+                        )
+                    )
+                    :
+                    setPriorityTasks(priorityList => priorityList.map(list =>
+                        list.order === parseInt(boardOrder) - 1
+                            ?
+                            {
+                                ...list,
+                                tasks: list.tasks.concat({
+                                    ...movingTask,
+                                    priority_level: list.priority_level,
+                                    task_priority: true
+                                })
+                            }
+                            : list
+                        )
+                    )
+
+        if (movingTask.location === 'priority_list')
+        setBoards(boards => [...boards].map(board =>
+            board.name === movingTask.board
                 ?
                 {
                     ...board,
-                    tasks: board.tasks.concat({...movingTask, board: board.name})
+                    tasks: board.tasks.map(task =>
+                    task.id === movingTask.id
+                        ?
+                        {
+                            ...task,
+                            task_priority: !isTrueSet
+                        }
+                        :
+                        task
+                    )
                 }
                 : board
-            )
-        );
-        setBoards(boards => boards.map(board =>
-            board.order === parseInt(boardOrder) - 1 && direction === 'left'
-                ?
-                {
-                    ...board,
-                    tasks: board.tasks.concat({...movingTask, board: board.name})
-                }
-                : board
-            )
-        );
+        ));
     };
 
     const handleDragAndDrop2 = (board_name, task_name, id) => {
         const dragTask = boards.find(board => board.name === task_name).tasks.find(task => task.id === id);
 
         setBoards(boards => boards.map(board =>
-            board.name === task_name && board_name !== null
-                ?
-                {
-                    ...board,
-                    tasks: board.tasks.filter(task => task.id !== id)
-                }
-                :
-                board
+                board.name === task_name && board_name !== null
+                    ?
+                    {
+                        ...board,
+                        tasks: board.tasks.filter(task => task.id !== id)
+                    }
+                    :
+                    board
             )
         );
         setBoards(boards => boards.map(board =>
                 board.name === board_name
-                ?
-                {
-                    ...board,
-                    tasks: board.tasks.concat({...dragTask, board: board.name})
-                }
-                : board
+                    ?
+                    {
+                        ...board,
+                        tasks: board.tasks.concat({...dragTask, board: board.name})
+                    }
+                    : board
             )
         );
     };
@@ -290,7 +453,7 @@ function App() {
                     board
             )
         );
-        if(priorityTasks.length > 0) setPriorityTasks(priorityTasks.filter(task => task.id !== e.target.id));
+        if (priorityTasks.length > 0) setPriorityTasks(priorityTasks.filter(task => task.id !== e.target.id));
     };
 
     const handleShowTaskItem2 = e => {
@@ -298,42 +461,54 @@ function App() {
         const id = e.target.getAttribute('id');
         const name = e.target.getAttribute('name');
         const className = e.target.getAttribute('class').split(" ")[0];
+        const location = e.target.getAttribute('location');
+        const priority_level = e.target.getAttribute('priority_level');
         className === 'show' ? visible = true : visible = false;
-
-        setBoards(boards => boards.map(board =>
-            board.name === name
-                ?
-                {
-                    ...board,
-                    tasks: board.tasks.map(task => task.id === id
+        location === 'kanban_board'
+            ?
+            setBoards(boards => boards.map(board =>
+                    board.name === name
                         ?
                         {
-                            ...task,
-                            visibility: visible
+                            ...board,
+                            tasks: board.tasks.map(task => task.id === id
+                                ?
+                                {
+                                    ...task,
+                                    visibility: visible
+                                }
+                                :
+                                task
+                            )
                         }
                         :
-                        task
-                    )
-                }
-                :
-                board
+                        board
+                )
             )
-        );
-        if(priorityTasks.length > 0) {
-            setPriorityTasks(priorityTasks => priorityTasks.map(task => task.id === id
-                ?
-                {
-                    ...task,
-                    visibility: visible
-                }
-                :
-                task
-            ))
-        }
+            :
+            setPriorityTasks(priorityTasks => priorityTasks.map(list =>
+                    list.priority_level === priority_level
+                        ?
+                        {
+                            ...list,
+                            tasks: list.tasks.map(task => task.id === id
+                                ?
+                                {
+                                    ...task,
+                                    visibility: visible
+                                }
+                                :
+                                task
+                            )
+                        }
+                        :
+                        list
+                )
+            )
     };
 
-    /////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
 
 
     const handleEventProps = {
@@ -348,20 +523,27 @@ function App() {
         deleteBoard: handleDeleteBoard2,
         validateInput: handleValidateUserInput2,
         resetErrors: handleResetAllErrors2,
-        swapTasks: handleSwapTasksWithinBoard2,
+        swapTasks: {
+            swapKanbanTasks: handleSwapTasksWithinKanbanBoard2,
+            swapPriorityTasks: handleSwapTasksWithinPriorityList2
+        },
+        swapPriorityTasks: handleSwapTasksWithinPriorityList2,
         filterPriorityTasks: handleGeneratePriorityTasksList2,
         toggleEditModal: handleToggleEditTaskModal,
-        findTaskForEdit: handleFindForEditTaskModal
+        findTaskForEdit: handleFindForEditTaskModal,
+        resetMainKanbanView: handleResetMainKanbanView,
+
     };
 
     const handleStateProps = {
         boards: boards,
+        priorityTasks: priorityTasks,
         boardMessage: note,
         errors: inputErrors,
         boardsSchema: boardsSchema,
-        priorityTasks: priorityTasks,
         searchEditTask: searchEditTask,
-        modalButtonClick: modalButtonClick
+        modalButtonClick: editModalButtonClick,
+        panelControlButtons: panelControlButtons
     };
 
     return <Main {...handleEventProps} {...handleStateProps} />

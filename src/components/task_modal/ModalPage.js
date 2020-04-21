@@ -77,6 +77,7 @@ export default ({
             setCreateNewTask({
                 ...createNewTask,
                 task_title: taskTitle,
+                location: 'kanban_board',
                 task_description: taskDescription,
                 task_priority: highTaskPriority,
                 first: delegateName.first,

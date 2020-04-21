@@ -8,7 +8,7 @@ export default ({
                     deleteTask,
                     hideTask,
                     editTask,
-                    swapTasks,
+                    swapKanbanTasks,
                     showTask,
                     dragTask,
                     deleteBoard,
@@ -37,14 +37,14 @@ export default ({
                 hideTask={hideTask}
                 editTask={editTask}
                 listLength={list.length}
-                swapTasks={swapTasks}
+                swapTasks={swapKanbanTasks}
                 key={id}
                 index={id}
                 id={task.id}
                 task={task}
                 handleFindForEditTaskModal={handleFindForEditTaskModal}
             />
-            : <p className='show' key={task.id}>Hidden Task... <span id={task.id} name={task.board} autoFocus
+            : <p className='show' key={task.id}>Hidden Task... <span id={task.id} location={task.location} name={task.board} autoFocus
                                                                      onClick={showTask} className='show'>SHOW</span></p>
         )
         : <p style={{color: 'white', textAlign: 'center'}}><i>{boardMessage}</i></p>;
@@ -66,8 +66,8 @@ export default ({
 
                                 <div className='col-10'>
                                     <div className='row'>
-                                        <span className="task-list-title col-10">{board.title}</span>
-                                        <span className='task-quantity col-1'>{board.tasks.length}</span>
+                                        <span className="task-list-title col-9">{board.title}</span>
+                                        <span className='task-quantity col-2'>{board.tasks.length}</span>
                                     </div>
                                 </div>
                                 <div className='col-2'>

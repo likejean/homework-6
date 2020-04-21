@@ -49,12 +49,23 @@ export default ({task, index, listLength, boardLength, swapTasks, handleFindForE
             onDragOver={dragTaskOver}
             className="d-flex flex-column task-card"
         >
-            <MDBBtn disabled={index === 0} name='up' board={task.board} id={id} className='up-button' onClick={swapTasks}>Up</MDBBtn>
+            <MDBBtn
+                disabled={index === 0}
+                name='up'
+                priority_level={task.priority_level}
+                location={task.location}
+                board={task.board}
+                id={id}
+                className='up-button'
+                onClick={swapTasks}
+            >
+                Up
+            </MDBBtn>
             <MDBRow>
                 <MDBCol size="8">
                     <h6 className="task-title">{task.task_title}</h6>
                 </MDBCol>
-                {task.task_priority && <MDBCol className="priority"><i className="fas fa-exclamation-triangle fa-2x"></i></MDBCol>}
+                {task.task_priority && <MDBCol className="priority"><i className="fas fa-exclamation-triangle fa-2x"/></MDBCol>}
             </MDBRow>
             <span className="p-2 col-example text-left task-details"
                   id={id}
@@ -69,13 +80,24 @@ export default ({task, index, listLength, boardLength, swapTasks, handleFindForE
                 boardLength={boardLength}
                 boardOrder={boardOrder}
                 moveTask={moveTask}
+                location={task.location}
                 editTask={editTask}
                 deleteTask={deleteTask}
                 hideTask={hideTask}
                 task={task}
                 handleFindForEditTaskModal={handleFindForEditTaskModal}
             />
-            <MDBBtn disabled={index === listLength - 1} name='down' board={task.board} id={id} className='down-button' onClick={swapTasks}>Down</MDBBtn>
+            <MDBBtn
+                disabled={index === listLength - 1}
+                name='down'
+                priority_level={task.priority_level}
+                location={task.location}
+                board={task.board}
+                id={id}
+                className='down-button'
+                onClick={swapTasks}>
+                Down
+            </MDBBtn>
 
         </MDBContainer>
     )
