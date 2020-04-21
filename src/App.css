@@ -40,9 +40,6 @@ span.fa, span.fas {
     font-size: large;
 }
 
-span.fa:hover, span.fas:hover {
-    background-color: red;
-}
 
 .start-modal-button-wrapper {
     margin-top: 50px;
@@ -133,17 +130,17 @@ span.task-list-title {
 }
 span.task-quantity {
     text-align: center;
-    color: #32083a;
+    color: white;
     font-size: 22px;
     height: 42px;
     padding: 5px 0px;
     margin: 25px 3px 25px 3px;
-    background-color: white;
-    border: 1px solid white;
-    border-radius: 5px;
+    background-color: #32083a;
 }
 .priority {
     color: red;
+    padding: 10px 10px;
+    margin-right: 10px;
 }
 
 .custom-switch {

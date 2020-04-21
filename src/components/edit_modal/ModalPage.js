@@ -18,7 +18,7 @@ export default ({
     const [editTaskItems, setEditTaskItems] = useState({
         task_title: "",
         task_description: "",
-        task_priority: false,
+        task_priority: 'true',
         first: "",
         last: ""
     })

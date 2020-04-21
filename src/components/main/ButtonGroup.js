@@ -8,7 +8,7 @@ export default ({task: {board, id, location, priority_level, task_priority}, boa
             <MDBBtn
                 disabled={boardOrder === 0}
                 className='task-button'
-                color="danger"
+                color="white"
             >
                 <span
                     id={id}
@@ -24,7 +24,7 @@ export default ({task: {board, id, location, priority_level, task_priority}, boa
                 >
                 </span>
             </MDBBtn>
-            <MDBBtn className='task-button' color="pink">
+            <MDBBtn className='task-button' color="white">
                 <span id={id} name={board} location={location} priority_level={priority_level} onClick={hideTask}
                       className="hide fas fa-eye-slash" aria-hidden="true"/>
             </MDBBtn>
@@ -32,11 +32,11 @@ export default ({task: {board, id, location, priority_level, task_priority}, boa
                 location === 'kanban_board'
                     ?
                     <>
-                        <MDBBtn className='task-button' color="pink">
+                        <MDBBtn className='task-button' color="white">
                             <span id={id} name={board} onClick={handleFindForEditTaskModal} className="edit fas fa-edit"
                                   aria-hidden="true"/>
                         </MDBBtn>
-                        <MDBBtn className='task-button' color="pink">
+                        <MDBBtn className='task-button' color="white">
                             <span id={id} name={board} onClick={deleteTask} className="delete fas fa-trash-alt"
                                   aria-hidden="true"/>
                         </MDBBtn>
@@ -47,7 +47,7 @@ export default ({task: {board, id, location, priority_level, task_priority}, boa
             <MDBBtn
                 className='task-button'
                 disabled={boardOrder === boardLength - 1}
-                color="danger"
+                color="white"
             >
                 <span
                     id={id}

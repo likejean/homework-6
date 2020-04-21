@@ -181,7 +181,20 @@ function App() {
                             :
                             list
                         ));
-                    else return null;
+                    else return setPriorityTasks(priorityTasks =>
+                        priorityTasks.map(list => list.priority_level === 'low'
+                            ?
+                            {
+                                ...list,
+                                tasks: list.tasks.concat({
+                                    ...task,
+                                    location: 'priority_list',
+                                    priority_level: 'low'
+                                })
+                            }
+                            :
+                            list
+                        ));
                 })
             )
         );
@@ -215,10 +228,6 @@ function App() {
                     board
             )
         );
-        if (priorityTasks.length > 0) setPriorityTasks(priorityTasks.map(old_task => old_task.id === revised_task.id
-            ? {...old_task, ...revised_task}
-            : old_task
-        ));
     };
 
     const handleDeleteBoard2 = e => {

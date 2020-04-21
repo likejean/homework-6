@@ -52,6 +52,7 @@ export default ({task, index, listLength, boardLength, swapTasks, handleFindForE
             <MDBBtn
                 disabled={index === 0}
                 name='up'
+                color='white'
                 priority_level={task.priority_level}
                 location={task.location}
                 board={task.board}
@@ -62,10 +63,10 @@ export default ({task, index, listLength, boardLength, swapTasks, handleFindForE
                 Up
             </MDBBtn>
             <MDBRow>
-                <MDBCol size="8">
+                <MDBCol size="8" style={{display: 'flex', justifyContent: 'flex-start'}}>
                     <h6 className="task-title">{task.task_title}</h6>
                 </MDBCol>
-                {task.task_priority && <MDBCol className="priority"><i className="fas fa-exclamation-triangle fa-2x"/></MDBCol>}
+                {task.task_priority && <MDBCol style={{display: 'flex', justifyContent: 'flex-end'}} className="priority"><i className="fas fa-exclamation-triangle fa-2x"/></MDBCol>}
             </MDBRow>
             <span className="p-2 col-example text-left task-details"
                   id={id}
@@ -94,6 +95,7 @@ export default ({task, index, listLength, boardLength, swapTasks, handleFindForE
                 location={task.location}
                 board={task.board}
                 id={id}
+                color='white'
                 className='down-button'
                 onClick={swapTasks}>
                 Down

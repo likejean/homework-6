@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c12ad62b-92e0-4955-ad0a-fb483de252c5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/edit_modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/edit_modal/ModalPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/ButtonGroup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/PriorityOrderedTasks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/PriorityOrderedTasks.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main/TaskItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/TaskItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/task_modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/task_modal/ModalPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +80,8 @@
       <workItem from="1587006443984" duration="55242000" />
       <workItem from="1587178202499" duration="9475000" />
       <workItem from="1587219967083" duration="63269000" />
-      <workItem from="1587351406092" duration="29677000" />
+      <workItem from="1587351406092" duration="33279000" />
+      <workItem from="1587459758002" duration="469000" />
     </task>
     <servers />
   </component>
