@@ -21,7 +21,7 @@ export default ({
         task_priority: 'true',
         first: "",
         last: ""
-    })
+    });
 
     const handleEditTaskItemChange = e => {
         setEditTaskItems({
@@ -31,11 +31,12 @@ export default ({
             [e.target.name]: e.target.value
         });
         validateInput(e.target.value, e.target.name);
-    }
+    };
+
     const handleEditTaskItemsSubmit = () => {
         submitNewTaskItems(editTaskItems);
         handleToggleEditTaskModal();
-    }
+    };
 
     return (
         <MDBContainer>

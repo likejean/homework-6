@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Main from './components/main';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
@@ -8,8 +8,6 @@ import './App.css';
 import isEmpty from './helpers/EmptyObject';
 import SwapArrayElements from "./helpers/SwapArrayElements";
 import ValidateUserInput from "./helpers/ValidateUserInputChange";
-
-
 
 const initialBoards = [
     {
@@ -106,6 +104,41 @@ function KanbanBoard() {
         kanban_board: true,
         priority_board: false
     });
+
+    useEffect(() => {
+        async function getData() {
+            const res = await fetch('http://localhost:3000/tasks');
+            res.json()
+                .then(result => {
+                    result.forEach(task => setBoards(boards => boards.map(board =>
+                            board.name === 'todo'
+                                ?
+                                {
+                                    ...board,
+                                    tasks: board.tasks.concat(
+                                        {
+                                            board: "todo",
+                                            location: 'kanban_board',
+                                            task_title: task.title,
+                                            task_description: task.description,
+                                            task_priority: task.priority,
+                                            first: task.first,
+                                            last: task.last,
+                                            id: task._id,
+                                            visibility: true
+                                        }
+                                    )
+                                }
+                                :
+                                board
+                        ))
+                    );
+                })
+                .catch(err => console.log(err))
+        }
+
+        getData().then(r => console.log('Successfully rendered!'));
+    }, []);
 
 
     const handleFindForEditTaskModal = e => {
@@ -241,7 +274,6 @@ function KanbanBoard() {
 
     };
 
-
     const handleCreateNewTask2 = task => {
         if (isEmpty(task) !== true) {
             console.log(task);
@@ -273,8 +305,7 @@ function KanbanBoard() {
             }).catch(err => {
                 console.log(err);
             });
-        }
-        else setNote('This list is empty');
+        } else setNote('This list is empty');
     };
 
     const handleSwapTasksWithinKanbanBoard2 = e => {
@@ -478,6 +509,17 @@ function KanbanBoard() {
                     board
             )
         );
+
+        fetch(`http://localhost:3000/tasks/${e.target.id}`, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id: e.target.id})
+        }).then(res => {
+            console.log(res.body);
+        }).catch(err => {
+            console.log(err);
+        });
+
         if (priorityTasks.length > 0) setPriorityTasks(priorityTasks.filter(task => task.id !== e.target.id));
     };
 
@@ -556,7 +598,7 @@ function KanbanBoard() {
         filterPriorityTasks: handleGeneratePriorityTasksList2,
         toggleEditModal: handleToggleEditTaskModal,
         findTaskForEdit: handleFindForEditTaskModal,
-        resetMainKanbanView: handleResetMainKanbanView,
+        resetMainKanbanView: handleResetMainKanbanView
 
     };
 
