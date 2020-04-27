@@ -18,18 +18,34 @@ export default ({
     const [editTaskItems, setEditTaskItems] = useState({
         task_title: "",
         task_description: "",
-        task_priority: 'true',
+        task_priority: false,
         first: "",
         last: ""
     });
+    const [toggleTaskPriority, setToggleTaskPriority] = useState(true);
+    const [changeEvent, setChangeEvent] = useState(false);
+
+    const handleTogglePriorityTaskStatus = () => setToggleTaskPriority(!toggleTaskPriority);
 
     const handleEditTaskItemChange = e => {
-        setEditTaskItems({
-            ...editTaskItems,
-            id: searchEditTask.id,
-            board: searchEditTask.board,
-            [e.target.name]: e.target.value
-        });
+        if (!changeEvent) setChangeEvent(true);
+
+        if (e.target.name === "task_priority") {
+            handleTogglePriorityTaskStatus();
+            setEditTaskItems({
+                ...editTaskItems,
+                id: searchEditTask.id,
+                board: searchEditTask.board,
+                task_priority: e.target.checked
+            });
+        } else {
+            setEditTaskItems({
+                ...editTaskItems,
+                id: searchEditTask.id,
+                board: searchEditTask.board,
+                [e.target.name]: e.target.value
+            });
+        }
         validateInput(e.target.value, e.target.name);
     };
 
@@ -59,7 +75,14 @@ export default ({
                     {taskDescriptionError.errors && <ErrorMessage error={taskDescriptionError.errors}/>}
 
                     <div className="custom-control custom-checkbox">
-                        <input name="task_priority" value={editTaskItems.task_priority} type="checkbox" onChange={handleEditTaskItemChange} className="custom-control-input" id="priority_task"/>
+                        <input
+                            name="task_priority"
+                            checked={toggleTaskPriority}
+                            type="checkbox"
+                            onChange={handleEditTaskItemChange}
+                            className="custom-control-input"
+                            id="priority_task"
+                        />
                         <label className="custom-control-label" htmlFor="priority_task">This is Priority
                             Task
                         </label>
@@ -75,7 +98,7 @@ export default ({
                 <MDBModalFooter>
                     <MDBBtn color="secondary" onClick={handleToggleEditTaskModal}>Close</MDBBtn>
                     <MDBBtn
-                        disabled={taskTitleError.inputStatus || taskDescriptionError.inputStatus || firstNameError.inputStatus || lastNameError.inputStatus}
+                        disabled={!changeEvent || taskTitleError.inputStatus || taskDescriptionError.inputStatus || firstNameError.inputStatus || lastNameError.inputStatus}
                         color="primary"
                         onClick={handleEditTaskItemsSubmit}
                     >

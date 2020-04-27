@@ -96,7 +96,7 @@ function KanbanBoard() {
     const [note, setNote] = useState("");
     const [boards, setBoards] = useState(initialBoards);
     const [inputErrors, setInputErrors] = useState(initialErrors);
-    const [boardsSchema, setBoardsSchema] = useState([...Array(initialBoards.length).keys()]);
+    const [boardsSchema, setBoardsSchema] = useState([]);
     const [priorityTasks, setPriorityTasks] = useState(initialPriorityTaskList);
     const [editModalButtonClick, setEditModalButtonClick] = useState(false);
     const [searchEditTask, setSearchEditTask] = useState({});
@@ -107,37 +107,37 @@ function KanbanBoard() {
 
     useEffect(() => {
         async function getData() {
-            const res = await fetch('http://localhost:3000/tasks');
+            const res = await fetch('http://localhost:3000/boards');
             res.json()
-                .then(result => {
-                    result.forEach(task => setBoards(boards => boards.map(board =>
-                            board.name === 'todo'
-                                ?
-                                {
-                                    ...board,
-                                    tasks: board.tasks.concat(
-                                        {
-                                            board: "todo",
-                                            location: 'kanban_board',
-                                            task_title: task.title,
-                                            task_description: task.description,
-                                            task_priority: task.priority,
-                                            first: task.first,
-                                            last: task.last,
-                                            id: task._id,
-                                            visibility: true
-                                        }
-                                    )
-                                }
-                                :
-                                board
-                        ))
+                .then(data => {
+                    setBoards(data.boards.map(board => (
+                        {
+                            id: board._id,
+                            order: board.order,
+                            name: board.name,
+                            title: board.title,
+                            tasks: board.tasks.map(task => ({
+                                id: task._id,
+                                visibility: true,
+                                task_title: task.title,
+                                location: task.location,
+                                task_description: task.description,
+                                task_priority: task.priority,
+                                board: task.board,
+                                first: task.first,
+                                last: task.last
+                            }))
+                        }
+                    ))
                     );
+                    setBoardsSchema([...Array(data.boards.length).keys()]);
                 })
-                .catch(err => console.log(err))
+                .catch(err => console.log(err));
         }
 
-        getData().then(r => console.log('Successfully rendered!'));
+        getData()
+            .then(() => console.log('Successfully rendered!'))
+            .catch(() => console.log('Rendering failed'));
     }, []);
 
 
@@ -263,7 +263,15 @@ function KanbanBoard() {
             )
         );
 
-
+        fetch(`http://localhost:3000/tasks/${revised_task.id}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(revised_task)
+        }).then(res => {
+            console.log(res.body);
+        }).catch(err => {
+            console.log(err);
+        });
     };
 
     const handleDeleteBoard2 = e => {
@@ -276,32 +284,38 @@ function KanbanBoard() {
 
     const handleCreateNewTask2 = task => {
         if (isEmpty(task) !== true) {
-            console.log(task);
-            setBoards(boards => boards.map(board =>
-                    board.name === 'todo'
-                        ?
-                        {
-                            ...board,
-                            tasks: board.tasks.concat(
-                                {
-                                    ...task,
-                                    id: uuid(),
-                                    board: "todo",
-                                    visibility: true
-                                }
-                            )
-                        }
-                        :
-                        board
-                )
-            );
-
             fetch('http://localhost:3000/tasks', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(task)
-            }).then(res => {
-                console.log(res.body);
+                body: JSON.stringify({...task, board: 'todo'})
+            }).then(response => {
+                response.json()
+                    .then(data => {
+                        const task = data.createdTask;
+                        console.log(task);
+                       setBoards(boards => boards.map(board =>
+                           board.name === task.board
+                               ?
+                               {
+                                   ...board,
+                                   tasks: board.tasks.concat(
+                                       {
+                                           id: task._id,
+                                           visibility: true,
+                                           task_title: task.title,
+                                           location: task.location,
+                                           task_description: task.description,
+                                           task_priority: task.priority,
+                                           board: task.board,
+                                           first: task.first,
+                                           last: task.last
+                                       }
+                                   )
+                               }
+                               :
+                               board
+                       ));
+                    })
             }).catch(err => {
                 console.log(err);
             });
@@ -354,7 +368,6 @@ function KanbanBoard() {
 
         let isTrueSet = (task_priority === 'true');
         let movingTask;
-
         location === 'kanban_board'
             ?
             movingTask = boards.find(board => board.order === parseInt(boardOrder)).tasks.find(task => task.id === id)
@@ -448,8 +461,7 @@ function KanbanBoard() {
                             }
                             : list
                     )
-                )
-
+                );
         if (movingTask.location === 'priority_list')
             setBoards(boards => [...boards].map(board =>
                 board.name === movingTask.board
@@ -498,24 +510,41 @@ function KanbanBoard() {
     };
 
     const handleDeleteTaskItem2 = e => {
-        setBoards(boards => boards.map(board =>
-                board.name === e.target.getAttribute('name')
-                    ?
-                    {
-                        ...board,
-                        tasks: board.tasks.filter(task => task.id !== e.target.id)
-                    }
-                    :
-                    board
-            )
-        );
-
+        // setBoards(boards => boards.map(board =>
+        //         board.name === e.target.getAttribute('name')
+        //             ?
+        //             {
+        //                 ...board,
+        //                 tasks: board.tasks.filter(task => task.id !== e.target.id)
+        //             }
+        //             :
+        //             board
+        //     )
+        // );
         fetch(`http://localhost:3000/tasks/${e.target.id}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({id: e.target.id})
-        }).then(res => {
-            console.log(res.body);
+            body: JSON.stringify({
+                id: e.target.id,
+                board: e.target.getAttribute('name')
+            })
+        }).then(response => {
+            response.json()
+                .then(data => {
+                    console.log(data)
+                    const {deletedTask: { id, board_name }} = data;
+                    setBoards(boards => boards.map(board =>
+                        board.name === board_name
+                            ?
+                            {
+                                ...board,
+                                tasks: board.tasks.filter(task => task.id !== id)
+                            }
+                            :
+                            board
+                    ));
+                })
+
         }).catch(err => {
             console.log(err);
         });

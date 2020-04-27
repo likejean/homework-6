@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/KanbanBoard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/KanbanBoard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/edit_modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/edit_modal/ModalPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +29,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../redux/React-Redux-Todo" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -80,7 +81,7 @@
       <workItem from="1587351406092" duration="33279000" />
       <workItem from="1587459758002" duration="15494000" />
       <workItem from="1587693100343" duration="376000" />
-      <workItem from="1587794550361" duration="7549000" />
+      <workItem from="1587794550361" duration="36564000" />
     </task>
     <servers />
   </component>
@@ -96,10 +97,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="436" y="101" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1586843378622" />
-    <state x="499" y="111" key="FileChooserDialogImpl" timestamp="1587693474478">
+    <state x="499" y="111" key="FileChooserDialogImpl" timestamp="1587839074645">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="111" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587693474478" />
+    <state x="499" y="111" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587839074645" />
     <state x="175" y="0" key="SettingsEditor" timestamp="1587181996947">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

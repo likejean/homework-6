@@ -50,6 +50,7 @@ export default props => {
                 modalButtonClick={listProps.modalButtonClick}
                 handleToggleEditTaskModal={eventProps.toggleEditModal}
                 boards={listProps.boards}
+                findTaskForEdit={listProps.findTaskForEdit}
                 searchEditTask={listProps.searchEditTask}
                 submitNewTaskItems={eventProps.submitNewTaskItems}
             />
