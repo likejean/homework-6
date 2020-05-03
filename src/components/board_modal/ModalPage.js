@@ -6,7 +6,14 @@ import { useAlert } from 'react-alert';
 import ValidateUserBlankInput from '../../helpers/ValidateUserBlankInput';
 import InsertionBoardSchema from "./InsertionBoardSchema";
 
-export default ({ boardsSchema, createBoard, validateInput, errors: { boardOrderError, boardTitleError } }) => {
+export default ({
+                    boardsSchema,
+                    setBoardOrderState,
+                    createBoard,
+                    validateInput,
+                    boards,
+                    errors: { boardOrderError, boardTitleError }
+}) => {
     const [modalButtonClick, setModalButtonClick] = useState(false);
     const [boardTitle, setBoardTitle] = useState("");
     const [boardOrder, setBoardOrder] = useState(0);
@@ -35,6 +42,14 @@ export default ({ boardsSchema, createBoard, validateInput, errors: { boardOrder
             });
             setModalButtonClick(!modalButtonClick);
             setNewBoardPlaceOrder(1);
+            setBoardOrderState(boards.map(board => (
+                {
+                    id: board.id,
+                    order: board.order,
+                    name: board.name
+                }
+                ))
+            );
         }
     };
     const handleBoardTitleChange = e => {

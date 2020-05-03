@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Main from './components/main';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
@@ -42,7 +42,7 @@ const initialBoards = [
     },
     {
         name: 'extra',
-        order: 4,
+        order: 3,
         title: 'Extra',
         id: uuid(),
         tasks: []
@@ -52,13 +52,11 @@ const initialBoards = [
 const initialPriorityTaskList = [
     {
         priority_level: 'high',
-        order: 0,
         id: uuid(),
         tasks: []
     },
     {
         priority_level: 'low',
-        order: 1,
         id: uuid(),
         tasks: []
     }
@@ -105,32 +103,42 @@ function KanbanBoard() {
         priority_board: false
     });
 
+    //Pull the latest board order from the child component...
+    const boardsRef = useRef();
+    const setBoardOrderState = data => {
+        boardsRef.current = data;
+    };
+
+
     useEffect(() => {
         async function getData() {
-            const res = await fetch('http://localhost:3000/boards');
+            const res = await fetch('http://localhost:8080/boards');
             res.json()
                 .then(data => {
+                    console.log(data.boards);
                     setBoards(data.boards.map(board => (
-                        {
-                            id: board._id,
-                            order: board.order,
-                            name: board.name,
-                            title: board.title,
-                            tasks: board.tasks.map(task => ({
-                                id: task._id,
-                                visibility: true,
-                                task_title: task.title,
-                                location: task.location,
-                                task_description: task.description,
-                                task_priority: task.priority,
-                                board: task.board,
-                                first: task.first,
-                                last: task.last
-                            }))
-                        }
-                    ))
+                            {
+                                id: board._id,
+                                order: board.order,
+                                name: board.name,
+                                title: board.title,
+                                tasks: board.tasks.map(task => ({
+                                    id: task._id,
+                                    visibility: true,
+                                    task_title: task.title,
+                                    location: task.location,
+                                    task_description: task.description,
+                                    task_priority: task.priority,
+                                    board: task.board,
+                                    first: task.first,
+                                    last: task.last
+                                }))
+                            }
+                        ))
                     );
+                    setBoards(boards => boards.sort((a, b) => a.order - b.order));
                     setBoardsSchema([...Array(data.boards.length).keys()]);
+
                 })
                 .catch(err => console.log(err));
         }
@@ -151,22 +159,107 @@ function KanbanBoard() {
     const handleToggleEditTaskModal = () => setEditModalButtonClick(!editModalButtonClick);
 
     const handleCreateNewBoard2 = board => {
-        let index = parseInt(board.order) - 1;
+        const index = board.order - 1;
+
         if (!isEmpty(board)) {
-            setBoards(boards => [
-                ...boards.slice(0, index),
-                Object.assign({},
-                    {
-                        ...board,
-                        id: uuid(),
-                        name: board.title.toLowerCase(),
-                        tasks: []
-                    }),
-                ...boards.slice(index)
-            ]);
-            setBoards(boards => boards.map((board, id) => ({...board, order: id})));
-            setBoardsSchema(boardsSchema => [...boardsSchema].concat(boardsSchema.length));
+            // setBoards(boards => [
+            //     ...boards.slice(0, index),
+            //     Object.assign({},
+            //         {
+            //             ...board,
+            //             id: uuid(),
+            //             name: board.title.toLowerCase(),
+            //             tasks: []
+            //         }),
+            //     ...boards.slice(index)
+            // ]);
+            // setBoards(boards => boards.map((board, id) => ({...board, order: id})));
+            // setBoardOrder([
+            //     ...boardOrder.slice(0, index),
+            //     Object.assign({},
+            //         {
+            //             id: '',
+            //             order: index
+            //         }),
+            //     ...boardOrder.slice(index)
+            // ]);
+
+            fetch('http://localhost:8080/boards', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    ...board,
+                    order: index,
+                    name: board.title.toLowerCase()
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const board = data.createdBoard;
+                    console.log(board);
+                    setBoards(boards => [
+                        ...boards.slice(0, index),
+                        Object.assign({},
+                            {
+                                ...board,
+                                order: index
+                            }),
+                        ...boards.slice(index)
+                    ]);
+                    setBoards(boards => boards.map((board, id) =>
+                        board.order <= id ?
+                            {
+                                ...board,
+                                order: id
+                            }
+                            :
+                            {
+                                ...board,
+                                order: id + 1
+                            }
+                    ));
+
+
+                    return [
+                        ...boardsRef.current.slice(0, index),
+                        Object.assign({},
+                            {
+                                id: board.id,
+                                order: board.order,
+                                name: board.name
+                            }),
+                        ...boardsRef.current.slice(index)
+                    ].map((board, id) =>
+                        board.order <= id ?
+                            {
+                                ...board,
+                                order: id
+                            }
+                            :
+                            {
+                                ...board,
+                                order: id + 1
+                            }
+                    );
+                })
+                .then(data => {
+                    console.log('hey!');
+                    console.log('response', data);
+                    fetch('http://localhost:8080/boards', {
+                        method: 'PATCH',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => console.log(response))
+                        .catch(err => {
+                            console.log(err)
+                        })
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
+        setBoardsSchema(boardsSchema => [...boardsSchema].concat(boardsSchema.length));
     };
 
 
@@ -248,35 +341,58 @@ function KanbanBoard() {
     const handleResetAllErrors2 = () => setInputErrors(initialErrors);
 
     const handleSubmitNewTaskItems2 = revised_task => {
-        setBoards(boards => boards.map(board =>
-                board.name === revised_task.board
-                    ?
-                    {
-                        ...board,
-                        tasks: board.tasks.map(old_task => old_task.id === revised_task.id
-                            ? {...old_task, ...revised_task}
-                            : old_task
-                        )
-                    }
-                    :
-                    board
-            )
-        );
-
-        fetch(`http://localhost:3000/tasks/${revised_task.id}`, {
+        fetch(`http://localhost:8080/tasks/${revised_task.id}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(revised_task)
-        }).then(res => {
-            console.log(res.body);
-        }).catch(err => {
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const new_task = data.updatedTask;
+                console.log('task', new_task)
+                setBoards(boards => boards.map(board =>
+                    board.name === new_task.board
+                        ?
+                        {
+                            ...board,
+                            tasks: board.tasks.map(old_task =>
+                                old_task.id === new_task.id
+                                    ?
+                                    {
+                                        ...old_task,
+                                        ...new_task
+                                    }
+                                    :
+                                    old_task
+                            )
+                        }
+                        :
+                        board
+                ));
+            }).catch(err => {
             console.log(err);
         });
     };
 
     const handleDeleteBoard2 = e => {
-        let id = e.target.id;
-        setBoards(boards => boards.filter(board => board.id !== id));
+        console.log(e.target.id);
+        // let id = e.target.id;
+        // setBoards(boards => boards.filter(board => board.id !== id));
+        fetch(`http://localhost:8080/boards/${e.target.id}`, {
+            method: 'DELETE',
+            body: JSON.stringify(e.target.id)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const {id} = data.deletedBoard;
+                console.log('ID Response', id);
+                setBoards(boards => boards.filter(board => board.id !== id))
+            })
+            .catch(err => {
+                console.log(err);
+            });
         setBoards(boards => boards.map((board, id) => ({...board, order: id})));
         setBoardsSchema(boardsSchema => [...boardsSchema].filter(elem => elem !== boards.length - 1));
 
@@ -284,41 +400,40 @@ function KanbanBoard() {
 
     const handleCreateNewTask2 = task => {
         if (isEmpty(task) !== true) {
-            fetch('http://localhost:3000/tasks', {
+            fetch('http://localhost:8080/tasks', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({...task, board: 'todo'})
-            }).then(response => {
-                response.json()
-                    .then(data => {
-                        const task = data.createdTask;
-                        console.log(task);
-                       setBoards(boards => boards.map(board =>
-                           board.name === task.board
-                               ?
-                               {
-                                   ...board,
-                                   tasks: board.tasks.concat(
-                                       {
-                                           id: task._id,
-                                           visibility: true,
-                                           task_title: task.title,
-                                           location: task.location,
-                                           task_description: task.description,
-                                           task_priority: task.priority,
-                                           board: task.board,
-                                           first: task.first,
-                                           last: task.last
-                                       }
-                                   )
-                               }
-                               :
-                               board
-                       ));
-                    })
-            }).catch(err => {
-                console.log(err);
-            });
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const task = data.createdTask;
+                    setBoards(boards => boards.map(board =>
+                        board.name === task.board
+                            ?
+                            {
+                                ...board,
+                                tasks: board.tasks.concat(
+                                    {
+                                        id: task._id,
+                                        visibility: true,
+                                        task_title: task.title,
+                                        location: task.location,
+                                        task_description: task.description,
+                                        task_priority: task.priority,
+                                        board: task.board,
+                                        first: task.first,
+                                        last: task.last
+                                    }
+                                )
+                            }
+                            :
+                            board
+                    ));
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         } else setNote('This list is empty');
     };
 
@@ -510,45 +625,31 @@ function KanbanBoard() {
     };
 
     const handleDeleteTaskItem2 = e => {
-        // setBoards(boards => boards.map(board =>
-        //         board.name === e.target.getAttribute('name')
-        //             ?
-        //             {
-        //                 ...board,
-        //                 tasks: board.tasks.filter(task => task.id !== e.target.id)
-        //             }
-        //             :
-        //             board
-        //     )
-        // );
-        fetch(`http://localhost:3000/tasks/${e.target.id}`, {
+        fetch(`http://localhost:8080/tasks/${e.target.id}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 id: e.target.id,
                 board: e.target.getAttribute('name')
             })
-        }).then(response => {
-            response.json()
-                .then(data => {
-                    console.log(data)
-                    const {deletedTask: { id, board_name }} = data;
-                    setBoards(boards => boards.map(board =>
-                        board.name === board_name
-                            ?
-                            {
-                                ...board,
-                                tasks: board.tasks.filter(task => task.id !== id)
-                            }
-                            :
-                            board
-                    ));
-                })
-
-        }).catch(err => {
-            console.log(err);
-        });
-
+        })
+            .then(response => response.json())
+            .then(data => {
+                const {deletedTask: {id, board_name}} = data;
+                setBoards(boards => boards.map(board =>
+                    board.name === board_name
+                        ?
+                        {
+                            ...board,
+                            tasks: board.tasks.filter(task => task.id !== id)
+                        }
+                        :
+                        board
+                ));
+            })
+            .catch(err => {
+                console.log(err);
+            });
         if (priorityTasks.length > 0) setPriorityTasks(priorityTasks.filter(task => task.id !== e.target.id));
     };
 
@@ -619,6 +720,7 @@ function KanbanBoard() {
         deleteBoard: handleDeleteBoard2,
         validateInput: handleValidateUserInput2,
         resetErrors: handleResetAllErrors2,
+        setBoardOrderState: setBoardOrderState,
         swapTasks: {
             swapKanbanTasks: handleSwapTasksWithinKanbanBoard2,
             swapPriorityTasks: handleSwapTasksWithinPriorityList2

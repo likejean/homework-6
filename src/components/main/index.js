@@ -35,7 +35,8 @@ export default props => {
         resetErrors: props.resetErrors,
         toggleEditModal: props.toggleEditModal,
         findTaskForEdit: props.findTaskForEdit,
-        resetMainKanbanView: props.resetMainKanbanView
+        resetMainKanbanView: props.resetMainKanbanView,
+        setBoardOrderState: props.setBoardOrderState
     };
     return (
         <div>
@@ -67,11 +68,13 @@ export default props => {
                     <MDBCol>
                         <BoardModalPage
                             errors={listProps.errors}
+                            boards={listProps.boards}
                             boardsSchema={listProps.boardsSchema}
                             validateInput={eventProps.validateInput}
                             createBoard={eventProps.createBoard}
                             deleteBoard={eventProps.deleteBoard}
                             resetErrors={eventProps.resetErrors}
+                            setBoardOrderState={eventProps.setBoardOrderState}
                         />
                     </MDBCol>
 
