@@ -4,8 +4,7 @@
     <list default="true" id="c12ad62b-92e0-4955-ad0a-fb483de252c5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/KanbanBoard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/KanbanBoard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/board_modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/board_modal/ModalPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/NewKanbanDashboard.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +84,8 @@
       <workItem from="1588039396312" duration="11165000" />
       <workItem from="1588142302596" duration="1359000" />
       <workItem from="1588404824353" duration="7322000" />
-      <workItem from="1588438499954" duration="15471000" />
+      <workItem from="1588438499954" duration="30460000" />
+      <workItem from="1588560343965" duration="8440000" />
     </task>
     <servers />
   </component>

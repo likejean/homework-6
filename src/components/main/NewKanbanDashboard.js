@@ -13,18 +13,51 @@ export default ({
                     dragTask,
                     deleteBoard,
                     boardMessage,
-                    handleFindForEditTaskModal
+                    handleFindForEditTaskModal,
+                    setBoardOrderState
                 }) => {
 
     const dropTask = e => {
         e.preventDefault();
         const task_id = e.dataTransfer.getData('task');
         const task = document.getElementById(task_id);
+        setBoardOrderState(boards.map(board => (
+                {
+                    id: board.id,
+                    order: board.order,
+                    name: board.name,
+                    title: board.title,
+                    tasks: board.tasks.map(task => ({
+                        id: task.id,
+                        visibility: true,
+                        task_title: task.task_title,
+                        location: task.location,
+                        task_description: task.task_description,
+                        task_priority: task.task_priority,
+                        board: task.board,
+                        first: task.first,
+                        last: task.last
+                    }))
+                }
+            ))
+        );
         dragTask(e.target.getAttribute('name'), task.getAttribute('name'), task_id);
     };
 
     const dragTaskOver = e => {
         e.preventDefault();
+    };
+
+    const handleDeleteBoard = e => {
+        setBoardOrderState(boards.map(board => (
+                {
+                    id: board.id,
+                    order: board.order,
+                    name: board.name
+                }
+            ))
+        );
+        deleteBoard(e);
     };
 
     const boardList = (list, order, length) => list.length
@@ -73,7 +106,7 @@ export default ({
                                 <div className='col-2'>
                                     <i
                                         id={board.id}
-                                        onClick={deleteBoard}
+                                        onClick={handleDeleteBoard}
                                         className="far fa-calendar-times fa-2x"/>
                                 </div>
                             </div>

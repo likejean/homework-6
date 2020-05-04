@@ -115,7 +115,6 @@ function KanbanBoard() {
             const res = await fetch('http://localhost:8080/boards');
             res.json()
                 .then(data => {
-                    console.log(data.boards);
                     setBoards(data.boards.map(board => (
                             {
                                 id: board._id,
@@ -376,19 +375,20 @@ function KanbanBoard() {
     };
 
     const handleDeleteBoard2 = e => {
-        console.log(e.target.id);
-        // let id = e.target.id;
-        // setBoards(boards => boards.filter(board => board.id !== id));
+        const data = boardsRef.current
+            .filter(board => board.id !== e.target.id)
+            .map((board, id) => ({ ...board, order:id }));
+        console.log(data);
         fetch(`http://localhost:8080/boards/${e.target.id}`, {
             method: 'DELETE',
-            body: JSON.stringify(e.target.id)
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
         })
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                const {id} = data.deletedBoard;
-                console.log('ID Response', id);
-                setBoards(boards => boards.filter(board => board.id !== id))
+                const { id } = data.deletedBoard;
+                setBoards(boards => boards.filter(board => board.id !== id));
             })
             .catch(err => {
                 console.log(err);
@@ -596,10 +596,20 @@ function KanbanBoard() {
                     }
                     : board
             ));
+        fetch(`http://localhost:8080/boards/${id}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                moveOutBoard: +boardOrder,
+                moveInBoard: direction === 'left' ? +boardOrder - 1 : +boardOrder + 1
+            })
+        })
+            .then(response => console.log(response))
+            .catch(err => console.log(err));
     };
 
     const handleDragAndDrop2 = (board_name, task_name, id) => {
-        const dragTask = boards.find(board => board.name === task_name).tasks.find(task => task.id === id);
+        const dragTask = boardsRef.current.find(board => board.name === task_name).tasks.find(task => task.id === id);
 
         setBoards(boards => boards.map(board =>
                 board.name === task_name && board_name !== null
@@ -622,6 +632,18 @@ function KanbanBoard() {
                     : board
             )
         );
+
+        fetch(`http://localhost:8080/boards/${id}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                moveOutBoard: +boardsRef.current.find(board => board.name === task_name).order,
+                moveInBoard: +boardsRef.current.find(board => board.name === board_name).order
+            })
+        })
+            .then(response => console.log(response))
+            .catch(err => console.log(err));
+
     };
 
     const handleDeleteTaskItem2 = e => {
