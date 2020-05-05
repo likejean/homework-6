@@ -95,6 +95,7 @@ const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
 function KanbanBoard() {
 
     const [note, setNote] = useState("");
+    const [loading, setLoading] = useState(true);
     const [boards, setBoards] = useState(initialBoards);
     const [inputErrors, setInputErrors] = useState(initialErrors);
     const [boardsSchema, setBoardsSchema] = useState([]);
@@ -138,6 +139,7 @@ function KanbanBoard() {
                             }
                         ))
                     );
+                    setLoading(false);
                     setBoards(boards => boards.sort((a, b) => a.order - b.order));
                     setBoardsSchema([...Array(data.boards.length).keys()]);
 
@@ -519,8 +521,6 @@ function KanbanBoard() {
                         list
                 )
             );
-
-
         ////Add a task......
 
         location === 'kanban_board'
@@ -760,6 +760,7 @@ function KanbanBoard() {
 
     const handleStateProps = {
         boards: boards,
+        loading: loading,
         priorityTasks: priorityTasks,
         boardMessage: note,
         errors: inputErrors,

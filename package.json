@@ -19,6 +19,7 @@
     "react-alert-template-basic": "^1.0.0",
     "react-dnd": "^10.0.2",
     "react-dom": "^16.13.1",
+    "react-loading": "^2.0.3",
     "react-materialize": "^3.8.0",
     "react-scripts": "3.4.1",
     "react-switch": "^5.0.1",
