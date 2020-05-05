@@ -59,8 +59,12 @@ export default ({
             <MDBModal isOpen={modalButtonClick} toggle={handleToggleEditTaskModal}>
                 <MDBModalHeader toggle={handleToggleEditTaskModal}>Task Edit Form</MDBModalHeader>
                 <MDBModalBody>
-                    <MDBInput type='text' name='task_title' label="Edit Task Title" value={editTaskItems.title}
-                              onChange={handleEditTaskItemChange}/>
+                    <MDBInput type='text'
+                              name='task_title'
+                              label="Edit Task Title"
+                              value={editTaskItems.title}
+                              onChange={handleEditTaskItemChange}
+                    />
                     {taskTitleError.errors && <ErrorMessage error={taskTitleError.errors}/>}
                     <MDBContainer className='task-description'>
                         <MDBInput

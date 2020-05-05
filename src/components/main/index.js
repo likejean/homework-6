@@ -1,7 +1,8 @@
 import React from 'react';
 import Loading from './LoadingComponent';
 import TaskModalPage from '../task_modal/ModalPage';
-import BoardModalPage from '../board_modal/ModalPage'
+import BoardModalPage from '../board_modal/ModalPage';
+import LoginModalPage from '../auth/ModalPage';
 import NewKanbanDashboard from './NewKanbanDashboard';
 import PriorityOrderedTasks from './PriorityOrderedTasks';
 import EditTaskModalPage from '../edit_modal/ModalPage';
@@ -14,6 +15,7 @@ export default props => {
         loading: props.loading,
         boardMessage: props.boardMessage,
         errors: props.errors,
+        userLogin: props.userLogin,
         boardsSchema: props.boardsSchema,
         priorityTasks: props.priorityTasks,
         searchEditTask: props.searchEditTask,
@@ -28,6 +30,7 @@ export default props => {
         moveTask: props.moveTask,
         deleteTask: props.deleteTask,
         deleteBoard: props.deleteBoard,
+        userLoginAuth: props.userLoginAuth,
         filterPriorityTasks: props.filterPriorityTasks,
         hideTask: props.hideTask,
         showTask: props.showTask,
@@ -76,53 +79,60 @@ export default props => {
                     searchEditTask={listProps.searchEditTask}
                     submitNewTaskItems={eventProps.submitNewTaskItems}
                 />
-                <MDBContainer className="main-control-panel">
-                    <MDBRow>
-                        <MDBCol>
-                            <TaskModalPage
-                                errors={listProps.errors}
-                                validateInput={eventProps.validateInput}
-                                createTask={eventProps.createTask}
-                                resetErrors={eventProps.resetErrors}
-                            />
-                        </MDBCol>
-                        <MDBCol>
-                            <BoardModalPage
-                                errors={listProps.errors}
-                                boards={listProps.boards}
-                                boardsSchema={listProps.boardsSchema}
-                                validateInput={eventProps.validateInput}
-                                createBoard={eventProps.createBoard}
-                                deleteBoard={eventProps.deleteBoard}
-                                resetErrors={eventProps.resetErrors}
-                                setBoardOrderState={eventProps.setBoardOrderState}
-                            />
-                        </MDBCol>
 
-                        <MDBCol>
-                            <MDBBtn href="https://github.com/likejean/homework-6/issues" className='report-issues-button' >Report Issues</MDBBtn>
-                        </MDBCol>
-                    </MDBRow>
-                    <MDBRow>
-                        <MDBCol>
-                            <MDBBtn
-                                disabled={listProps.panelControlButtons.kanban_board}
-                                onClick={eventProps.resetMainKanbanView}
-                                className='task-priority-button'
-                            >Kanban Board
-                            </MDBBtn>
-                        </MDBCol>
-                        <MDBCol>
-                            <MDBBtn
-                                disabled={listProps.panelControlButtons.priority_board}
-                                onClick={eventProps.filterPriorityTasks}
-                                className='task-priority-button'
-                            >Priority Tasks
-                            </MDBBtn>
-                        </MDBCol>
-                    </MDBRow>
+                    <MDBContainer className="main-control-panel">
+                        {listProps.userLogin &&
+                            <MDBRow>
+                                <MDBCol>
+                                    <TaskModalPage
+                                        errors={listProps.errors}
+                                        validateInput={eventProps.validateInput}
+                                        createTask={eventProps.createTask}
+                                        resetErrors={eventProps.resetErrors}
+                                    />
+                                </MDBCol>
+                                <MDBCol>
+                                    <BoardModalPage
+                                        errors={listProps.errors}
+                                        boards={listProps.boards}
+                                        boardsSchema={listProps.boardsSchema}
+                                        validateInput={eventProps.validateInput}
+                                        createBoard={eventProps.createBoard}
+                                        deleteBoard={eventProps.deleteBoard}
+                                        resetErrors={eventProps.resetErrors}
+                                        setBoardOrderState={eventProps.setBoardOrderState}
+                                    />
+                                </MDBCol>
+                                <MDBCol>
+                                    <MDBBtn href="https://github.com/likejean/homework-6/issues" className='report-issues-button' >Report Issues</MDBBtn>
+                                </MDBCol>
+                            </MDBRow>
+                        }
+                        <MDBRow>
 
-                </MDBContainer>
+                            <MDBCol>
+                                <LoginModalPage userLoginAuth={eventProps.userLoginAuth}/>
+                            </MDBCol>
+                            <MDBCol>
+                                <MDBBtn
+                                    disabled={listProps.panelControlButtons.kanban_board}
+                                    onClick={eventProps.resetMainKanbanView}
+                                    className='task-priority-button'
+                                >Kanban Board
+                                </MDBBtn>
+                            </MDBCol>
+                            <MDBCol>
+                                <MDBBtn
+                                    disabled={listProps.panelControlButtons.priority_board}
+                                    onClick={eventProps.filterPriorityTasks}
+                                    className='task-priority-button'
+                                >Priority Tasks
+                                </MDBBtn>
+                            </MDBCol>
+                        </MDBRow>
+
+                    </MDBContainer>
+
                 {
                     listProps.panelControlButtons.kanban_board && !listProps.panelControlButtons.priority_board
                         ?

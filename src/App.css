@@ -13,8 +13,8 @@ h6 {
 div.col-2 {
     text-align: center !important;
     color: white !important;
-    margin: 25px 0px !important;
-    padding: 0px 15px !important;
+    margin: 25px 0 !important;
+    padding: 0 15px !important;
 }
 
 p.show {
@@ -51,7 +51,7 @@ span.fa, span.fas {
 
 .report-issues-button {
     width: 100%;
-    margin: 15px 0px 15px 0px;
+    margin: 15px 0 15px 0;
     height: 3.2rem;
     font-size: 15px;
     border-radius: 2px;
@@ -59,9 +59,9 @@ span.fa, span.fas {
     background-color: white !important;
 }
 
-.start-modal-button, .task-priority-button {
+.start-modal-button, .login-modal-button, .task-priority-button {
     width: 100%;
-    margin: 15px 0px 15px 0px;
+    margin: 15px 0 15px 0;
     height: 3.2rem;
     font-size: 15px;
     border-radius: 2px;

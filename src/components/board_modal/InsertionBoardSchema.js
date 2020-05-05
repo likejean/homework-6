@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default ({ newBoardPlaceOrder, boardsSchema }) => {
+    console.log(boardsSchema)
     const order = isNaN(newBoardPlaceOrder) || newBoardPlaceOrder === 0 ? 1 : newBoardPlaceOrder;
     return (
         <div className='schema-container'>

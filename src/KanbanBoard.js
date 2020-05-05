@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Main from './components/main';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
@@ -50,7 +50,7 @@ const initialErrors = {
     }
 }
 
-// const URI_local = 'http://localhost:8080';
+const URI_local = 'http://localhost:8080';
 const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
 
 function KanbanBoard() {
@@ -58,6 +58,7 @@ function KanbanBoard() {
     const [note, setNote] = useState("");
     const [loading, setLoading] = useState(true);
     const [boards, setBoards] = useState([]);
+    const [userLogin, setUserLogin] = useState(false);
     const [inputErrors, setInputErrors] = useState(initialErrors);
     const [boardsSchema, setBoardsSchema] = useState([]);
     const [priorityTasks, setPriorityTasks] = useState(initialPriorityTaskList);
@@ -77,7 +78,8 @@ function KanbanBoard() {
 
     useEffect(() => {
         async function getData() {
-            const res = await fetch(`${URI_heroku}/boards`);
+            const res = await fetch(
+                `${URI_heroku}/boards`);
             res.json()
                 .then(data => {
                     setBoards(data.boards.map(board => (
@@ -104,6 +106,7 @@ function KanbanBoard() {
                     setBoards(boards => boards.sort((a, b) => a.order - b.order));
                     setBoardsSchema([...Array(data.boards.length).keys()]);
 
+
                 })
                 .catch(err => console.log(err));
         }
@@ -111,8 +114,36 @@ function KanbanBoard() {
         getData()
             .then(() => console.log('Successfully rendered!'))
             .catch(() => console.log('Rendering failed'));
+
+        let store = JSON.parse(localStorage.getItem('login'));
+        if(store && store.login) {
+            setUserLogin(true);
+        }
     }, []);
 
+
+    const handleUserLoginAuth = credentials => {
+        console.log(credentials);
+        fetch(`${URI_local}/users/login`,
+            {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(credentials)
+            })
+            .then(response =>
+            response.json().then(result => {
+                console.warn('result', result);
+                localStorage.setItem('login', JSON.stringify({
+                    login: true,
+                    token: result.token
+                }));
+                let store = JSON.parse(localStorage.getItem('login'));
+                if(store && store.login) {
+                    setUserLogin(true);
+                }
+            }))
+            .catch(() => console.log('error occurred'))
+    };
 
     const handleFindForEditTaskModal = e => {
         const name = e.target.getAttribute('name');
@@ -183,7 +214,7 @@ function KanbanBoard() {
                                 order: id + 1
                             }
                     ));
-
+                    setBoardsSchema(boardsSchema => [...boardsSchema].concat(boardsSchema.length));
 
                     return [
                         ...boardsRef.current.slice(0, index),
@@ -223,8 +254,7 @@ function KanbanBoard() {
                 .catch(err => {
                     console.log(err);
                 });
-        }
-        setBoardsSchema(boardsSchema => [...boardsSchema].concat(boardsSchema.length));
+        };
     };
 
 
@@ -343,7 +373,7 @@ function KanbanBoard() {
     const handleDeleteBoard2 = e => {
         const data = boardsRef.current
             .filter(board => board.id !== e.target.id)
-            .map((board, id) => ({ ...board, order:id }));
+            .map((board, id) => ({...board, order: id}));
         console.log(data);
         fetch(`${URI_heroku}/boards/${e.target.id}`, {
             method: 'DELETE',
@@ -353,7 +383,7 @@ function KanbanBoard() {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                const { id } = data.deletedBoard;
+                const {id} = data.deletedBoard;
                 setBoards(boards => boards.filter(board => board.id !== id));
             })
             .catch(err => {
@@ -707,6 +737,7 @@ function KanbanBoard() {
         validateInput: handleValidateUserInput2,
         resetErrors: handleResetAllErrors2,
         setBoardOrderState: setBoardOrderState,
+        userLoginAuth: handleUserLoginAuth,
         swapTasks: {
             swapKanbanTasks: handleSwapTasksWithinKanbanBoard2,
             swapPriorityTasks: handleSwapTasksWithinPriorityList2
@@ -720,6 +751,7 @@ function KanbanBoard() {
     };
 
     const handleStateProps = {
+        userLogin: userLogin,
         boards: boards,
         loading: loading,
         priorityTasks: priorityTasks,
