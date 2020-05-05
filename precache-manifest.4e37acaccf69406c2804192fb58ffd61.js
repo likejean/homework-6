@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "72fb36c0423c8c2c442b08452db655ee",
+    "revision": "12634a6e9567971388ffc5584b23c011",
     "url": "/homework-6/index.html"
   },
   {
-    "revision": "6c7e539d0d6e18a7f273",
+    "revision": "29434ec3d0b522b3859f",
     "url": "/homework-6/static/css/2.c7b06d36.chunk.css"
   },
   {
-    "revision": "f285709cc8e75e4dba3b",
+    "revision": "c71660b24c4009677fd3",
     "url": "/homework-6/static/css/main.aa67efd7.chunk.css"
   },
   {
-    "revision": "6c7e539d0d6e18a7f273",
-    "url": "/homework-6/static/js/2.cda90e31.chunk.js"
+    "revision": "29434ec3d0b522b3859f",
+    "url": "/homework-6/static/js/2.8218fcf8.chunk.js"
   },
   {
     "revision": "e828f7f811b0551b1ca97c07a9f864c6",
-    "url": "/homework-6/static/js/2.cda90e31.chunk.js.LICENSE.txt"
+    "url": "/homework-6/static/js/2.8218fcf8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "f285709cc8e75e4dba3b",
-    "url": "/homework-6/static/js/main.4d64272e.chunk.js"
+    "revision": "c71660b24c4009677fd3",
+    "url": "/homework-6/static/js/main.1a0d3fc4.chunk.js"
   },
   {
     "revision": "9c9df88d8febc51b3bf3",
