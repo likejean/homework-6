@@ -50,7 +50,7 @@ const initialErrors = {
     }
 }
 
-const URI_local = 'http://localhost:8080';
+// const URI_local = 'http://localhost:8080';
 const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
 
 function KanbanBoard() {
