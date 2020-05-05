@@ -9,45 +9,6 @@ import isEmpty from './helpers/EmptyObject';
 import SwapArrayElements from "./helpers/SwapArrayElements";
 import ValidateUserInput from "./helpers/ValidateUserInputChange";
 
-const initialBoards = [
-    {
-        name: 'todo',
-        order: 0,
-        title: 'To-Do',
-        id: uuid(),
-        tasks: []
-    },
-    {
-        name: 'in-progress',
-        order: 1,
-        title: 'In-Progress',
-        id: uuid(),
-        tasks: []
-
-    },
-    {
-        name: 'review',
-        order: 2,
-        title: 'To-Review',
-        id: uuid(),
-        tasks: []
-
-    },
-    {
-        name: 'done',
-        order: 3,
-        title: 'Completed',
-        id: uuid(),
-        tasks: []
-    },
-    {
-        name: 'extra',
-        order: 3,
-        title: 'Extra',
-        id: uuid(),
-        tasks: []
-    }
-];
 
 const initialPriorityTaskList = [
     {
@@ -96,7 +57,7 @@ function KanbanBoard() {
 
     const [note, setNote] = useState("");
     const [loading, setLoading] = useState(true);
-    const [boards, setBoards] = useState(initialBoards);
+    const [boards, setBoards] = useState([]);
     const [inputErrors, setInputErrors] = useState(initialErrors);
     const [boardsSchema, setBoardsSchema] = useState([]);
     const [priorityTasks, setPriorityTasks] = useState(initialPriorityTaskList);
