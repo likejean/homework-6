@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/homework-6/static/css/main.aa67efd7.chunk.css",
-    "main.js": "/homework-6/static/js/main.fd38aa90.chunk.js",
-    "main.js.map": "/homework-6/static/js/main.fd38aa90.chunk.js.map",
+    "main.css": "/homework-6/static/css/main.247a2c03.chunk.css",
+    "main.js": "/homework-6/static/js/main.c4f01007.chunk.js",
+    "main.js.map": "/homework-6/static/js/main.c4f01007.chunk.js.map",
     "runtime-main.js": "/homework-6/static/js/runtime-main.ff0234c0.js",
     "runtime-main.js.map": "/homework-6/static/js/runtime-main.ff0234c0.js.map",
     "static/css/2.c7b06d36.chunk.css": "/homework-6/static/css/2.c7b06d36.chunk.css",
-    "static/js/2.8218fcf8.chunk.js": "/homework-6/static/js/2.8218fcf8.chunk.js",
-    "static/js/2.8218fcf8.chunk.js.map": "/homework-6/static/js/2.8218fcf8.chunk.js.map",
+    "static/js/2.1b443419.chunk.js": "/homework-6/static/js/2.1b443419.chunk.js",
+    "static/js/2.1b443419.chunk.js.map": "/homework-6/static/js/2.1b443419.chunk.js.map",
     "index.html": "/homework-6/index.html",
-    "precache-manifest.1cab91633821db8a06df7246ecb506c7.js": "/homework-6/precache-manifest.1cab91633821db8a06df7246ecb506c7.js",
+    "precache-manifest.4d16d2a209985d7efe4372ed84871c28.js": "/homework-6/precache-manifest.4d16d2a209985d7efe4372ed84871c28.js",
     "service-worker.js": "/homework-6/service-worker.js",
     "static/css/2.c7b06d36.chunk.css.map": "/homework-6/static/css/2.c7b06d36.chunk.css.map",
-    "static/css/main.aa67efd7.chunk.css.map": "/homework-6/static/css/main.aa67efd7.chunk.css.map",
-    "static/js/2.8218fcf8.chunk.js.LICENSE.txt": "/homework-6/static/js/2.8218fcf8.chunk.js.LICENSE.txt",
+    "static/css/main.247a2c03.chunk.css.map": "/homework-6/static/css/main.247a2c03.chunk.css.map",
+    "static/js/2.1b443419.chunk.js.LICENSE.txt": "/homework-6/static/js/2.1b443419.chunk.js.LICENSE.txt",
     "static/media/mdb.css": "/homework-6/static/media/arrow_right.8ef6a08c.svg",
     "static/media/all.min.css": "/homework-6/static/media/fa-solid-900.ec763292.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.ff0234c0.js",
     "static/css/2.c7b06d36.chunk.css",
-    "static/js/2.8218fcf8.chunk.js",
-    "static/css/main.aa67efd7.chunk.css",
-    "static/js/main.fd38aa90.chunk.js"
+    "static/js/2.1b443419.chunk.js",
+    "static/css/main.247a2c03.chunk.css",
+    "static/js/main.c4f01007.chunk.js"
   ]
 }
