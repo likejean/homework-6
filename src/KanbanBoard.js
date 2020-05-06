@@ -109,7 +109,7 @@ function KanbanBoard() {
 
                 })
                 .catch(err => console.log(err));
-        }
+        };
 
         getData()
             .then(() => console.log('Successfully rendered!'))
@@ -124,7 +124,7 @@ function KanbanBoard() {
 
     const handleUserLoginAuth = credentials => {
         console.log(credentials);
-        fetch(`${URI_local}/users/login`,
+        fetch(`${URI_heroku}/users/login`,
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},

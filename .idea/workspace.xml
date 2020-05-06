@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c12ad62b-92e0-4955-ad0a-fb483de252c5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/auth/LoginForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/auth/ModalPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/helpers/CheckTokenExpiration.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KanbanBoard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/KanbanBoard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/board_modal/InsertionBoardSchema.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/board_modal/InsertionBoardSchema.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/edit_modal/ModalPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/edit_modal/ModalPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +84,7 @@
       <workItem from="1588404824353" duration="7322000" />
       <workItem from="1588438499954" duration="30460000" />
       <workItem from="1588560343965" duration="16240000" />
-      <workItem from="1588645180657" duration="14550000" />
+      <workItem from="1588645180657" duration="15602000" />
     </task>
     <servers />
   </component>
