@@ -3,7 +3,7 @@ import ButtonGroup from "./ButtonGroup";
 import {MDBBtn, MDBRow, MDBCol, MDBContainer, MDBModal, MDBModalBody, MDBModalFooter, MDBModalHeader} from "mdbreact";
 
 
-export default ({task, index, listLength, boardLength, swapTasks, handleFindForEditTaskModal, boardOrder, id, moveTask, editTask, deleteTask, hideTask}) => {
+export default ({task, index, listLength, login, boardLength, swapTasks, handleFindForEditTaskModal, boardOrder, id, moveTask, editTask, deleteTask, hideTask}) => {
 
     const [toggleModal, setToggleModal] = useState(false);
     const dragTaskStart = e => {
@@ -81,6 +81,7 @@ export default ({task, index, listLength, boardLength, swapTasks, handleFindForE
                 boardLength={boardLength}
                 boardOrder={boardOrder}
                 moveTask={moveTask}
+                login={login}
                 location={task.location}
                 editTask={editTask}
                 deleteTask={deleteTask}

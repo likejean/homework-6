@@ -1,7 +1,7 @@
 import React from 'react';
 import {MDBBtn, MDBBtnGroup} from "mdbreact";
 
-export default ({task: {board, id, location, priority_level, task_priority}, boardOrder, handleFindForEditTaskModal, boardLength, moveTask, deleteTask, hideTask}) => {
+export default ({task: {board, id, location, priority_level, task_priority}, login, boardOrder, handleFindForEditTaskModal, boardLength, moveTask, deleteTask, hideTask}) => {
     const boolStr = task_priority ? 'true' : 'false';
     return (
         <MDBBtnGroup size="sm" className="mb-4">
@@ -32,11 +32,11 @@ export default ({task: {board, id, location, priority_level, task_priority}, boa
                 location === 'kanban_board'
                     ?
                     <>
-                        <MDBBtn className='task-button' color="white">
+                        <MDBBtn disabled={!login} className='task-button' color="white">
                             <span id={id} name={board} onClick={handleFindForEditTaskModal} className="edit fas fa-edit"
                                   aria-hidden="true"/>
                         </MDBBtn>
-                        <MDBBtn className='task-button' color="white">
+                        <MDBBtn disabled={!login} className='task-button' color="white">
                             <span id={id} name={board} onClick={deleteTask} className="delete fas fa-trash-alt"
                                   aria-hidden="true"/>
                         </MDBBtn>

@@ -10,6 +10,7 @@ export default ({
                     editTask,
                     swapKanbanTasks,
                     showTask,
+                    userLogin,
                     dragTask,
                     deleteBoard,
                     boardMessage,
@@ -60,7 +61,7 @@ export default ({
         deleteBoard(e);
     };
 
-    const boardList = (list, order, length) => list.length
+    const boardList = (list, order, login, length) => list.length
         ? list.map((task, id) => task.visibility
             ? <TaskItem
                 boardLength={length}
@@ -71,13 +72,15 @@ export default ({
                 editTask={editTask}
                 listLength={list.length}
                 swapTasks={swapKanbanTasks}
+                login={login}
                 key={id}
                 index={id}
                 id={task.id}
                 task={task}
                 handleFindForEditTaskModal={handleFindForEditTaskModal}
             />
-            : <p className='show' key={task.id}>Hidden Task... <span id={task.id} location={task.location} name={task.board} autoFocus
+            : <p className='show' key={task.id}>Hidden Task... <span id={task.id} location={task.location}
+                                                                     name={task.board} autoFocus
                                                                      onClick={showTask} className='show'>SHOW</span></p>
         )
         : <p style={{color: 'white', textAlign: 'center'}}><i>{boardMessage}</i></p>;
@@ -103,15 +106,25 @@ export default ({
                                         <span className='task-quantity col-2'>{board.tasks.length}</span>
                                     </div>
                                 </div>
-                                <div className='col-2'>
-                                    <i
-                                        id={board.id}
-                                        onClick={handleDeleteBoard}
-                                        className="far fa-calendar-times fa-2x"/>
-                                </div>
+                                {
+                                    userLogin ?
+                                        <div className='col-2'>
+                                            <i
+                                                id={board.id}
+                                                onClick={handleDeleteBoard}
+                                                className="far fa-calendar-times fa-2x"/>
+                                        </div>
+                                        :
+                                        <div className='col-2'>
+                                            <i
+                                                id={board.id}
+                                                className="far fa-calendar-times fa-2x"/>
+                                        </div>
+                                }
+
                             </div>
                         </div>
-                        {boardList(board.tasks, board.order, boards.length)}
+                        {boardList(board.tasks, board.order, userLogin, boards.length)}
                     </MDBCol>
                 ))
                 }

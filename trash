@@ -1,0 +1,21 @@
+// setBoards(boards => [
+            //     ...boards.slice(0, index),
+            //     Object.assign({},
+            //         {
+            //             ...board,
+            //             id: uuid(),
+            //             name: board.title.toLowerCase(),
+            //             tasks: []
+            //         }),
+            //     ...boards.slice(index)
+            // ]);
+            // setBoards(boards => boards.map((board, id) => ({...board, order: id})));
+            // setBoardOrder([
+            //     ...boardOrder.slice(0, index),
+            //     Object.assign({},
+            //         {
+            //             id: '',
+            //             order: index
+            //         }),
+            //     ...boardOrder.slice(index)
+            // ]);

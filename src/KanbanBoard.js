@@ -51,7 +51,7 @@ const initialErrors = {
     }
 };
 
-const URI_local = 'http://localhost:8080';
+//const URI_local = 'http://localhost:8080';
 const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
 
 function KanbanBoard() {
@@ -188,27 +188,7 @@ function KanbanBoard() {
         const index = board.order - 1;
 
         if (!isEmpty(board)) {
-            // setBoards(boards => [
-            //     ...boards.slice(0, index),
-            //     Object.assign({},
-            //         {
-            //             ...board,
-            //             id: uuid(),
-            //             name: board.title.toLowerCase(),
-            //             tasks: []
-            //         }),
-            //     ...boards.slice(index)
-            // ]);
-            // setBoards(boards => boards.map((board, id) => ({...board, order: id})));
-            // setBoardOrder([
-            //     ...boardOrder.slice(0, index),
-            //     Object.assign({},
-            //         {
-            //             id: '',
-            //             order: index
-            //         }),
-            //     ...boardOrder.slice(index)
-            // ]);
+
             const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
             console.log(bearer);
             fetch(`${URI_heroku}/boards`, {
@@ -224,53 +204,56 @@ function KanbanBoard() {
                 })
             })
                 .then(response => response.json())
-                .then(data => {
-                    const board = data.createdBoard;
-                    console.log(board);
-                    setBoards(boards => [
-                        ...boards.slice(0, index),
-                        Object.assign({},
-                            {
-                                ...board,
-                                order: index
-                            }),
-                        ...boards.slice(index)
-                    ]);
-                    setBoards(boards => boards.map((board, id) =>
-                        board.order <= id ?
-                            {
-                                ...board,
-                                order: id
-                            }
-                            :
-                            {
-                                ...board,
-                                order: id + 1
-                            }
-                    ));
-                    setBoardsSchema(boardsSchema => [...boardsSchema].concat(boardsSchema.length));
+                .then((result, error) => {
+                    const board = result.createdBoard;
+                    if(board) {
+                        setBoards(boards => [
+                            ...boards.slice(0, index),
+                            Object.assign({},
+                                {
+                                    ...board,
+                                    order: index
+                                }),
+                            ...boards.slice(index)
+                        ]);
+                        setBoards(boards => boards.map((board, id) =>
+                            board.order <= id ?
+                                {
+                                    ...board,
+                                    order: id
+                                }
+                                :
+                                {
+                                    ...board,
+                                    order: id + 1
+                                }
+                        ));
+                        setBoardsSchema(boardsSchema => [...boardsSchema].concat(boardsSchema.length));
 
-                    return [
-                        ...boardsRef.current.slice(0, index),
-                        Object.assign({},
-                            {
-                                id: board.id,
-                                order: board.order,
-                                name: board.name
-                            }),
-                        ...boardsRef.current.slice(index)
-                    ].map((board, id) =>
-                        board.order <= id ?
-                            {
-                                ...board,
-                                order: id
-                            }
-                            :
-                            {
-                                ...board,
-                                order: id + 1
-                            }
-                    );
+                        return [
+                            ...boardsRef.current.slice(0, index),
+                            Object.assign({},
+                                {
+                                    id: board.id,
+                                    order: board.order,
+                                    name: board.name
+                                }),
+                            ...boardsRef.current.slice(index)
+                        ].map((board, id) =>
+                            board.order <= id ?
+                                {
+                                    ...board,
+                                    order: id
+                                }
+                                :
+                                {
+                                    ...board,
+                                    order: id + 1
+                                }
+                        );
+                    }else{
+                        throw new Error('Your login session is expired or you do not have a permission to perform this operation!');
+                    }
                 })
                 .then(data => {
                     fetch(`${URI_heroku}/boards`, {
@@ -404,19 +387,26 @@ function KanbanBoard() {
     };
 
     const handleDeleteBoard2 = e => {
+        const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
         const data = boardsRef.current
             .filter(board => board.id !== e.target.id)
             .map((board, id) => ({...board, order: id}));
         fetch(`${URI_heroku}/boards/${e.target.id}`, {
             method: 'DELETE',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': bearer
+            },
             body: JSON.stringify(data)
         })
             .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                const {id} = data.deletedBoard;
-                setBoards(boards => boards.filter(board => board.id !== id));
+            .then(result => {
+                if(result !== 'undefined') {
+                    const {id} = result.deletedBoard;
+                    setBoards(boards => boards.filter(board => board.id !== id));
+                } else {
+                    throw new Error('Your login session is expired or you do not have a permission to perform this operation!')
+                }
             })
             .catch(err => {
                 console.log(err);
