@@ -209,10 +209,14 @@ function KanbanBoard() {
             //         }),
             //     ...boardOrder.slice(index)
             // ]);
-
+            const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
+            console.log(bearer);
             fetch(`${URI_heroku}/boards`, {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': bearer
+                },
                 body: JSON.stringify({
                     ...board,
                     order: index,
@@ -269,8 +273,6 @@ function KanbanBoard() {
                     );
                 })
                 .then(data => {
-                    console.log('hey!');
-                    console.log('response', data);
                     fetch(`${URI_heroku}/boards`, {
                         method: 'PATCH',
                         headers: {'Content-Type': 'application/json'},
@@ -405,7 +407,6 @@ function KanbanBoard() {
         const data = boardsRef.current
             .filter(board => board.id !== e.target.id)
             .map((board, id) => ({...board, order: id}));
-        console.log(data);
         fetch(`${URI_heroku}/boards/${e.target.id}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
@@ -660,7 +661,9 @@ function KanbanBoard() {
 
         fetch(`${URI_heroku}/boards/${id}`, {
             method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 moveOutBoard: +boardsRef.current.find(board => board.name === task_name).order,
                 moveInBoard: +boardsRef.current.find(board => board.name === board_name).order
