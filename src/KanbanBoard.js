@@ -119,9 +119,6 @@ function KanbanBoard() {
         const isExpired = store => {
             if (store.token && jwt.decode(store.token)) {
                 const now = new Date();
-                console.log('expiry',store.expiryDate);
-                console.log('now', now.getTime());
-                console.log(store.expiryDate < now.getTime());
                 return store.expiryDate < now.getTime();
             }
             return false;
