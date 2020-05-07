@@ -132,14 +132,19 @@ function KanbanBoard() {
                 response.json().then(result => {
                     console.warn('result', result);
                     if (result.token) {
-                        localStorage.setItem('login-success', JSON.stringify({
+                        localStorage.setItem('login', JSON.stringify({
                                 login: true,
-                                token: result.token
+                                token: result.token,
+                                error: {
+                                    message: '',
+                                    description: ''
+                                }
                             }
                         ));
                     } else {
-                        localStorage.setItem('login-failure', JSON.stringify({
+                        localStorage.setItem('login', JSON.stringify({
                                 login: false,
+                                token: '',
                                 error: {
                                     message: result.message,
                                     description: result.description
@@ -147,7 +152,7 @@ function KanbanBoard() {
                             }
                         ));
                     }
-                    let store = JSON.parse(localStorage.getItem('login-success'));
+                    let store = JSON.parse(localStorage.getItem('login'));
                     if (store && store.token) {
                         setUserLogin(true);
                     }
