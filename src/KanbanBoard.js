@@ -115,10 +115,10 @@ function KanbanBoard() {
             .then(() => console.log('Successfully rendered!'))
             .catch(() => console.log('Rendering failed'));
 
-        let store = JSON.parse(localStorage.getItem('login'));
-        if(store && store.login) {
-            setUserLogin(true);
-        }
+        // let store = JSON.parse(localStorage.getItem('login'));
+        // if(store && store.login) {
+        //     setUserLogin(true);
+        // }
     }, []);
 
 
@@ -133,14 +133,14 @@ function KanbanBoard() {
             .then(response =>
             response.json().then(result => {
                 console.warn('result', result);
-                localStorage.setItem('login', JSON.stringify({
-                    login: true,
-                    token: result.token
-                }));
-                let store = JSON.parse(localStorage.getItem('login'));
-                if(store && store.login) {
-                    setUserLogin(true);
-                }
+                // localStorage.setItem('login', JSON.stringify({
+                //     login: true,
+                //     token: result.token
+                // }));
+                // let store = JSON.parse(localStorage.getItem('login'));
+                // if(store && store.login) {
+                //     setUserLogin(true);
+                // }
             }))
             .catch(() => console.log('error occurred'))
     };
@@ -751,7 +751,7 @@ function KanbanBoard() {
     };
 
     const handleStateProps = {
-        userLogin: userLogin,
+        // userLogin: userLogin,
         boards: boards,
         loading: loading,
         priorityTasks: priorityTasks,

@@ -28,7 +28,7 @@ export default ({ userLoginAuth, handleToggleModal }) => {
         <MDBContainer>
             <MDBRow center>
                 <MDBCol md="6">
-                    <form>
+                    <div>
                         <h3 className="h4 text-center mb-4">SIGN IN</h3>
                         <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
                             Your email
@@ -62,7 +62,7 @@ export default ({ userLoginAuth, handleToggleModal }) => {
                                 LOGIN
                             </MDBBtn>
                         </div>
-                    </form>
+                    </div>
                 </MDBCol>
             </MDBRow>
         </MDBContainer>

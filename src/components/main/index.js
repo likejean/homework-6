@@ -15,7 +15,7 @@ export default props => {
         loading: props.loading,
         boardMessage: props.boardMessage,
         errors: props.errors,
-        userLogin: props.userLogin,
+        // userLogin: props.userLogin,
         boardsSchema: props.boardsSchema,
         priorityTasks: props.priorityTasks,
         searchEditTask: props.searchEditTask,
@@ -81,7 +81,7 @@ export default props => {
                 />
 
                     <MDBContainer className="main-control-panel">
-                        {listProps.userLogin &&
+                        {/*{listProps.userLogin &&*/}
                             <MDBRow>
                                 <MDBCol>
                                     <TaskModalPage
@@ -107,7 +107,7 @@ export default props => {
                                     <MDBBtn href="https://github.com/likejean/homework-6/issues" className='report-issues-button' >Report Issues</MDBBtn>
                                 </MDBCol>
                             </MDBRow>
-                        }
+                        {/*}*/}
                         <MDBRow>
 
                             <MDBCol>
