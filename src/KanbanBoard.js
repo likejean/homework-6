@@ -4,6 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import uuid from 'react-uuid';
+import jwt from 'jsonwebtoken';
 import './App.css';
 import isEmpty from './helpers/EmptyObject';
 import SwapArrayElements from "./helpers/SwapArrayElements";
@@ -113,10 +114,28 @@ function KanbanBoard() {
             .then(() => console.log('Successfully rendered!'))
             .catch(() => console.log('Rendering failed'));
 
-        // let store = JSON.parse(localStorage.getItem('login'));
-        // if(store && store.login) {
-        //     setUserLogin(true);
-        // }
+        let store = JSON.parse(localStorage.getItem('login'));
+
+        const isExpired = store => {
+            if (store.token && jwt.decode(store.token)) {
+                const now = new Date();
+                console.log('expiry',store.expiryDate);
+                console.log('now', now.getTime());
+                console.log(store.expiryDate < now.getTime());
+                return store.expiryDate < now.getTime();
+            }
+            return false;
+        }
+        if (store && store.token) {
+            if(isExpired(store)) {
+                console.log('Your login session expired!')
+                setUserLogin(false);
+                localStorage.clear();
+            }
+            else {
+                setUserLogin(true);
+            }
+        }
     }, []);
 
 
@@ -132,19 +151,18 @@ function KanbanBoard() {
                 response.json().then(result => {
                     console.warn('result', result);
                     if (result.token) {
+                        const now = new Date();
                         localStorage.setItem('login', JSON.stringify({
                                 login: true,
                                 token: result.token,
-                                error: {
-                                    message: '',
-                                    description: ''
-                                }
+                                birthDate: now.getTime(),
+                                tokenLife: jwt.decode(result.token).exp * 1000 - now.getTime(),
+                                expiryDate: jwt.decode(result.token).exp * 1000
                             }
                         ));
                     } else {
                         localStorage.setItem('login', JSON.stringify({
                                 login: false,
-                                token: '',
                                 error: {
                                     message: result.message,
                                     description: result.description
