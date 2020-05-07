@@ -58,7 +58,7 @@ function KanbanBoard() {
     const [note, setNote] = useState("");
     const [loading, setLoading] = useState(true);
     const [boards, setBoards] = useState([]);
-    const [userLogin, setUserLogin] = useState(false);
+    //const [userLogin, setUserLogin] = useState(false);
     const [inputErrors, setInputErrors] = useState(initialErrors);
     const [boardsSchema, setBoardsSchema] = useState([]);
     const [priorityTasks, setPriorityTasks] = useState(initialPriorityTaskList);

@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c12ad62b-92e0-4955-ad0a-fb483de252c5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/KanbanBoard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/KanbanBoard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/LoginForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +87,7 @@
       <workItem from="1588560343965" duration="16240000" />
       <workItem from="1588645180657" duration="21827000" />
       <workItem from="1588809940286" duration="1786000" />
-      <workItem from="1588816854593" duration="3699000" />
+      <workItem from="1588816854593" duration="5789000" />
     </task>
     <servers />
   </component>
