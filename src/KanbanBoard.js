@@ -58,7 +58,7 @@ function KanbanBoard() {
     const [note, setNote] = useState("");
     const [loading, setLoading] = useState(true);
     const [boards, setBoards] = useState([]);
-    //const [userLogin, setUserLogin] = useState(false);
+    const [userLogin, setUserLogin] = useState(false);
     const [inputErrors, setInputErrors] = useState(initialErrors);
     const [boardsSchema, setBoardsSchema] = useState([]);
     const [priorityTasks, setPriorityTasks] = useState(initialPriorityTaskList);
@@ -105,8 +105,6 @@ function KanbanBoard() {
                     setLoading(false);
                     setBoards(boards => boards.sort((a, b) => a.order - b.order));
                     setBoardsSchema([...Array(data.boards.length).keys()]);
-
-
                 })
                 .catch(err => console.log(err));
         };
@@ -133,14 +131,14 @@ function KanbanBoard() {
             .then(response =>
             response.json().then(result => {
                 console.warn('result', result);
-                // localStorage.setItem('login', JSON.stringify({
-                //     login: true,
-                //     token: result.token
-                // }));
-                // let store = JSON.parse(localStorage.getItem('login'));
-                // if(store && store.login) {
-                //     setUserLogin(true);
-                // }
+                localStorage.setItem('login', JSON.stringify({
+                    login: true,
+                    token: result.token
+                }));
+                let store = JSON.parse(localStorage.getItem('login'));
+                if(store && store.login) {
+                    setUserLogin(true);
+                }
             }))
             .catch(() => console.log('error occurred'))
     };
@@ -751,7 +749,7 @@ function KanbanBoard() {
     };
 
     const handleStateProps = {
-        // userLogin: userLogin,
+        userLogin: userLogin,
         boards: boards,
         loading: loading,
         priorityTasks: priorityTasks,
