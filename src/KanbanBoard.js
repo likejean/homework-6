@@ -21,7 +21,7 @@ const initialPriorityTaskList = [
         id: uuid(),
         tasks: []
     }
-]
+];
 
 const initialErrors = {
     boardTitleError: {
@@ -48,7 +48,7 @@ const initialErrors = {
         errors: '',
         inputStatus: false
     }
-}
+};
 
 const URI_local = 'http://localhost:8080';
 const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
@@ -129,17 +129,29 @@ function KanbanBoard() {
                 body: JSON.stringify(credentials)
             })
             .then(response =>
-            response.json().then(result => {
-                console.warn('result', result);
-                localStorage.setItem('login', JSON.stringify({
-                    login: true,
-                    token: result.token
-                }));
-                let store = JSON.parse(localStorage.getItem('login'));
-                if(store && store.login) {
-                    setUserLogin(true);
-                }
-            }))
+                response.json().then(result => {
+                    console.warn('result', result);
+                    if (result.token) {
+                        localStorage.setItem('login-success', JSON.stringify({
+                                login: true,
+                                token: result.token
+                            }
+                        ));
+                    } else {
+                        localStorage.setItem('login-failure', JSON.stringify({
+                                login: false,
+                                error: {
+                                    message: result.message,
+                                    description: result.description
+                                }
+                            }
+                        ));
+                    }
+                    let store = JSON.parse(localStorage.getItem('login-success'));
+                    if (store && store.token) {
+                        setUserLogin(true);
+                    }
+                }))
             .catch(() => console.log('error occurred'))
     };
 
@@ -252,7 +264,8 @@ function KanbanBoard() {
                 .catch(err => {
                     console.log(err);
                 });
-        };
+        }
+        ;
     };
 
 
