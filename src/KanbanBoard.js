@@ -15,10 +15,12 @@ const initialPriorityTaskList = [
     {
         priority_level: 'high',
         id: uuid(),
+        order: 0,
         tasks: []
     },
     {
         priority_level: 'low',
+        order: 1,
         id: uuid(),
         tasks: []
     }
@@ -51,8 +53,8 @@ const initialErrors = {
     }
 };
 
-const URI_heroku = 'http://localhost:8080';
-//const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
+//const URI_local = 'http://localhost:8080';
+const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
 
 function KanbanBoard() {
 
@@ -303,7 +305,7 @@ function KanbanBoard() {
 
     const handleGeneratePriorityTasksList2 = () => {
         setPriorityTasks(initialPriorityTaskList);
-        boards.map((board) => (
+        boards.map(board => (
                 board.tasks.forEach(task => {
                     if (task.task_priority) return setPriorityTasks(priorityTasks =>
                         priorityTasks.map(list => list.priority_level === 'high'
@@ -498,6 +500,8 @@ function KanbanBoard() {
         const location = e.target.getAttribute('location');
         const task_priority = e.target.getAttribute('task_priority');
 
+        console.log(id, direction, boardOrder, location, task_priority);
+
         let isTrueSet = (task_priority === 'true');
         let movingTask;
         location === 'kanban_board'
@@ -611,7 +615,7 @@ function KanbanBoard() {
                     }
                     : board
             ));
-        fetch(`${URI_heroku}/boards/${id}`, {
+        if (location === 'kanban_board') fetch(`${URI_heroku}/boards/${id}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
