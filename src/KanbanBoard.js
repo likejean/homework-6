@@ -192,7 +192,6 @@ function KanbanBoard() {
         if (!isEmpty(board)) {
 
             const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
-            console.log(bearer);
             fetch(`${URI_heroku}/boards`, {
                 method: 'POST',
                 headers: {
@@ -263,7 +262,8 @@ function KanbanBoard() {
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify(data)
                     })
-                        .then(response => console.log(response))
+                        .then(response => response.json())
+                        .then(result => console.log(result))
                         .catch(err => {
                             console.log(err)
                         })
@@ -499,8 +499,6 @@ function KanbanBoard() {
         const boardOrder = e.target.getAttribute('order');
         const location = e.target.getAttribute('location');
         const task_priority = e.target.getAttribute('task_priority');
-
-        console.log(id, direction, boardOrder, location, task_priority);
 
         let isTrueSet = (task_priority === 'true');
         let movingTask;
