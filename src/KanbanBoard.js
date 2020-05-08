@@ -51,8 +51,8 @@ const initialErrors = {
     }
 };
 
-//const URI_local = 'http://localhost:8080';
-const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
+const URI_heroku = 'http://localhost:8080';
+//const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
 
 function KanbanBoard() {
 
@@ -137,7 +137,6 @@ function KanbanBoard() {
 
 
     const handleUserLoginAuth = credentials => {
-        console.log(credentials);
         fetch(`${URI_heroku}/users/login`,
             {
                 method: 'POST',
@@ -145,7 +144,8 @@ function KanbanBoard() {
                 body: JSON.stringify(credentials)
             })
             .then(response =>
-                response.json().then(result => {
+                response.json()
+                    .then(result => {
                     console.warn('result', result);
                     if (result.token) {
                         const now = new Date();
@@ -359,9 +359,7 @@ function KanbanBoard() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 const new_task = data.updatedTask;
-                console.log('task', new_task)
                 setBoards(boards => boards.map(board =>
                     board.name === new_task.board
                         ?
@@ -400,13 +398,14 @@ function KanbanBoard() {
             body: JSON.stringify(data)
         })
             .then(response => response.json())
-            .then(result => {
-                if(result !== 'undefined') {
-                    const {id} = result.deletedBoard;
+            .then((result, err) => {
+                console.log(result);
+                if (err) throw new Error('Your login session is expired or you do not have a permission to perform this operation!')
+                else {
+                    const id = result.deletedBoard;
                     setBoards(boards => boards.filter(board => board.id !== id));
-                } else {
-                    throw new Error('Your login session is expired or you do not have a permission to perform this operation!')
                 }
+
             })
             .catch(err => {
                 console.log(err);
@@ -620,7 +619,10 @@ function KanbanBoard() {
                 moveInBoard: direction === 'left' ? +boardOrder - 1 : +boardOrder + 1
             })
         })
-            .then(response => console.log(response))
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+            })
             .catch(err => console.log(err));
     };
 
@@ -648,7 +650,6 @@ function KanbanBoard() {
                     : board
             )
         );
-
         fetch(`${URI_heroku}/boards/${id}`, {
             method: 'PATCH',
             headers: {
@@ -659,7 +660,10 @@ function KanbanBoard() {
                 moveInBoard: +boardsRef.current.find(board => board.name === board_name).order
             })
         })
-            .then(response => console.log(response))
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+            })
             .catch(err => console.log(err));
 
     };
