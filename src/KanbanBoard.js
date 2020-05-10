@@ -53,7 +53,7 @@ const initialErrors = {
     }
 };
 
-//const URI_heroku = 'http://localhost:8080';
+//const URI_local = 'http://localhost:8080';
 const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
 
 function KanbanBoard() {
@@ -427,6 +427,7 @@ function KanbanBoard() {
     const handleCreateNewTask2 = task => {
 
         const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
+
         if (isEmpty(task) !== true) {
             fetch(`${URI_heroku}/tasks`, {
                 method: 'POST',
@@ -437,12 +438,12 @@ function KanbanBoard() {
                 body: JSON.stringify({...task, board: 'todo'})
             })
                 .then(response => response.json())
-                .then((result, err) => {
-                    console.log('NOTE: ', result.message);
+                .then(result => {
                     setServerResponseNote(result.message);
                     if (result.err) throw new Error('Your login session is expired or you do not have a permission to perform this action...');
                     else {
                         const task = result.createdTask;
+                        console.log('NOTE: ', result.message);
                         setBoards(boards => boards.map(board =>
                             board.name === task.board
                                 ?
@@ -467,9 +468,7 @@ function KanbanBoard() {
                         ));
                     }
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(err => console.log(err));
         } else setNote('This list is empty');
     };
 

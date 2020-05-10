@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput } from 'mdbreact';
+import { MDBBtn, MDBModal, MDBContainer, MDBRow, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput } from 'mdbreact';
 import InputForm from './InputForm';
 import DescriptionTaskInput from "./DescriptionTaskInput";
 import ErrorMessage from "../board_modal/ErrorMessage";
@@ -10,6 +10,7 @@ import SwitchButton from "./ToggleSwitchPriority";
 export default ({
                     createTask,
                     resetErrors,
+                    board_name,
                     validateInput,
                     errors: {
                         taskTitleError,
@@ -77,6 +78,7 @@ export default ({
             setCreateNewTask({
                 ...createNewTask,
                 task_title: taskTitle,
+                board_name: board_name,
                 location: 'kanban_board',
                 task_description: taskDescription,
                 task_priority: highTaskPriority,
@@ -109,7 +111,13 @@ export default ({
 
     return (
         <>
-            <MDBBtn className='start-modal-button' onClick={handleToggleModal}>CREATE TASK</MDBBtn>
+            <MDBContainer>
+                <MDBRow>
+                    <MDBBtn className='addTask' onClick={handleToggleModal}>
+                        <i className="fas fa-plus fa-2x"/>
+                    </MDBBtn>
+                </MDBRow>
+            </MDBContainer>
             <MDBModal style={{zIndex: 1}} isOpen={modalButtonClick} toggle={handleToggleModal}>
                 <MDBModalHeader toggle={handleToggleModal}>Task Form</MDBModalHeader>
                 <MDBModalBody>
@@ -132,7 +140,11 @@ export default ({
                     <MDBBtn
                         disabled={taskTitleError.inputStatus || taskDescriptionError.inputStatus || firstNameError.inputStatus || lastNameError.inputStatus}
                         className='row'
-                        color="primary" onClick={handleStoreTaskItem}>Create Task</MDBBtn>
+                        board_name={board_name}
+                        color="primary" onClick={handleStoreTaskItem}
+                    >
+                        Create Task
+                    </MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </>

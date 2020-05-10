@@ -1,17 +1,23 @@
 import React from 'react';
 import TaskItem from "./TaskItem";
-import {MDBCol, MDBContainer, MDBRow} from "mdbreact";
+import '../task_modal/style.css';
+import {MDBBtn, MDBCol, MDBContainer, MDBRow} from "mdbreact";
+import TaskModalPage from "../task_modal/ModalPage";
 
 export default ({
                     boards,
                     moveTask,
                     deleteTask,
                     hideTask,
+                    createTask,
+                    userLogin,
+                    resetErrors,
                     editTask,
                     swapKanbanTasks,
+                    validateInput,
                     showTask,
-                    userLogin,
                     dragTask,
+                    errors,
                     deleteBoard,
                     boardMessage,
                     handleFindForEditTaskModal,
@@ -112,19 +118,36 @@ export default ({
                                             <i
                                                 id={board.id}
                                                 onClick={handleDeleteBoard}
-                                                className="far fa-calendar-times fa-2x"/>
+                                                className="far fa-calendar-times fa-3x"/>
                                         </div>
                                         :
                                         <div className='col-2'>
                                             <i
                                                 id={board.id}
-                                                className="far fa-calendar-times fa-2x"/>
+                                                className="far fa-calendar-times fa-3x"/>
                                         </div>
                                 }
 
                             </div>
                         </div>
                         {boardList(board.tasks, board.order, userLogin, boards.length)}
+                        {userLogin ?
+                            <TaskModalPage
+                                errors={errors}
+                                board_name={board.name}
+                                validateInput={validateInput}
+                                createTask={createTask}
+                                resetErrors={resetErrors}
+                            />
+                        :
+                            <MDBContainer>
+                                <MDBRow>
+                                    <MDBBtn className='addTask'>
+                                        <i className="fas fa-plus fa-2x"/>
+                                    </MDBBtn>
+                                </MDBRow>
+                            </MDBContainer>
+                        }
                     </MDBCol>
                 ))
                 }

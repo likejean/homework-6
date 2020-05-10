@@ -1,0 +1,22 @@
+.addTask {
+    box-shadow: 3px 4px 0 0 #899599;
+    background: #ededed linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+    border-radius: 5px;
+    border: 1px solid #d6bcd6;
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    font-size: 10px;
+    padding: 5px 5px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #e1e2ed;
+}
+
+.addTask:hover {
+    background: #bab1ba linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
+}
+
+.addTask:active {
+    position: relative;
+    top: 1px;
+}

@@ -1,6 +1,5 @@
 import React from 'react';
 import Loading from './LoadingComponent';
-import TaskModalPage from '../task_modal/ModalPage';
 import BoardModalPage from '../board_modal/ModalPage';
 import LoginModalPage from '../auth/ModalPage';
 import NewKanbanDashboard from './NewKanbanDashboard';
@@ -8,6 +7,7 @@ import PriorityOrderedTasks from './PriorityOrderedTasks';
 import EditTaskModalPage from '../edit_modal/ModalPage';
 import ServerNotifications from "./ServerNotifications";
 import {MDBBtn, MDBCol, MDBContainer, MDBRow} from 'mdbreact';
+
 
 export default props => {
 
@@ -84,32 +84,24 @@ export default props => {
                 />
                 <MDBContainer className="main-control-panel">
                     {listProps.userLogin &&
-                    <MDBRow>
-                        <MDBCol>
-                            <TaskModalPage
-                                errors={listProps.errors}
-                                validateInput={eventProps.validateInput}
-                                createTask={eventProps.createTask}
-                                resetErrors={eventProps.resetErrors}
-                            />
-                        </MDBCol>
-                        <MDBCol>
-                            <BoardModalPage
-                                errors={listProps.errors}
-                                boards={listProps.boards}
-                                boardsSchema={listProps.boardsSchema}
-                                validateInput={eventProps.validateInput}
-                                createBoard={eventProps.createBoard}
-                                deleteBoard={eventProps.deleteBoard}
-                                resetErrors={eventProps.resetErrors}
-                                setBoardOrderState={eventProps.setBoardOrderState}
-                            />
-                        </MDBCol>
-                        <MDBCol>
-                            <MDBBtn href="https://github.com/likejean/homework-6/issues"
-                                    className='report-issues-button'>Report Issues</MDBBtn>
-                        </MDBCol>
-                    </MDBRow>
+                        <MDBRow>
+                            <MDBCol>
+                                <BoardModalPage
+                                    errors={listProps.errors}
+                                    boards={listProps.boards}
+                                    boardsSchema={listProps.boardsSchema}
+                                    validateInput={eventProps.validateInput}
+                                    createBoard={eventProps.createBoard}
+                                    deleteBoard={eventProps.deleteBoard}
+                                    resetErrors={eventProps.resetErrors}
+                                    setBoardOrderState={eventProps.setBoardOrderState}
+                                />
+                            </MDBCol>
+                            <MDBCol>
+                                <MDBBtn href="https://github.com/likejean/homework-6/issues"
+                                        className='report-issues-button'>Report Issues</MDBBtn>
+                            </MDBCol>
+                        </MDBRow>
                     }
                     <MDBRow>
 
