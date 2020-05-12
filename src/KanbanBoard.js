@@ -53,8 +53,8 @@ const initialErrors = {
     }
 };
 
-const URI_local = 'http://localhost:8080';
-//const URI_local = 'https://rest-api-server-kanban.herokuapp.com';
+//const URI_local = 'http://localhost:8080';
+const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
 
 function KanbanBoard() {
 
@@ -83,7 +83,7 @@ function KanbanBoard() {
     useEffect(() => {
         async function getData() {
             const res = await fetch(
-                `${URI_local}/boards`);
+                `${URI_heroku}/boards`);
             res.json()
                 .then(data => {
                     setBoards(data.boards.map(board => (
@@ -141,7 +141,7 @@ function KanbanBoard() {
 
 
     const handleUserLoginAuth = credentials => {
-        fetch(`${URI_local}/users/login`,
+        fetch(`${URI_heroku}/users/login`,
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -192,7 +192,7 @@ function KanbanBoard() {
         console.log(board)
         if (!isEmpty(board)) {
             const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
-            fetch(`${URI_local}/boards`, {
+            fetch(`${URI_heroku}/boards`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -259,7 +259,7 @@ function KanbanBoard() {
                     }
                 })
                 .then(data => {
-                    fetch(`${URI_local}/boards`, {
+                    fetch(`${URI_heroku}/boards`, {
                         method: 'PATCH',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify(data)
@@ -283,7 +283,7 @@ function KanbanBoard() {
         console.log(board)
         if (!isEmpty(board)) {
             const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
-            fetch(`${URI_local}/boards`, {
+            fetch(`${URI_heroku}/boards`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -349,7 +349,7 @@ function KanbanBoard() {
                     }
                 })
                 .then(data => {
-                    fetch(`${URI_local}/boards`, {
+                    fetch(`${URI_heroku}/boards`, {
                         method: 'PATCH',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify(data)
@@ -447,7 +447,7 @@ function KanbanBoard() {
     const handleResetAllErrors2 = () => setInputErrors(initialErrors);
 
     const handleSubmitNewTaskItems2 = revised_task => {
-        fetch(`${URI_local}/tasks/${revised_task.id}`, {
+        fetch(`${URI_heroku}/tasks/${revised_task.id}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(revised_task)
@@ -484,7 +484,7 @@ function KanbanBoard() {
         const data = boardsRef.current
             .filter(board => board.id !== e.target.id)
             .map((board, id) => ({...board, order: id}));
-        fetch(`${URI_local}/boards/${e.target.id}`, {
+        fetch(`${URI_heroku}/boards/${e.target.id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -515,7 +515,7 @@ function KanbanBoard() {
         const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
 
         if (isEmpty(task) !== true) {
-            fetch(`${URI_local}/tasks`, {
+            fetch(`${URI_heroku}/tasks`, {
                 method: 'POST',
                 headers: {
                     'Authorization': bearer,
@@ -712,7 +712,7 @@ function KanbanBoard() {
                     }
                     : board
             ));
-        if (location === 'kanban_board') fetch(`${URI_local}/boards/${id}`, {
+        if (location === 'kanban_board') fetch(`${URI_heroku}/boards/${id}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -751,7 +751,7 @@ function KanbanBoard() {
                     : board
             )
         );
-        fetch(`${URI_local}/boards/${id}`, {
+        fetch(`${URI_heroku}/boards/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -771,7 +771,7 @@ function KanbanBoard() {
 
     const handleDeleteTaskItem2 = e => {
         const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
-        fetch(`${URI_local}/tasks/${e.target.id}`, {
+        fetch(`${URI_heroku}/tasks/${e.target.id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': bearer,
