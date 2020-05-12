@@ -6,6 +6,7 @@ import ErrorMessage from "../board_modal/ErrorMessage";
 import ValidateUserBlankInput from '../../helpers/ValidateUserBlankInput';
 import {useAlert} from 'react-alert';
 import SwitchButton from "./ToggleSwitchPriority";
+import '../main/style.css';
 
 export default ({
                     createTask,

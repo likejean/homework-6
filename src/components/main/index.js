@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from './LoadingComponent';
-import BoardModalPage from '../board_modal/ModalPage';
+import InsertBoardModalPage from '../board_modal/InsertBoardModalPage';
 import LoginModalPage from '../auth/ModalPage';
 import NewKanbanDashboard from './NewKanbanDashboard';
 import PriorityOrderedTasks from './PriorityOrderedTasks';
@@ -25,7 +25,8 @@ export default props => {
         panelControlButtons: props.panelControlButtons
     };
     const eventProps = {
-        createBoard: props.createBoard,
+        insertBoard: props.insertBoard,
+        addBoard: props.addBoard,
         createTask: props.createTask,
         resetServerNotes: props.resetServerNotes,
         swapKanbanTasks: props.swapTasks.swapKanbanTasks,
@@ -56,11 +57,14 @@ export default props => {
                 <MDBRow center style={{marginTop: 250}}>
                     <Loading
                         type='spin'
-                        color='#32083a'
-                        height='50%'
-                        width='50%'
+                        color='grey'
+                        height='10%'
+                        width='10%'
                         delay={0}
                     />
+                </MDBRow>
+                <MDBRow center style={{ marginTop: 45 }}>
+                    <h2>Retrieving data from database... Please, wait</h2>
                 </MDBRow>
             </MDBContainer>
         )
@@ -86,12 +90,12 @@ export default props => {
                     {listProps.userLogin &&
                         <MDBRow>
                             <MDBCol>
-                                <BoardModalPage
+                                <InsertBoardModalPage
                                     errors={listProps.errors}
                                     boards={listProps.boards}
                                     boardsSchema={listProps.boardsSchema}
                                     validateInput={eventProps.validateInput}
-                                    createBoard={eventProps.createBoard}
+                                    insertBoard={eventProps.insertBoard}
                                     deleteBoard={eventProps.deleteBoard}
                                     resetErrors={eventProps.resetErrors}
                                     setBoardOrderState={eventProps.setBoardOrderState}

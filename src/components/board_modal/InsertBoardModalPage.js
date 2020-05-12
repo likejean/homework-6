@@ -3,13 +3,14 @@ import { MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInpu
 import OrderInput from "./OrderInput";
 import ErrorMessage from "./ErrorMessage";
 import { useAlert } from 'react-alert';
+import '../main/style.css';
 import ValidateUserBlankInput from '../../helpers/ValidateUserBlankInput';
 import InsertionBoardSchema from "./InsertionBoardSchema";
 
 export default ({
                     boardsSchema,
                     setBoardOrderState,
-                    createBoard,
+                    insertBoard,
                     validateInput,
                     boards,
                     errors: { boardOrderError, boardTitleError }
@@ -66,7 +67,7 @@ export default ({
     }
 
 
-    const stableDispatch = useCallback(createBoard, []);
+    const stableDispatch = useCallback(insertBoard, []);
 
     useEffect(() => {
         stableDispatch(createNewBoard);
@@ -82,9 +83,9 @@ export default ({
 
     return (
         <>
-            <MDBBtn className='start-modal-button' onClick={handleToggleModal}>CREATE BOARD</MDBBtn>
+            <MDBBtn className="start-modal-button" onClick={handleToggleModal}>INSERT BOARD</MDBBtn>
             <MDBModal isOpen={modalButtonClick} toggle={handleToggleModal}>
-                <MDBModalHeader toggle={handleToggleModal}>Board Form</MDBModalHeader>
+                <MDBModalHeader toggle={handleToggleModal}>Board Insertion</MDBModalHeader>
                 <MDBModalBody>
                     <div className="form-group">
                         <MDBInput label="Enter Board Title" name='board_title' type='text' value={boardTitle} onChange={handleBoardTitleChange} size="md" />
@@ -96,7 +97,13 @@ export default ({
                 </MDBModalBody>
                 <MDBModalFooter>
                     <MDBBtn className='row' color="secondary" onClick={handleToggleModal}>Close</MDBBtn>
-                    <MDBBtn disabled={boardOrderError.inputStatus || boardTitleError.inputStatus} className='row' color="primary" onClick={handleStoreBoardItem}>Create Board</MDBBtn>
+                    <MDBBtn disabled={boardOrderError.inputStatus || boardTitleError.inputStatus}
+                            className='row'
+                            color="primary"
+                            onClick={handleStoreBoardItem}
+                    >
+                        Insert Board
+                    </MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </>

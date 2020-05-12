@@ -53,8 +53,8 @@ const initialErrors = {
     }
 };
 
-//const URI_local = 'http://localhost:8080';
-const URI_heroku = 'https://rest-api-server-kanban.herokuapp.com';
+const URI_local = 'http://localhost:8080';
+//const URI_local = 'https://rest-api-server-kanban.herokuapp.com';
 
 function KanbanBoard() {
 
@@ -83,7 +83,7 @@ function KanbanBoard() {
     useEffect(() => {
         async function getData() {
             const res = await fetch(
-                `${URI_heroku}/boards`);
+                `${URI_local}/boards`);
             res.json()
                 .then(data => {
                     setBoards(data.boards.map(board => (
@@ -111,6 +111,7 @@ function KanbanBoard() {
                     setBoardsSchema([...Array(data.boards.length).keys()]);
                 })
                 .catch(err => console.log(err));
+            setServerResponseNote('');
         };
 
         getData()
@@ -140,7 +141,7 @@ function KanbanBoard() {
 
 
     const handleUserLoginAuth = credentials => {
-        fetch(`${URI_heroku}/users/login`,
+        fetch(`${URI_local}/users/login`,
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -187,13 +188,102 @@ function KanbanBoard() {
 
     const handleToggleEditTaskModal = () => setEditModalButtonClick(!editModalButtonClick);
 
-    const handleCreateNewBoard2 = board => {
-        const index = board.order - 1;
-
+    const handleAddNewBoard2 = board => {
+        console.log(board)
         if (!isEmpty(board)) {
-
             const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
-            fetch(`${URI_heroku}/boards`, {
+            fetch(`${URI_local}/boards`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': bearer
+                },
+                body: JSON.stringify({
+                    ...board,
+                    order: board.order,
+                    name: board.title.toLowerCase()
+                })
+            })
+                .then(response => response.json())
+                .then(result => {
+                    const board = result.createdBoard;
+                    if(board) {
+                        console.log('NOTE: ', result.message);
+                        setServerResponseNote(result.message);
+                        setBoards(boards => [
+                            ...boards.slice(0, board.order),
+                            Object.assign({},
+                                {
+                                    ...board,
+                                    order: board.order
+                                }),
+                            ...boards.slice(board.order)
+                        ]);
+                        setBoards(boards => boards.map((board, id) =>
+                            board.order <= id ?
+                                {
+                                    ...board,
+                                    order: id
+                                }
+                                :
+                                {
+                                    ...board,
+                                    order: id + 1
+                                }
+                        ));
+                        setBoardsSchema(boardsSchema => [...boardsSchema].concat(boardsSchema.length));
+
+                        return [
+                            ...boardsRef.current.slice(0, board.order),
+                            Object.assign({},
+                                {
+                                    id: board.id,
+                                    order: board.order,
+                                    name: board.name
+                                }),
+                            ...boardsRef.current.slice(board.order)
+                        ].map((board, id) =>
+                            board.order <= id ?
+                                {
+                                    ...board,
+                                    order: id
+                                }
+                                :
+                                {
+                                    ...board,
+                                    order: id + 1
+                                }
+                        );
+                    }else{
+                        throw new Error('Your login session is expired or you do not have a permission to perform this operation!');
+                    }
+                })
+                .then(data => {
+                    fetch(`${URI_local}/boards`, {
+                        method: 'PATCH',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => response.json())
+                        .then(result => {
+                            console.log('NOTE: ', result.message);
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        };
+    }
+
+    const handleInsertNewBoard2 = board => {
+        const index = board.order - 1;
+        console.log(board)
+        if (!isEmpty(board)) {
+            const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
+            fetch(`${URI_local}/boards`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -209,7 +299,6 @@ function KanbanBoard() {
                 .then(result => {
                     const board = result.createdBoard;
                     if(board) {
-                        setServerResponseNote(result.message);
                         console.log('NOTE: ', result.message);
                         setBoards(boards => [
                             ...boards.slice(0, index),
@@ -260,7 +349,7 @@ function KanbanBoard() {
                     }
                 })
                 .then(data => {
-                    fetch(`${URI_heroku}/boards`, {
+                    fetch(`${URI_local}/boards`, {
                         method: 'PATCH',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify(data)
@@ -268,7 +357,6 @@ function KanbanBoard() {
                         .then(response => response.json())
                         .then(result => {
                             console.log('NOTE: ', result.message);
-                            setServerResponseNote(result.message);
                         })
                         .catch(err => {
                             console.log(err)
@@ -277,8 +365,7 @@ function KanbanBoard() {
                 .catch(err => {
                     console.log(err);
                 });
-        }
-        ;
+        };
     };
 
 
@@ -360,7 +447,7 @@ function KanbanBoard() {
     const handleResetAllErrors2 = () => setInputErrors(initialErrors);
 
     const handleSubmitNewTaskItems2 = revised_task => {
-        fetch(`${URI_heroku}/tasks/${revised_task.id}`, {
+        fetch(`${URI_local}/tasks/${revised_task.id}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(revised_task)
@@ -397,7 +484,7 @@ function KanbanBoard() {
         const data = boardsRef.current
             .filter(board => board.id !== e.target.id)
             .map((board, id) => ({...board, order: id}));
-        fetch(`${URI_heroku}/boards/${e.target.id}`, {
+        fetch(`${URI_local}/boards/${e.target.id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -407,7 +494,6 @@ function KanbanBoard() {
         })
             .then(response => response.json())
             .then((result, err) => {
-                setServerResponseNote(result.message);
                 console.log('NOTE: ', result.message);
                 if (err) throw new Error('Your login session is expired or you do not have a permission to perform this operation!')
                 else {
@@ -429,7 +515,7 @@ function KanbanBoard() {
         const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
 
         if (isEmpty(task) !== true) {
-            fetch(`${URI_heroku}/tasks`, {
+            fetch(`${URI_local}/tasks`, {
                 method: 'POST',
                 headers: {
                     'Authorization': bearer,
@@ -439,7 +525,6 @@ function KanbanBoard() {
             })
                 .then(response => response.json())
                 .then(result => {
-                    setServerResponseNote(result.message);
                     if (result.err) throw new Error('Your login session is expired or you do not have a permission to perform this action...');
                     else {
                         const task = result.createdTask;
@@ -476,7 +561,6 @@ function KanbanBoard() {
         const task_id = e.target.id;
         const direction = e.target.getAttribute('name');
         const board_name = e.target.getAttribute('board');
-
         setBoards(boards => [...boards].map(board => {
             if (board.name === board_name) {
                 const index1 = board.tasks.findIndex(task => task.id === task_id);
@@ -515,7 +599,6 @@ function KanbanBoard() {
         const boardOrder = e.target.getAttribute('order');
         const location = e.target.getAttribute('location');
         const task_priority = e.target.getAttribute('task_priority');
-
         let isTrueSet = (task_priority === 'true');
         let movingTask;
         location === 'kanban_board'
@@ -629,7 +712,7 @@ function KanbanBoard() {
                     }
                     : board
             ));
-        if (location === 'kanban_board') fetch(`${URI_heroku}/boards/${id}`, {
+        if (location === 'kanban_board') fetch(`${URI_local}/boards/${id}`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -668,7 +751,7 @@ function KanbanBoard() {
                     : board
             )
         );
-        fetch(`${URI_heroku}/boards/${id}`, {
+        fetch(`${URI_local}/boards/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -688,7 +771,7 @@ function KanbanBoard() {
 
     const handleDeleteTaskItem2 = e => {
         const bearer = 'Bearer ' + JSON.parse(localStorage.getItem('login')).token;
-        fetch(`${URI_heroku}/tasks/${e.target.id}`, {
+        fetch(`${URI_local}/tasks/${e.target.id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': bearer,
@@ -703,7 +786,6 @@ function KanbanBoard() {
             .then(response => response.json())
             .then(result => {
                 console.log(result.message);
-                setServerResponseNote(result.message);
                 if (result.err) throw new Error('Your login session is expired or you do not have a permission to perform this operation!')
                 else {
                     const { deletedTask: {id, board_name} } = result;
@@ -785,7 +867,8 @@ function KanbanBoard() {
 ////////////////////////////////////////////////////////////////////
 
     const handleEventProps = {
-        createBoard: handleCreateNewBoard2,
+        insertBoard: handleInsertNewBoard2,
+        addBoard: handleAddNewBoard2,
         createTask: handleCreateNewTask2,
         moveTask: handleMoveTaskBetweenBoards2,
         dragTask: handleDragAndDrop2,

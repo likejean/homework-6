@@ -1,8 +1,9 @@
 import React from 'react';
 import TaskItem from "./TaskItem";
-import '../task_modal/style.css';
+import './style.css';
 import {MDBBtn, MDBCol, MDBContainer, MDBRow} from "mdbreact";
 import TaskModalPage from "../task_modal/ModalPage";
+import AddBoardModalPage from "../board_modal/AddBoardModalPage";
 
 export default ({
                     boards,
@@ -11,10 +12,13 @@ export default ({
                     hideTask,
                     createTask,
                     userLogin,
+                    boardsSchema,
                     resetErrors,
                     editTask,
                     swapKanbanTasks,
                     validateInput,
+                    insertBoard,
+                    addBoard,
                     showTask,
                     dragTask,
                     errors,
@@ -131,7 +135,8 @@ export default ({
                             </div>
                         </div>
                         {boardList(board.tasks, board.order, userLogin, boards.length)}
-                        {userLogin ?
+                        {
+                        userLogin ?
                             <TaskModalPage
                                 errors={errors}
                                 board_name={board.name}
@@ -150,6 +155,27 @@ export default ({
                         }
                     </MDBCol>
                 ))
+                }
+                {
+                    userLogin ?
+                    <MDBCol md="3" className="btn-col">
+                        <AddBoardModalPage
+                            errors={errors}
+                            boards={boards}
+                            boardsSchema={boardsSchema}
+                            validateInput={validateInput}
+                            addBoard={addBoard}
+                            deleteBoard={deleteBoard}
+                            resetErrors={resetErrors}
+                            setBoardOrderState={setBoardOrderState}
+                        />
+                    </MDBCol>
+                    :
+                    <MDBCol md="3" className="btn-col">
+                        <MDBBtn className='addBoard'>
+                            <i className="fas fa-plus fa-2x"/>
+                        </MDBBtn>
+                    </MDBCol>
                 }
             </MDBRow>
         </MDBContainer>

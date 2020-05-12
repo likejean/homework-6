@@ -87,7 +87,7 @@ span.show {
 
 
 .btn-group {
-    margin: 0px !important;
+    margin: 0 !important;
 }
 .task-card {
     border: 1px solid white;
@@ -184,7 +184,6 @@ span.task-quantity {
     justify-content: center;
 }
 
-
 .kanban-col {
     min-height: 550px;
     height: auto;
@@ -194,8 +193,12 @@ span.task-quantity {
     border-radius: 5px;
     border: 1px solid lightgrey;
     padding: 10px 20px;
-    margin: 10px 0px;
-    background-color: rgba(141, 139, 139, 1.0);
+    margin: 10px 0;
+    background-color: rgba(141, 139, 139, 1);
+}
+
+.btn-col {
+    margin: 10px 0;
 }
 
 .schema-container {
